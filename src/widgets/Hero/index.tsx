@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 
-import useFloatingImages from '@/composables/useFloatingImages';
+import useFloatingImages from '@/hooks/useFloatingImages';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 

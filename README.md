@@ -78,7 +78,7 @@ src/
 │   ├── ServiceCard/
 │   └── SidebarMenu/
 │
-├── composables/         # React hooks (e.g. useFloatingImages)
+├── hooks/               # React hooks (e.g. useFloatingImages)
 │
 ├── shared/              # Cross-cutting, app-agnostic code
 │   ├── styles/          #   Global SCSS (globals.scss)
@@ -125,13 +125,11 @@ Concrete, high-value next steps (roughly ordered by impact):
 
 4. **Tighten TypeScript.** Replace `handleSubmit = (e: any)` and empty `interface Props {}` with real types (`FormEvent<HTMLFormElement>`, drop unused props). Convert the remaining JS utilities (`shared/utils/animations.js`, `shared/utils/useShadowCursor.js`) to `.ts`.
 
-5. **Rename `composables/` → `hooks/`.** "Composables" is Vue terminology; in React these are **hooks**. Renaming reduces confusion for React developers.
+5. **Fix the `lang` attribute.** `layout.tsx` sets `<html lang="ru">` while the content is English — set the correct language for accessibility/SEO.
 
-6. **Fix the `lang` attribute.** `layout.tsx` sets `<html lang="ru">` while the content is English — set the correct language for accessibility/SEO.
+6. **Accessibility & responsiveness.** Sizing relies heavily on `vw` units (including font sizes), which breaks user zoom/text-scaling and hurts a11y. Consider `rem`/`clamp()` for typography, and audit color contrast, focus states, and `alt` text.
 
-7. **Accessibility & responsiveness.** Sizing relies heavily on `vw` units (including font sizes), which breaks user zoom/text-scaling and hurts a11y. Consider `rem`/`clamp()` for typography, and audit color contrast, focus states, and `alt` text.
-
-8. **Modernize `next/image` usage.** The legacy `objectFit` prop triggers warnings — switch to `style={{ objectFit: 'cover' }}` or the `fill` + `object-cover` pattern.
+7. **Modernize `next/image` usage.** The legacy `objectFit` prop triggers warnings — switch to `style={{ objectFit: 'cover' }}` or the `fill` + `object-cover` pattern.
 
 9. **Add automated quality gates.** No tests or CI exist. Consider Vitest/Testing Library for components, Playwright for a couple of smoke tests, and a GitHub Actions workflow running `lint` + `build` (+ tests) on every PR.
 
