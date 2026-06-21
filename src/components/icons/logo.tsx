@@ -1,9 +1,10 @@
-import { SVGProps, FC } from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 
-export const LogoIcon: FC<SVGProps<SVGSVGElement>> = ({ className }) => (
+// Brand logo (an image, not an inline SVG) — only the className is configurable.
+export const LogoIcon: FC<{ className?: string }> = ({ className }) => (
   <Image
     src="/images/drafted-icon.svg"
     alt="PyramidTech logo"

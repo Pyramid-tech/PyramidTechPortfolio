@@ -1,7 +1,7 @@
 'use client';
 
 import Navigation from '@/components/sections/navigation';
-import Hero from '@/components/sections/hero/hero';
+import Hero from '@/components/sections/hero';
 import About from '@/components/sections/about';
 import Services from '@/components/sections/services';
 import Approach from '@/components/sections/approach';

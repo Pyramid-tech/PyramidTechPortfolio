@@ -3,13 +3,15 @@
 import { FC, ReactNode, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+type ScrollOffset = NonNullable<Parameters<typeof useScroll>[0]>['offset'];
+
 interface Props {
   children: ReactNode;
   classes?: string;
-  offset?: any;
+  offset?: ScrollOffset;
 }
 
-const Index: FC<Props> = ({ children, classes, offset }) => {
+const SectionOpacity: FC<Props> = ({ children, classes, offset }) => {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -24,4 +26,4 @@ const Index: FC<Props> = ({ children, classes, offset }) => {
     </motion.div>
   );
 };
-export default Index;
+export default SectionOpacity;

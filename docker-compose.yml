@@ -11,12 +11,6 @@ services:
     volumes:
       - logs:/app/logs
     restart: unless-stopped
-    healthcheck:
-      test: ['CMD', 'wget', '-qO-', 'http://localhost:3400/api/health']
-      interval: 30s
-      timeout: 5s
-      start_period: 10s
-      retries: 3
 
   worker:
     build:

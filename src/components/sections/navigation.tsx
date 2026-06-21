@@ -3,11 +3,10 @@ import { FC, useEffect, useState } from 'react';
 
 import SidebarMenu from '@/components/sidebar-menu/sidebar-menu';
 import { AnimatePresence } from 'framer-motion';
-import { LogoIcon } from '@/icons/approach-icons/logo-icon';
+import { LogoIcon } from '@/components/icons/logo';
 
-interface Props {}
 
-const Index: FC<Props> = () => {
+const Navigation: FC = () => {
   const [isActive, setIsActive] = useState(false);
   const closeSidebar = () => setIsActive(false);
 
@@ -39,4 +38,4 @@ const Index: FC<Props> = () => {
     </div>
   );
 };
-export default Index;
+export default Navigation;

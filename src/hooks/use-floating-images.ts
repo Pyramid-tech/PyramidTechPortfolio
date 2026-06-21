@@ -1,13 +1,18 @@
 import gsap from 'gsap';
+import type { MouseEvent, RefObject } from 'react';
 
-const useFloatingImages = (ref1: any, ref2: any, ref3: any) => {
-  let requestAnimationFrameId: any = null;
+const useFloatingImages = (
+  ref1: RefObject<HTMLDivElement>,
+  ref2: RefObject<HTMLDivElement>,
+  ref3: RefObject<HTMLDivElement>,
+) => {
+  let requestAnimationFrameId: number | null = null;
   let xForce = 0;
   let yForce = 0;
   const easing = 0.1;
   const speed = 0.02;
 
-  const manageMouseMove = (e: any) => {
+  const manageMouseMove = (e: MouseEvent) => {
     const { movementX, movementY } = e;
     xForce = movementX * speed;
     yForce = movementY * speed;
@@ -44,7 +49,7 @@ const useFloatingImages = (ref1: any, ref2: any, ref3: any) => {
     if (xForce != 0 || yForce != 0) {
       requestAnimationFrame(animate);
     } else {
-      cancelAnimationFrame(requestAnimationFrameId);
+      if (requestAnimationFrameId !== null) cancelAnimationFrame(requestAnimationFrameId);
       requestAnimationFrameId = null;
     }
   };

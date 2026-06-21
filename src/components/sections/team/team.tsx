@@ -6,7 +6,7 @@ interface Props {
   members: TeamMemberDTO[];
 }
 
-const Index: FC<Props> = ({ members }) => {
+const Team: FC<Props> = ({ members }) => {
   return (
     <div className="mx-auto max-w-[80vw] px-[4vw] md:max-w-[90vw]">
       <div className="mb-[4vw]">
@@ -64,4 +64,4 @@ const Index: FC<Props> = ({ members }) => {
   );
 };
 
-export default Index;
+export default Team;

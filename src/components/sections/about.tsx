@@ -11,7 +11,7 @@ interface Props {
   hasTeam?: boolean;
 }
 
-const Index: FC<Props> = ({ hasTeam = false }) => {
+const About: FC<Props> = ({ hasTeam = false }) => {
   const router = useRouter();
 
   return (
@@ -49,4 +49,4 @@ const Index: FC<Props> = ({ hasTeam = false }) => {
     </section>
   );
 };
-export default Index;
+export default About;

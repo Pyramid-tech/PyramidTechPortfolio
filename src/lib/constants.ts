@@ -1,4 +1,4 @@
-import { First, Second, Third, Fourth, Fifth } from '@/icons/approach-icons';
+import { First, Second, Third, Fourth, Fifth } from '@/components/icons/approach-icons';
 
 export const NAV_ITEMS = [
   {

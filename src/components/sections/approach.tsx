@@ -6,9 +6,8 @@ import HoverCards from '@/components/ui/hover-cards';
 
 import { APPROACH_CARDS } from '@/lib/constants';
 
-interface Props {}
 
-const Index: FC<Props> = () => {
+const Approach: FC = () => {
   return (
     <section id="approach" className="border-t border-gray-1 bg-bg-1 py-[6vw]  pb-[12vw]">
       <SectionOpacity>
@@ -20,4 +19,4 @@ const Index: FC<Props> = () => {
     </section>
   );
 };
-export default Index;
+export default Approach;

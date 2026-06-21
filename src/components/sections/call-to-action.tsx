@@ -7,9 +7,8 @@ import Button from '@/components/ui/button';
 import SectionOpacity from '@/components/ui/section-opacity';
 import Footer from '@/components/sections/footer';
 
-interface Props {}
 
-const Index: FC<Props> = () => {
+const CallToAction: FC = () => {
   const router = useRouter();
 
   const handleFormToggle = () => {
@@ -36,4 +35,4 @@ const Index: FC<Props> = () => {
     </SectionOpacity>
   );
 };
-export default Index;
+export default CallToAction;

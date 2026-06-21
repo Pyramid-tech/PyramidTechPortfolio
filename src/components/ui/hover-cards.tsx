@@ -11,7 +11,7 @@ interface Props {
   itemClasses?: string;
 }
 
-const Index: FC<Props> = ({ cards, itemClasses, wrapperClasses }) => {
+const HoverCards: FC<Props> = ({ cards, itemClasses, wrapperClasses }) => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
@@ -64,4 +64,4 @@ const Index: FC<Props> = ({ cards, itemClasses, wrapperClasses }) => {
     </div>
   );
 };
-export default Index;
+export default HoverCards;

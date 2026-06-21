@@ -14,8 +14,8 @@ interface Props {
   close: () => void;
 }
 
-const Index: FC<Props> = ({ close }) => {
-  const [selectedIndicator, setSelectedIndicator] = useState(null);
+const SidebarMenu: FC<Props> = ({ close }) => {
+  const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -63,4 +63,4 @@ const Index: FC<Props> = ({ close }) => {
     </>
   );
 };
-export default Index;
+export default SidebarMenu;

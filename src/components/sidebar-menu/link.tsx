@@ -6,13 +6,13 @@ import { slide, scale } from '@/lib/animations';
 import { FC } from 'react';
 
 interface Props {
-  data: any;
+  data: { title: string; href: string; index: number };
   isActive: boolean;
-  setSelectedIndicator: any;
+  setSelectedIndicator: (href: string | null) => void;
   handleClick: () => void;
 }
 
-const Index: FC<Props> = ({ data, isActive, setSelectedIndicator, handleClick }) => {
+const NavLink: FC<Props> = ({ data, isActive, setSelectedIndicator, handleClick }) => {
   const { title, href, index } = data;
 
   return (
@@ -40,4 +40,4 @@ const Index: FC<Props> = ({ data, isActive, setSelectedIndicator, handleClick })
     </motion.div>
   );
 };
-export default Index;
+export default NavLink;

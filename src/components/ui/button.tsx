@@ -6,7 +6,7 @@ interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement
   classes?: string;
 }
 
-const Index: FC<Props> = ({ title, classes, btnClasses, ...props }) => {
+const Button: FC<Props> = ({ title, classes, btnClasses, ...props }) => {
   return (
     <button
       className={`relative inline-flex overflow-hidden rounded-full p-[0.2vw] text-[1.8vw] uppercase focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1 focus:ring-offset-stroke ${btnClasses}`}
@@ -21,4 +21,4 @@ const Index: FC<Props> = ({ title, classes, btnClasses, ...props }) => {
     </button>
   );
 };
-export default Index;
+export default Button;

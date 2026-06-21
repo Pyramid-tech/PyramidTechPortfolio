@@ -4,10 +4,16 @@ import { FC } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface Props {
-  card: any;
+  card: {
+    title: string;
+    description: string;
+    services: string[][];
+    number: string;
+    classes: string;
+  };
 }
 
-const Index: FC<Props> = ({ card: { title, services, description, number, classes } }) => {
+const ServiceCard: FC<Props> = ({ card: { title, services, description, number, classes } }) => {
   const { ref } = useInView({
     triggerOnce: true,
     threshold: 0.6,
@@ -45,4 +51,4 @@ const Index: FC<Props> = ({ card: { title, services, description, number, classe
     </div>
   );
 };
-export default Index;
+export default ServiceCard;

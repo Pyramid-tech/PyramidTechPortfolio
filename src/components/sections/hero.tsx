@@ -7,8 +7,6 @@ import useFloatingImages from '@/hooks/use-floating-images';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 
-import { main_1, main_2, main_3 } from './images/index';
-
 const Hero = () => {
   const ref1 = useRef(null);
   const ref2 = useRef(null);
@@ -59,15 +57,15 @@ const Hero = () => {
           />
         </motion.div>
         <div ref={ref1} className={`absolute left-0 top-0 z-10 h-full w-full`}>
-          <Image src={main_1} fill={true} alt="" className="" objectFit="cover" />
+          <Image src="/images/hero/frame-1.svg" fill={true} alt="" className="" objectFit="cover" />
         </div>
 
         <div ref={ref2} className={`absolute left-0 top-0 h-full w-full `}>
-          <Image src={main_2} fill={true} alt="" objectFit="cover" />
+          <Image src="/images/hero/frame-2.svg" fill={true} alt="" objectFit="cover" />
         </div>
 
         <div ref={ref3} className={`absolute left-0 top-0 h-full w-full `}>
-          <Image src={main_3} fill={true} alt="" objectFit="cover" />
+          <Image src="/images/hero/frame-3.svg" fill={true} alt="" objectFit="cover" />
         </div>
       </div>
     </section>

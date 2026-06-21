@@ -1,9 +1,9 @@
 /**
- * Wire contracts for the Team domain — the request/response shapes shared by
- * the API routes (server) and the UI + api-client (browser).
+ * Shared shapes for the Team domain — used by server code (data fns, Server
+ * Actions, RSC) and by client components that render or submit them.
  *
  * Import these from either side. Client code must NOT import server-only
- * modules (db, actions, data); it depends on these neutral contracts instead.
+ * modules (db, actions, data); it depends on these neutral types instead.
  */
 
 export interface TeamMemberDTO {

@@ -4,9 +4,8 @@ import { FC, useEffect } from 'react';
 
 import initCursor from './init-cursor';
 
-interface Props {}
 
-const Index: FC<Props> = () => {
+const ShadowCursor: FC = () => {
   useEffect(() => {
     initCursor();
   }, []);
@@ -16,4 +15,4 @@ const Index: FC<Props> = () => {
     </div>
   );
 };
-export default Index;
+export default ShadowCursor;

@@ -1,6 +1,6 @@
 /**
- * Wire contracts for the Book (project request) domain. Shared by the API
- * routes (server) and the UI + api-client (browser).
+ * Shared shapes for the Book (project request) domain — used by server code
+ * (data fns, Server Actions) and by the client form/admin UI.
  */
 
 export interface BookRequestDTO {

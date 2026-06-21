@@ -14,7 +14,7 @@ interface Feedback {
   message: string;
 }
 
-const Index: FC = () => {
+const BookForm: FC = () => {
   const [form, setForm] = useState(BOOK_FORM_DEFAULT_STATE);
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -179,4 +179,4 @@ const Index: FC = () => {
   );
 };
 
-export default Index;
+export default BookForm;
