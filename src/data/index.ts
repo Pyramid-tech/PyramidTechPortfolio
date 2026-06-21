@@ -92,10 +92,11 @@ export const APPROACH_CARDS = [
 export const RADIO_FIELDS = [
   {
     title: 'What type of services you want?',
-    classes: 'mr-[2.25vw]',
+    classes: 'md:mr-[2.25vw]',
+    required: true,
     radioArray: [
-      { name: 'Design/Branding', value: 'design/branding' },
-      { name: 'Web Development', value: 'web-dev' },
+      { name: 'AI Solutions', value: 'ai-solutions' },
+      { name: 'Fullstack Development', value: 'fullstack' },
       { name: 'Mobile Development', value: 'mobile-dev' },
       { name: 'All of the above', value: 'all-types' },
       { name: 'Other', value: 'other-service' },
@@ -105,6 +106,7 @@ export const RADIO_FIELDS = [
   {
     title: 'What is your budget category?',
     classes: '',
+    required: true,
     radioArray: [
       { name: '$2000 - $4000', value: '2-4' },
       { name: '$4000 - $8000', value: '4-8' },
@@ -115,7 +117,8 @@ export const RADIO_FIELDS = [
   },
   {
     title: 'Approximately how many pages will your project have?',
-    classes: 'mr-[2.25vw]',
+    classes: 'md:mr-[2.25vw]',
+    required: true,
     radioArray: [
       { name: 'Less than 5', value: '<5' },
       { name: '6-10', value: '6-10' },
@@ -127,6 +130,7 @@ export const RADIO_FIELDS = [
   {
     title: 'How quickly do you need the project?',
     classes: '',
+    required: true,
     radioArray: [
       { name: 'As fast as possible', value: 'max-fast' },
       { name: 'High priority ', value: 'high-prio ' },
@@ -138,9 +142,9 @@ export const RADIO_FIELDS = [
 ];
 
 export const INPUT_FIELDS = [
-  { label: 'Your name', name: 'first', classes: 'inline-block !w-[calc(50%-2vw)] mr-[4vw]', required: true },
-  { label: 'Phone', name: 'phone', classes: 'inline-block !w-[calc(50%-2vw)]', type: 'number', required: true },
-  { label: 'Email', name: 'email', classes: '', type: 'email' },
+  { label: 'Your name', name: 'first', classes: 'md:inline-block md:!w-[calc(50%-2vw)] md:mr-[4vw]', required: true },
+  { label: 'Phone', name: 'phone', classes: 'md:inline-block md:!w-[calc(50%-2vw)]', type: 'number', required: true },
+  { label: 'Email', name: 'email', classes: '', type: 'email', required: true },
   { label: 'Company name', name: 'company', classes: '', required: true },
   { label: 'Company website', name: 'websiteUrl', classes: '' },
 ];

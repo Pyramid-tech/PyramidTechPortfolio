@@ -104,8 +104,8 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-lg rounded-2xl border border-stroke bg-bg-2 p-8 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 px-4 py-8 backdrop-blur-sm sm:items-center">
+      <div className="relative w-full max-w-lg rounded-2xl border border-stroke bg-bg-2 p-6 shadow-2xl sm:p-8">
         <button onClick={onClose} className="absolute right-5 top-5 text-text-1/40 transition hover:text-text-1">
           ✕
         </button>
@@ -158,7 +158,7 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Name">
               <input className={input} value={form.name} onChange={set('name')} required />
             </Field>
@@ -186,7 +186,7 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
             <input className={input} value={form.linkedinUrl} onChange={set('linkedinUrl')} />
           </Field>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label={mode === 'create' ? 'Password' : 'New Password (leave blank to keep)'}>
               <input
                 className={input}
