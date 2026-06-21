@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
-import '@/shared/styles/globals.scss';
+import './globals.scss';
 
 export default function RootLayout({
   children,

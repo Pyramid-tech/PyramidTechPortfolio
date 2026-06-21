@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
 config({ path: `${process.cwd()}/.env.local` });
 
-import { getBoss } from '@/lib/jobs';
-import { registerCleanupAvatars } from '@/jobs/cleanupAvatars';
-import { logger } from '@/shared/logger';
+import { getBoss } from '@/lib/jobs/boss';
+import { registerCleanupAvatars } from '@/lib/jobs/cleanup-avatars';
+import { logger } from '@/lib/logger';
 
 async function start(): Promise<void> {
   const boss = getBoss();
