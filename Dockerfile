@@ -1,8 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ---- Base ----
-FROM node:20-alpine AS base
-# libc6-compat is needed by some native deps (e.g. sharp used by plaiceholder)
+FROM node:20.19-alpine3.21 AS base
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
@@ -33,6 +32,13 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Create logs directory with correct ownership for Winston
+RUN mkdir -p /app/logs && chown nextjs:nodejs /app/logs
+
 USER nextjs
 EXPOSE 3400
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:3400/api/health || exit 1
+
 CMD ["node", "server.js"]

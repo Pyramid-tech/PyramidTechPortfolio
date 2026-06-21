@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 
+import Button from '@/components/ui/Button';
 import useFloatingImages from '@/hooks/useFloatingImages';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
@@ -14,6 +15,10 @@ const Hero = () => {
   const ref3 = useRef(null);
 
   const { manageMouseMove } = useFloatingImages(ref1, ref2, ref3);
+
+  const scrollToAbout = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const heading1 = useRef(null);
   const heading2 = useRef(null);
@@ -43,8 +48,16 @@ const Hero = () => {
           className="text-text-1/7 5 z-20 text-[1.7vw] font-medium md:text-[3vw]"
           style={{ opacity }}
         >
-          Creative agency from USA, Tennessee
+          Creative team based in Lebanon
         </motion.h2>
+        <motion.div className="z-20" style={{ opacity }}>
+          <Button
+            onClick={scrollToAbout}
+            title="LEARN MORE"
+            classes="px-[1.8vw] w-[22vw] md:w-[32vw] min-h-[4vw] md:min-h-[7vw] text-[1.25vw] md:text-[2.25vw] bg-bg-1 hover:bg-bg-1/80"
+            btnClasses="mt-[2vw]"
+          />
+        </motion.div>
         <div ref={ref1} className={`absolute left-0 top-0 z-10 h-full w-full`}>
           <Image src={main_1} fill={true} alt="" className="" objectFit="cover" />
         </div>

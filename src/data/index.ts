@@ -25,12 +25,12 @@ export const NAV_ITEMS = [
 
 export const CARDS = [
   {
-    title: 'Design',
+    title: 'AI Solutions',
     description:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam alias placeat temporibus mollitia doloribus. Consequatur aperiam facilis culpa fuga quia! Labore, sequi! Optio officiis obcaecati tempora voluptates consequuntur, placeat ad.',
+      'AI is at the core of what we do. We build intelligent agents, chatbots, and automation that plug straight into your business, integrating large language models, RAG pipelines, and custom ML to turn your data into real, measurable results.',
     services: [
-      ['Web app', 'Branding'],
-      ['Mobile app', 'Logo'],
+      ['AI agents', 'Chatbots'],
+      ['LLM integration', 'Automation'],
     ],
     number: '01.',
     classes: '',
@@ -38,7 +38,7 @@ export const CARDS = [
   {
     title: 'Fullstack development',
     description:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam alias placeat temporibus mollitia doloribus. Consequatur aperiam facilis culpa fuga quia! Labore, sequi! Optio officiis obcaecati tempora voluptates consequuntur, placeat ad.',
+      'We build fast, scalable products end to end, online shops, web applications, CMS platforms, and robust APIs. We also weave in AI where it counts, adding intelligent features that make your product smarter and your users’ lives easier.',
     services: [
       ['Online shop', 'Web application'],
       ['CMS', 'API Development'],
@@ -49,7 +49,7 @@ export const CARDS = [
   {
     title: 'Mobile development',
     description:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam alias placeat temporibus mollitia doloribus. Consequatur aperiam facilis culpa fuga quia! Labore, sequi! Optio officiis obcaecati tempora voluptates consequuntur, placeat ad.',
+      'We develop polished native apps for Android and iOS, designed for performance and built to scale. From everyday utilities to AI-powered experiences, we turn your idea into an app people love to use.',
     services: [['Android', 'IOS']],
     number: '03.',
     classes: 'border-t border-gray-1/50',
@@ -61,30 +61,31 @@ export const APPROACH_CARDS = [
     icon: First,
     title: 'Consultation',
     description:
-      "We listen carefully to the customer's wishes and ideas about the project. Then we share our vision and, based on this exchange, come to a common agreement.",
+      'We start by understanding your goals, data, and the problems worth solving with AI. Together we identify the highest-impact use cases and agree on a clear, realistic direction.',
   },
   {
     icon: Second,
     title: 'Joint review',
     description:
-      'Then we start creating the design. After completion, we conduct a joint review, where the customer, if desired, can make changes.',
+      'We map out the solution and share early prototypes, from model choices to data pipelines. You review the plan with us and we refine it together before any heavy lifting begins.',
   },
   {
     icon: Third,
     title: 'Development',
-    description: 'After the design is approved, we proceed to the actual development of the product.',
+    description:
+      'Once the approach is approved, we build it: integrating large language models, training custom models, and wiring everything into your product and workflows.',
   },
   {
     icon: Fourth,
     title: 'Testing',
     description:
-      'Once the development is complete, we thoroughly test each component of the product. Then we invite the customer for user testing.',
+      'We rigorously evaluate every model and feature for accuracy, safety, and performance, then bring you in to validate the results against real-world scenarios.',
   },
   {
     icon: Fifth,
     title: 'Final result',
     description:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates laboriosam ad eius, culpa soluta ab. Beatae optio quas adipisci aliquam quia velit soluta iste dicta, modi tenetur magnam, aut laborum placeat est. Unde minima amet illo eveniet qui sunt omnis laudantium laboriosam, officia dignissimos molestias tempore velit. Provident, explicabo. Dolor.',
+      'We deploy the solution into production and keep improving it. With monitoring and ongoing fine-tuning, your product gets smarter over time and keeps delivering measurable value.',
   },
 ];
 

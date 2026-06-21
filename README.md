@@ -1,136 +1,311 @@
-# Agency Website
+# Pyramid Portfolio
 
-A single-page **agency / marketing website** built with the **Next.js 14 App Router**, React 18, TypeScript and Tailwind CSS, with rich scroll-based animations (GSAP, Framer Motion, Lenis smooth scroll).
-
-> **Frontend-only.** This is _not_ a full-stack project. There is no backend: no API routes (`src/app/api`), no route handlers (`route.ts`), no server actions and no database. The whole UI is client-rendered (`layout.tsx` is a Client Component), and the booking form currently only logs its data to the console. Next.js _can_ run backend code, but this codebase doesn't yet — see [How to improve it](#how-to-improve-it).
+A full-stack **agency portfolio website** built with **Next.js 14 App Router**, backed by **Supabase Postgres** via **Drizzle ORM**, following a **DDD + SOLID module-based architecture**. Includes a private admin dashboard for managing team members, protected by JWT authentication.
 
 ---
 
 ## Tech stack
 
-| Concern       | Choice                                                                    |
-| ------------- | ------------------------------------------------------------------------- |
-| Framework     | Next.js 14 (App Router)                                                   |
-| Language      | TypeScript (a few legacy `.js` util files)                                |
-| Styling       | Tailwind CSS + SCSS, `class-variance-authority`, `clsx`, `tailwind-merge` |
-| UI primitives | Radix UI (`@radix-ui/react-radio-group`)                                  |
-| Animation     | GSAP, Framer Motion, Lenis (smooth scroll), `react-intersection-observer` |
-| Images        | `next/image` + `plaiceholder` (blur placeholders, uses `sharp`)           |
-| Tooling       | ESLint (`eslint-config-next`), Prettier + Tailwind plugin                 |
+| Concern          | Choice                                                              |
+| ---------------- | ------------------------------------------------------------------- |
+| Framework        | Next.js 14 (App Router)                                             |
+| Language         | TypeScript                                                          |
+| Styling          | Tailwind CSS + SCSS                                                 |
+| Animation        | GSAP, Framer Motion, Lenis (smooth scroll)                          |
+| Database         | Supabase (Postgres, Transaction Pooler)                             |
+| ORM              | Drizzle ORM + drizzle-kit                                           |
+| Auth             | JWT via `jose` (Edge-compatible), HTTP-only cookies, 7-day sessions |
+| Passwords        | bcryptjs (salt rounds: 10)                                          |
+| Validation       | Zod v4                                                              |
+| Logging          | Winston + winston-daily-rotate-file (PSR-3, 7-day retention, JSON)  |
+| Containerisation | Docker (multi-stage, `standalone` output) + Docker Compose          |
+
+---
+
+## Architecture
+
+The backend follows **Domain-Driven Design (DDD)** with a **module-based** structure. Each domain (`team`, `auth`) is self-contained and split into three layers:
+
+```
+src/modules/<domain>/
+├── application/
+│   ├── dtos/          # Clean output types (no DB types leaked)
+│   ├── interfaces/    # Service contracts
+│   └── services/      # Business logic
+├── infrastructure/
+│   ├── interfaces/    # Repository contracts
+│   ├── repositories/  # Drizzle queries — only layer that touches the DB
+│   └── models/        # Drizzle table schemas
+└── presentation/
+    ├── controllers/   # Thin — validates input, calls service, returns Response
+    └── schemas/       # Zod request schemas
+```
+
+**Layering rule:** `app` → `widgets` → `components` → `shared`. `modules` is imported only from `app/api` route handlers.
+
+---
+
+## Folder structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/          # POST /login  POST /logout  GET /me
+│   │   ├── team/          # GET /team  POST /team  GET /team/count
+│   │   │   ├── admin/     # GET /team/admin  (JWT required)
+│   │   │   └── [id]/      # PUT  PATCH /deactivate  PATCH /reactivate
+│   │   └── health/        # GET /health  (used by Docker healthcheck)
+│   ├── team/              # Public team page
+│   ├── login/             # Admin login (not linked in public nav)
+│   └── dashboard/         # Admin dashboard (JWT protected)
+│
+├── modules/
+│   ├── team/              # Team domain (public read + admin CRUD)
+│   └── auth/              # Auth domain (login / JWT verification)
+│
+├── widgets/               # Page-level sections
+│   ├── Navigation/
+│   ├── Hero/
+│   ├── About/             # "MEET THE TEAM" button (visible when team count > 0)
+│   ├── Team/              # Public team grid + skeleton
+│   ├── Dashboard/         # Admin table + member modal + skeleton
+│   ├── LoginForm/
+│   └── Footer/
+│
+├── components/            # Reusable UI primitives (Button, SidebarMenu, …)
+├── hooks/                 # React hooks
+├── lib/db/                # Drizzle client singleton
+├── shared/
+│   ├── errors/            # HttpError class
+│   ├── logger/            # Winston logger (injected into services)
+│   └── styles/            # globals.scss
+├── data/                  # Static content & nav config
+├── icons/                 # SVG components
+└── middleware.ts          # JWT verification — protects /dashboard, redirects /login
+```
 
 ---
 
 ## Getting started
 
-Requires **Node ≥ 18.17** (Next.js 14). Node 20 LTS recommended.
+### Prerequisites
+
+- Node 20 LTS
+- A [Supabase](https://supabase.com) project with the `pyramid_team` table (see [Database](#database))
+
+### Environment variables
+
+Create `.env.local` at the project root:
+
+```env
+DATABASE_URL=postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:6543/postgres
+JWT_SECRET=<run: openssl rand -base64 32>
+```
+
+> Use the **Transaction Pooler** URL (port `6543`) from Supabase → Settings → Database. Direct connections use IPv6 and may not be reachable from all networks.
+
+### Install & run
 
 ```bash
 npm install
 npm run dev          # http://localhost:3400
 ```
 
-### Scripts
+---
 
-| Script           | What it does                           |
-| ---------------- | -------------------------------------- |
-| `npm run dev`    | Dev server with hot reload (port 3400) |
-| `npm run build`  | Production build                       |
-| `npm run start`  | Serve the production build             |
-| `npm run lint`   | ESLint                                 |
-| `npm run format` | Prettier write across the repo         |
+## Scripts
 
-### Docker
+| Script                | What it does                                                  |
+| --------------------- | ------------------------------------------------------------- |
+| `npm run dev`         | Dev server with hot reload (port 3400)                        |
+| `npm run build`       | Production build                                              |
+| `npm run start`       | Serve the production build                                    |
+| `npm run lint`        | ESLint                                                        |
+| `npm run db:generate` | Generate Drizzle migration files from schema changes          |
+| `npm run db:push`     | Push schema directly to DB (no migration files, good for dev) |
+| `npm run db:migrate`  | Run pending migration files                                   |
 
-A production image (multi-stage, Next.js `standalone` output) is included:
+---
+
+## Database
+
+### Apply schema
 
 ```bash
-docker compose up --build    # http://localhost:3400
+npm run db:push
+```
+
+### Table: `pyramid_team`
+
+| Column           | Type           | Notes                                                      |
+| ---------------- | -------------- | ---------------------------------------------------------- |
+| `id`             | `uuid`         | Primary key, auto-generated                                |
+| `name`           | `varchar(255)` |                                                            |
+| `job_title`      | `varchar(100)` |                                                            |
+| `description`    | `text`         | Nullable                                                   |
+| `email`          | `varchar(255)` | Unique                                                     |
+| `linkedin_url`   | `text`         | Nullable                                                   |
+| `avatar_url`     | `text`         | Nullable — use a direct image URL, not a Drive viewer link |
+| `password`       | `varchar(255)` | bcrypt hash, nullable                                      |
+| `display_order`  | `integer`      | Controls card order on the public page                     |
+| `deactivated_at` | `timestamptz`  | Nullable                                                   |
+| `reactivated_at` | `timestamptz`  | Nullable                                                   |
+| `created_at`     | `timestamptz`  | Auto                                                       |
+| `updated_at`     | `timestamptz`  | Auto                                                       |
+
+**Active member rule:** a member is active when `deactivated_at IS NULL` OR `reactivated_at > deactivated_at`.
+
+### Indexes
+
+| Index                            | Columns                          | Purpose                          |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| `idx_pyramid_team_display_order` | `display_order`                  | `ORDER BY` on every public query |
+| `idx_pyramid_team_active_filter` | `deactivated_at, reactivated_at` | Active filter `WHERE` clause     |
+
+### Supabase RLS
+
+Run once in the Supabase SQL editor to allow public reads:
+
+```sql
+ALTER TABLE pyramid_team ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Public read" ON pyramid_team FOR SELECT TO anon USING (true);
+```
+
+---
+
+## Admin dashboard
+
+The dashboard lives at `/dashboard` and is not linked anywhere in the public site.
+
+- **Login:** `/login` — email + password (bcrypt verified, JWT issued on success)
+- **Session:** 7-day HTTP-only cookie (`pyramid_token`)
+- **Protected routes:** `src/middleware.ts` verifies the JWT on every `/dashboard` request and redirects to `/login` if missing or expired
+
+### Admin API routes (all require valid JWT cookie)
+
+| Method  | Path                        | Action                         |
+| ------- | --------------------------- | ------------------------------ |
+| `GET`   | `/api/team/admin`           | All members including inactive |
+| `POST`  | `/api/team`                 | Create member                  |
+| `PUT`   | `/api/team/[id]`            | Update member                  |
+| `PATCH` | `/api/team/[id]/deactivate` | Soft-deactivate                |
+| `PATCH` | `/api/team/[id]/reactivate` | Reactivate                     |
+
+---
+
+## Logging
+
+Winston writes structured JSON logs to `./logs/` with daily rotation and 7-day retention. Log levels follow PSR-3: `emergency`, `alert`, `critical`, `error`, `warning`, `notice`, `info`, `debug`. In development, logs are also printed to the console.
+
+```
+logs/
+├── error-2026-06-21.log
+├── combined-2026-06-21.log
+└── ...
+```
+
+---
+
+## Production deployment
+
+### Prerequisites
+
+- Docker and Docker Compose installed on the server
+- Supabase project with schema applied (`npm run db:push` run locally or from CI)
+
+### 1. Create `.env.production`
+
+On the server, create `.env.production` alongside the project files. This file is listed in `.dockerignore` and `.gitignore` — never commit it.
+
+```env
+DATABASE_URL=postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:6543/postgres
+JWT_SECRET=<same value used locally, or generate a new one with: openssl rand -base64 32>
+```
+
+### 2. Build and start
+
+```bash
+docker compose up --build -d
+```
+
+The app will be available at `http://<server-ip>:3400`.
+
+To update after a code change:
+
+```bash
 docker compose down
+docker compose up --build -d
 ```
 
-See [`Dockerfile`](./Dockerfile) and [`docker-compose.yml`](./docker-compose.yml).
+### 3. Verify health
 
----
+Docker automatically polls `GET /api/health` every 30 seconds. Check the container status:
 
-## Folder structure
-
-The project uses a **layered architecture inspired by Feature-Sliced Design (FSD)** — code is organized by _role/abstraction level_ rather than by file type. Each component lives in its own folder with an `index.tsx` entry point. Imports use the `@/` path alias (mapped to `src/` in `tsconfig.json`).
-
-```
-src/
-├── app/                 # Next.js App Router — routes, pages, root layout
-│   ├── layout.tsx       #   Root layout (Lenis smooth-scroll setup)
-│   ├── page.tsx         #   Home page ("/")
-│   └── book/page.tsx    #   Booking page ("/book")
-│
-├── widgets/             # Large, page-level sections (composed of components)
-│   ├── Hero/            #   Landing hero + floating images
-│   ├── About/
-│   ├── Services/
-│   ├── Approach/
-│   ├── CallToAction/
-│   ├── Navigation/
-│   └── BookForm/        #   The request/booking form
-│
-├── components/          # Reusable UI building blocks
-│   ├── ui/              #   Generic primitives (Button, RadioGroup, AuroraBg,
-│   │                    #   HoverCards, SectionTitle, ShadowCursor, …)
-│   ├── ServiceCard/
-│   └── SidebarMenu/
-│
-├── hooks/               # React hooks (e.g. useFloatingImages)
-│
-├── shared/              # Cross-cutting, app-agnostic code
-│   ├── styles/          #   Global SCSS (globals.scss)
-│   └── utils/           #   Helpers + animation utilities
-│
-├── data/                # Static content & config (nav items, form fields, copy)
-│   └── index.ts
-│
-└── icons/               # SVG components (ApproachIcons, LogoIcon, …)
+```bash
+docker ps                          # STATUS should show (healthy)
+docker inspect pyramid-portfolio --format='{{.State.Health.Status}}'
 ```
 
-**Layering rule of thumb (high → low level):** `app` → `widgets` → `components` → `shared`. Higher layers may import from lower ones, not the reverse. `data` and `icons` are leaf modules consumed anywhere.
+### 4. View logs
 
-Other notable files:
+Application logs (Winston) are persisted in a named Docker volume and survive container restarts:
 
-- `public/` — static assets served as-is (`/images/...`).
-- `tailwind.config.ts`, `postcss.config.js` — styling config.
-- `components.json` — shadcn/ui-style component config.
-- `next.config.mjs` — Next config (`output: "standalone"` for Docker).
+```bash
+# Tail live app logs
+docker exec pyramid-portfolio tail -f /app/logs/combined-$(date +%Y-%m-%d).log
 
----
+# Or inspect the volume directly
+docker volume inspect pyramidportfolio_logs
+```
 
-## Best practices already in place
+Docker container logs (stdout):
 
-- **Clear, consistent layering** (FSD-style) makes it easy to find and place code.
-- **Component-per-folder** with an `index.tsx` keeps imports clean (`@/components/ui/Button`).
-- **Path aliases** (`@/…`) instead of brittle `../../..` relative paths.
-- **Type-safe styling utilities** — `cva` + `clsx` + `tailwind-merge` for variant-driven, conflict-free Tailwind classes.
-- **Centralized static content** in `src/data` rather than hard-coded throughout JSX.
-- **Consistent formatting** via Prettier + the Tailwind class-sorting plugin.
+```bash
+docker logs pyramid-portfolio -f
+```
 
----
+### 5. Putting it behind a reverse proxy (recommended)
 
-## How to improve it
+Run the container on port `3400` internally and expose it via **Nginx** or **Caddy** with TLS termination. Example Nginx config:
 
-Concrete, high-value next steps (roughly ordered by impact):
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+    return 301 https://$host$request_uri;
+}
 
-1. **Don't make the root layout a Client Component.**
-   [`src/app/layout.tsx`](src/app/layout.tsx) is `'use client'`, which opts the _entire_ app out of React Server Components and SSR benefits. Move the Lenis smooth-scroll logic into a small `"use client"` wrapper (e.g. `<SmoothScroll>`), and keep `layout.tsx` as a Server Component.
+server {
+    listen 443 ssl;
+    server_name yourdomain.com;
 
-2. **Add SEO metadata.** Because the layout is a client component, it can't export Next's `metadata`. Once #1 is fixed, add a `metadata` export (title, description, Open Graph / Twitter cards, canonical URL, favicon) — essential for a public marketing site.
+    ssl_certificate     /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
 
-3. **Make the booking form actually do something.** [`BookForm`](src/widgets/BookForm/index.tsx) only runs `console.log(form)`. Add real submission (a Next.js **route handler** / **server action** or a 3rd-party form/email service), proper validation (e.g. `zod` + `react-hook-form`), and success/error UI. _This is the point where a real "backend" would be introduced._
+    location / {
+        proxy_pass         http://localhost:3400;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection 'upgrade';
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
 
-4. **Tighten TypeScript.** Replace `handleSubmit = (e: any)` and empty `interface Props {}` with real types (`FormEvent<HTMLFormElement>`, drop unused props). Convert the remaining JS utilities (`shared/utils/animations.js`, `shared/utils/useShadowCursor.js`) to `.ts`.
+With **Caddy** (automatic HTTPS):
 
-5. **Fix the `lang` attribute.** `layout.tsx` sets `<html lang="ru">` while the content is English — set the correct language for accessibility/SEO.
+```
+yourdomain.com {
+    reverse_proxy localhost:3400
+}
+```
 
-6. **Accessibility & responsiveness.** Sizing relies heavily on `vw` units (including font sizes), which breaks user zoom/text-scaling and hurts a11y. Consider `rem`/`clamp()` for typography, and audit color contrast, focus states, and `alt` text.
+### Environment variables reference
 
-7. **Modernize `next/image` usage.** The legacy `objectFit` prop triggers warnings — switch to `style={{ objectFit: 'cover' }}` or the `fill` + `object-cover` pattern.
-
-9. **Add automated quality gates.** No tests or CI exist. Consider Vitest/Testing Library for components, Playwright for a couple of smoke tests, and a GitHub Actions workflow running `lint` + `build` (+ tests) on every PR.
-
-10. **Environment & config hygiene.** Add `.env.example` and read runtime config from env vars once a backend/integration (analytics, form endpoint) is added.
+| Variable       | Required | Description                                                       |
+| -------------- | -------- | ----------------------------------------------------------------- |
+| `DATABASE_URL` | Yes      | Supabase Transaction Pooler connection string (port 6543)         |
+| `JWT_SECRET`   | Yes      | Random 32-byte base64 string — used to sign/verify session tokens |
+| `NODE_ENV`     | Auto     | Set to `production` by Docker Compose                             |

@@ -32,7 +32,7 @@ const Index: FC<Props> = () => {
           <div className={`burger ${isActive && 'burgerActive'}`}></div>
         </button>
       </div>
-      <button title="your_agency_name" className="group fixed left-0 top-0 z-[100] p-[2vw]">
+      <button title="pyramid-icon" className="group fixed left-0 top-0 z-[100] p-[2vw]">
         <LogoIcon className="h-[5vw] w-[5vw] transition duration-300 group-hover:text-white/80" />
       </button>
       <AnimatePresence mode="wait">{isActive && <SidebarMenu close={closeSidebar} />}</AnimatePresence>

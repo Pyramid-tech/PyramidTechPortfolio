@@ -27,6 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.production
 
 # vercel
 .vercel
@@ -35,4 +36,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.env
+# logs
+/logs
+
+# claude code
+.agents/
+skills-lock.json
+.claude/
+
+# dev scripts (may contain plaintext credentials)
+scripts/test-cleanup.ts

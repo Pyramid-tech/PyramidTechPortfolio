@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@/components/ui/Button';
 import SectionOpacity from '@/components/ui/SectionOpacity';
+import Footer from '@/widgets/Footer';
 
 interface Props {}
 
@@ -18,7 +19,8 @@ const Index: FC<Props> = () => {
       <div className=" mx-auto flex w-full max-w-[60vw] flex-1 flex-col items-center justify-center text-center md:max-w-[90%]">
         <h3 className="text-[4vw] font-medium md:text-[8vw]">LET&apos;S CONNECT</h3>
         <p className="mt-[0.6vw] text-[1.7vw] font-normal text-gray-300 md:text-[3.2vw] md:leading-[1.3]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident consequatur ullam veniam omnis dolores cum.
+          Got an idea worth building? Tell us about it. We&apos;ll help you turn it into a smart, scalable product, from
+          first concept to production. Let&apos;s make something great together.
         </p>
         <Button
           onClick={handleFormToggle}
@@ -28,19 +30,7 @@ const Index: FC<Props> = () => {
         />
       </div>
 
-      <footer className="flex justify-between border-t border-t-gray-800 px-[5vw] py-[1.8vw] text-[1.6vw] md:px-[2vw] md:py-[2.4vw] md:text-[2vw] ">
-        <div>
-          © 2023.{' '}
-          <a href="https://github.com/Shatlyk1011/agency-website" target="_blank" rel="norelopener">
-            Source Code
-          </a>
-        </div>
-        <ul className="flex space-x-[3vw] ">
-          <li>Lorem, ipsum.</li>
-          <li>Lorem, ipsum.</li>
-          <li>Lorem, ipsum.</li>
-        </ul>
-      </footer>
+      <Footer />
     </SectionOpacity>
   );
 };
