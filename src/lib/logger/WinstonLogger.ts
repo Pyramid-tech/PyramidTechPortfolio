@@ -1,9 +1,8 @@
 import winston from 'winston';
-import DailyRotateFile from 'winston-daily-rotate-file';
 
+import { DbTransport } from './DbTransport';
 import type { ILogger } from './interfaces/ILogger';
 
-// Laravel PSR-3 levels mapped to syslog severity numbers
 const LEVELS = {
   emergency: 0,
   alert: 1,
@@ -15,26 +14,26 @@ const LEVELS = {
   debug: 7,
 };
 
-const jsonFormat = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-  winston.format.errors({ stack: true }),
-  winston.format.json(),
-);
-
-const rotatingTransport = new DailyRotateFile({
-  dirname: 'logs',
-  filename: 'app-%DATE%.log',
-  datePattern: 'YYYY-MM-DD',
-  maxFiles: '7d',
-  zippedArchive: true,
-  format: jsonFormat,
+winston.addColors({
+  emergency: 'red',
+  alert: 'red',
+  critical: 'red',
+  error: 'red',
+  warning: 'yellow',
+  notice: 'cyan',
+  info: 'green',
+  debug: 'blue',
 });
 
 const instance = winston.createLogger({
   levels: LEVELS,
   level: 'debug',
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.errors({ stack: true }),
+  ),
   transports: [
-    rotatingTransport,
+    new DbTransport({ level: 'warning' }),
     ...(process.env.NODE_ENV !== 'production'
       ? [
           new winston.transports.Console({

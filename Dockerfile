@@ -32,9 +32,6 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Create logs directory with correct ownership for Winston
-RUN mkdir -p /app/logs && chown nextjs:nodejs /app/logs
-
 USER nextjs
 EXPOSE 3400
 

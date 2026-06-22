@@ -39,6 +39,7 @@ export async function run() {
 }
 
 export async function registerCleanupAvatars(boss: PgBoss): Promise<void> {
+  await boss.createQueue(JOB_NAME);
   await boss.schedule(JOB_NAME, '0 0 * * *', {}, { tz: 'UTC' });
   await boss.work(JOB_NAME, run);
   logger.info('cleanup-avatars: scheduled (runs at midnight UTC)');

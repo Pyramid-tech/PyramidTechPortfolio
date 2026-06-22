@@ -8,8 +8,6 @@ services:
       - .env.production
     environment:
       - NODE_ENV=production
-    volumes:
-      - logs:/app/logs
     restart: unless-stopped
 
   worker:
@@ -19,9 +17,4 @@ services:
     container_name: pyramid-worker
     env_file:
       - .env.production
-    volumes:
-      - logs:/app/logs
     restart: unless-stopped
-
-volumes:
-  logs:

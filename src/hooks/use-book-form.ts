@@ -18,6 +18,9 @@ export function useBookForm() {
   const [form, setForm] = useState(BOOK_FORM_DEFAULT_STATE);
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<BookFeedback | null>(null);
+  // Bumped on a successful submit to remount the form, clearing the uncontrolled
+  // inputs/radios in sync with the state reset below.
+  const [resetKey, setResetKey] = useState(0);
   const { push } = useRouter();
   const { allowed, record } = useRateLimit({ key: 'pyramid_book_ts', max: 4, windowMs: 60_000 });
 
@@ -56,6 +59,7 @@ export function useBookForm() {
       if (res.ok) {
         setFeedback({ type: 'success', message: BOOK_FORM_MESSAGES.success });
         setForm(BOOK_FORM_DEFAULT_STATE);
+        setResetKey((k) => k + 1);
       } else if (res.duplicate) {
         setFeedback({ type: 'error', message: BOOK_FORM_MESSAGES.duplicate });
       } else {
@@ -68,5 +72,5 @@ export function useBookForm() {
     }
   };
 
-  return { setValue, submitting, feedback, handleSubmit, goHome: () => push('/') };
+  return { setValue, submitting, feedback, handleSubmit, resetKey, goHome: () => push('/') };
 }

@@ -22,7 +22,7 @@ const SectionTitle: FC<{ children: string }> = ({ children }) => (
 );
 
 const BookForm: FC = () => {
-  const { setValue, submitting, feedback, handleSubmit, goHome } = useBookForm();
+  const { setValue, submitting, feedback, handleSubmit, resetKey, goHome } = useBookForm();
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 sm:px-6">
@@ -44,7 +44,7 @@ const BookForm: FC = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-10 rounded-2xl border border-stroke bg-bg-2/60 p-5 sm:p-8">
+      <form key={resetKey} onSubmit={handleSubmit} className="flex flex-col gap-10 rounded-2xl border border-stroke bg-bg-2/60 p-5 sm:p-8">
         {/* Project details */}
         <section className="flex flex-col gap-4">
           <SectionTitle>Project details</SectionTitle>

@@ -17,7 +17,6 @@ README.md
 Dockerfile
 .dockerignore
 docker-compose.yml
-logs/
 drizzle.config.ts
 src/lib/db/migrations/
 scripts/

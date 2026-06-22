@@ -3,6 +3,7 @@ config({ path: `${process.cwd()}/.env.local` });
 
 import { getBoss } from '@/lib/jobs/boss';
 import { registerCleanupAvatars } from '@/lib/jobs/cleanup-avatars';
+import { registerCleanupLogs } from '@/lib/jobs/cleanup-logs';
 import { logger } from '@/lib/logger';
 
 async function start(): Promise<void> {
@@ -15,6 +16,7 @@ async function start(): Promise<void> {
   await boss.start();
 
   await registerCleanupAvatars(boss);
+  await registerCleanupLogs(boss);
 
   logger.info('Worker started — waiting for jobs');
 
