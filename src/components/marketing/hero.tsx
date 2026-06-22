@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Button from '@/components/ui/button';
 import useFloatingImages from '@/hooks/use-floating-images';
 
+import { useLenis } from 'lenis/react';
 import { useScroll, useTransform, motion } from 'framer-motion';
 
 const Hero = () => {
@@ -12,10 +13,11 @@ const Hero = () => {
   const ref2 = useRef(null);
   const ref3 = useRef(null);
 
+  const lenis = useLenis();
   const { manageMouseMove } = useFloatingImages(ref1, ref2, ref3);
 
   const scrollToAbout = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    lenis?.scrollTo('#about', { duration: 1.1 });
   };
 
   const heading1 = useRef(null);
@@ -43,7 +45,7 @@ const Hero = () => {
         </motion.h1>
         <motion.h2
           ref={heading2}
-          className="text-text-1/7 5 z-20 text-[1.7vw] font-medium md:text-[3vw]"
+          className="z-20 text-[1.7vw] font-medium text-text-1/75 md:text-[3vw]"
           style={{ opacity }}
         >
           Creative team based in Lebanon
@@ -56,16 +58,16 @@ const Hero = () => {
             btnClasses="mt-[2vw]"
           />
         </motion.div>
-        <div ref={ref1} className={`absolute left-0 top-0 z-10 h-full w-full`}>
-          <Image src="/images/hero/frame-1.svg" fill={true} alt="" className="" objectFit="cover" />
+        <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full">
+          <Image src="/images/hero/frame-1.svg" fill={true} alt="" className="object-cover" />
         </div>
 
-        <div ref={ref2} className={`absolute left-0 top-0 h-full w-full `}>
-          <Image src="/images/hero/frame-2.svg" fill={true} alt="" objectFit="cover" />
+        <div ref={ref2} className="pointer-events-none absolute left-0 top-0 h-full w-full">
+          <Image src="/images/hero/frame-2.svg" fill={true} alt="" className="object-cover" />
         </div>
 
-        <div ref={ref3} className={`absolute left-0 top-0 h-full w-full `}>
-          <Image src="/images/hero/frame-3.svg" fill={true} alt="" objectFit="cover" />
+        <div ref={ref3} className="pointer-events-none absolute left-0 top-0 h-full w-full">
+          <Image src="/images/hero/frame-3.svg" fill={true} alt="" className="object-cover" />
         </div>
       </div>
     </section>

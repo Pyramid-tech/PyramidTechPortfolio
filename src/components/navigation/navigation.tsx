@@ -1,9 +1,11 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
 
-import SidebarMenu from '@/components/sidebar-menu/sidebar-menu';
 import { AnimatePresence } from 'framer-motion';
-import { LogoIcon } from '@/components/icons/logo';
+
+import { LogoIcon } from '@/components/icons';
+
+import SidebarMenu from './sidebar-menu';
 
 
 const Navigation: FC = () => {
@@ -28,7 +30,7 @@ const Navigation: FC = () => {
           onClick={() => setIsActive(!isActive)}
           className="flex h-[4.5vw] w-[4.5vw] cursor-pointer items-center justify-center rounded-full bg-stone-400"
         >
-          <div className={`burger ${isActive && 'burgerActive'}`}></div>
+          <div className={`burger ${isActive ? 'burgerActive' : ''}`}></div>
         </button>
       </div>
       <button title="pyramid-icon" className="group fixed left-0 top-0 z-[100] p-[2vw]">

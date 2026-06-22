@@ -41,7 +41,6 @@ const About: FC<Props> = ({ hasTeam = false }) => {
                 alt="hands image"
                 className="absolute inset-0 inline-block h-full w-full rounded-[0.125vw] transition hover:brightness-110 md:rounded-[0.25vw] md:object-cover"
               />
-              ;
             </div>
           </div>
         </div>

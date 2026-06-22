@@ -1,4 +1,4 @@
-import Dashboard from '@/components/sections/dashboard/dashboard';
+import { Dashboard } from '@/components/dashboard';
 import { requireUser } from '@/lib/auth';
 import { getAdminTeamMembers } from '@/lib/data/team';
 import { getBookRequests } from '@/lib/data/book';

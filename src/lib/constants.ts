@@ -143,7 +143,7 @@ export const RADIO_FIELDS = [
 
 export const INPUT_FIELDS = [
   { label: 'Your name', name: 'first', classes: 'md:inline-block md:!w-[calc(50%-2vw)] md:mr-[4vw]', required: true },
-  { label: 'Phone', name: 'phone', classes: 'md:inline-block md:!w-[calc(50%-2vw)]', type: 'number', required: true },
+  { label: 'Phone', name: 'phone', classes: 'md:inline-block md:!w-[calc(50%-2vw)]', type: 'tel', required: true },
   { label: 'Email', name: 'email', classes: '', type: 'email', required: true },
   { label: 'Company name', name: 'company', classes: '', required: true },
   { label: 'Company website', name: 'websiteUrl', classes: '' },
@@ -161,4 +161,22 @@ export const BOOK_FORM_DEFAULT_STATE = {
   company: '',
   websiteUrl: '',
   message: '',
+};
+
+// User-facing feedback for the booking form.
+export const BOOK_FORM_MESSAGES = {
+  rateLimited: 'Too many requests. Please wait a minute.',
+  incomplete: 'Please answer all questions before submitting.',
+  success: 'Your request was submitted! We will be in touch soon.',
+  duplicate: 'Your request was already received — we will be in touch soon.',
+  error: 'Something went wrong. Please try again.',
+};
+
+// Maps a booking request's service code to a human-readable label.
+export const SERVICE_LABELS: Record<string, string> = {
+  'ai-solutions': 'AI Solutions',
+  'fullstack': 'Fullstack',
+  'mobile-dev': 'Mobile',
+  'all-types': 'All services',
+  'other-service': 'Other',
 };

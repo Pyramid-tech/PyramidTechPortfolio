@@ -1,8 +1,8 @@
-import BookForm from '@/components/sections/book-form';
+import { BookForm } from '@/components/forms';
 
 const Index = () => {
   return (
-    <section className="z-[5000] min-h-screen w-full bg-bg-1 py-[5vw] opacity-100">
+    <section className="min-h-screen w-full bg-bg-1 px-4 py-12 sm:py-16">
       <BookForm />
     </section>
   );

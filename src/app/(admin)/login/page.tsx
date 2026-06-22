@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import LoginForm from '@/components/sections/login-form';
+import { LoginForm } from '@/components/forms';
 
 export const metadata: Metadata = { title: 'Login | Pyramid' };
 

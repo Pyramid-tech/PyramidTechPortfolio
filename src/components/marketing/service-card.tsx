@@ -26,7 +26,7 @@ const ServiceCard: FC<Props> = ({ card: { title, services, description, number, 
           <div className="flex flex-wrap space-y-[2vw] md:space-y-[1.5vw]  ">
             {services.map((service: string[], i: number) => {
               return (
-                <ul key={i} className="md: flex items-center space-x-[5vw] text-[1.7vw] font-semibold md:text-[3vw]">
+                <ul key={i} className="flex items-center space-x-[5vw] text-[1.7vw] font-semibold md:text-[3vw]">
                   {service.map((s) => (
                     <li key={s} className="flex items-center space-x-[0.6vw]">
                       <div className="h-[1.2vw] w-[1.2vw] rounded-full bg-[#fff]/40"></div>

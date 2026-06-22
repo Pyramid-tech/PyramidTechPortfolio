@@ -1,18 +1,22 @@
 'use client';
 
-import Navigation from '@/components/sections/navigation';
-import Hero from '@/components/sections/hero';
-import About from '@/components/sections/about';
-import Services from '@/components/sections/services';
-import Approach from '@/components/sections/approach';
-import CallToAction from '@/components/sections/call-to-action';
-import ShadowCursor from '@/components/ui/shadow-cursor/shadow-cursor';
+import Navigation from '@/components/navigation';
+import { ShadowCursor } from '@/components/ui/cursor';
+import { useHashScroll } from '@/hooks/use-hash-scroll';
+
+import Hero from './hero';
+import About from './about';
+import Services from './services';
+import Approach from './approach';
+import CallToAction from './call-to-action';
 
 interface Props {
   hasTeam: boolean;
 }
 
 export default function Home({ hasTeam }: Props) {
+  useHashScroll();
+
   return (
     <>
       <Navigation />

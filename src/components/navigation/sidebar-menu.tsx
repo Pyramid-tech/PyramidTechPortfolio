@@ -2,13 +2,13 @@
 
 import { FC, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLenis } from 'lenis/react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import CustomLink from './link';
-
 import { NAV_ITEMS } from '@/lib/constants';
-
 import { menuSlide } from '@/lib/animations';
+
+import NavLink from './nav-link';
 
 interface Props {
   close: () => void;
@@ -18,15 +18,18 @@ const SidebarMenu: FC<Props> = ({ close }) => {
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const lenis = useLenis();
 
   const smoothScroll = (id: string) => {
     if (pathname !== '/') {
-      router.push(`/#${id}`);
+      // Let the home page's useHashScroll handle the smooth scroll on arrival.
+      router.push(`/#${id}`, { scroll: false });
       close();
       return;
     }
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll through Lenis (the active smooth-scroll engine) instead of the
+    // browser's native scroll, which otherwise fights Lenis and stutters.
+    lenis?.scrollTo(`#${id}`, { duration: 1.1 });
     close();
   };
   return (
@@ -44,7 +47,7 @@ const SidebarMenu: FC<Props> = ({ close }) => {
         <div className="flex h-full flex-col justify-between">
           <div className="flex flex-col justify-end space-y-[0.1vw]" onMouseLeave={() => setSelectedIndicator(null)}>
             {NAV_ITEMS.map((item, index) => (
-              <CustomLink
+              <NavLink
                 handleClick={() => smoothScroll(item.href)}
                 key={item.title}
                 data={{ ...item, index }}

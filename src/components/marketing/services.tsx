@@ -1,9 +1,10 @@
 import { FC } from 'react';
 
 import SectionTitle from '@/components/ui/section-title';
-import ServiceCard from '@/components/service-card';
 
 import { CARDS } from '@/lib/constants';
+
+import ServiceCard from './service-card';
 
 
 const Services: FC = () => {
