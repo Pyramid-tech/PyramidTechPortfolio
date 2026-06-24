@@ -16,7 +16,6 @@ const SectionOpacity: FC<Props> = ({ children, classes, offset }) => {
   const { scrollYProgress } = useScroll({
     target: container,
     offset: offset || ['end 0.9', 'start 0.9'],
-    smooth: 0,
   });
 
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
