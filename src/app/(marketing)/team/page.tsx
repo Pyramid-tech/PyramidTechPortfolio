@@ -3,6 +3,8 @@ import { Team } from '@/components/team';
 import { Footer } from '@/components/marketing';
 import { getActiveTeamMembers } from '@/lib/data/team';
 
+export const dynamic = 'force-dynamic';
+
 export default async function TeamPage() {
   const members = await getActiveTeamMembers();
 
