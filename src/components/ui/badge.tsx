@@ -11,7 +11,7 @@ const TONES: Record<BadgeTone, string> = {
 };
 
 const Badge: FC<{ tone: BadgeTone; className?: string; children: ReactNode }> = ({ tone, className, children }) => (
-  <span className={cn('rounded-full px-2 py-1 text-xs font-medium sm:px-3', TONES[tone], className)}>{children}</span>
+  <span className={cn('inline-block whitespace-nowrap rounded-full px-2 py-1 text-xs font-medium sm:px-3', TONES[tone], className)}>{children}</span>
 );
 
 export default Badge;
