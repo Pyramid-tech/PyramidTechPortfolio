@@ -60,16 +60,23 @@ const Hero = () => {
             btnClasses="mt-6"
           />
         </motion.div>
-        <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full">
+        {/* Landscape (wide) viewports: layered, mouse-parallax frames (wide art) */}
+        <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-10 hidden h-full w-full landscape:block">
           <Image src="/images/hero/frame-1.svg" fill={true} alt="" className="object-cover" />
         </div>
 
-        <div ref={ref2} className="pointer-events-none absolute left-0 top-0 h-full w-full">
+        <div ref={ref2} className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block">
           <Image src="/images/hero/frame-2.svg" fill={true} alt="" className="object-cover" />
         </div>
 
-        <div ref={ref3} className="pointer-events-none absolute left-0 top-0 h-full w-full">
+        <div ref={ref3} className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block">
           <Image src="/images/hero/frame-3.svg" fill={true} alt="" className="object-cover" />
+        </div>
+
+        {/* Portrait viewports (phones, folds, portrait tablets): single portrait
+            composition with smaller, scattered circles */}
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full landscape:hidden">
+          <Image src="/images/hero/frame-mobile.svg" fill={true} alt="" className="object-cover" />
         </div>
       </div>
     </section>

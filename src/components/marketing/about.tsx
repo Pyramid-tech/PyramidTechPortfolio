@@ -37,7 +37,7 @@ const About: FC<Props> = ({ hasTeam = false }) => {
 
             <div className="relative aspect-[3/2] w-full max-w-md bg-bg-2 md:aspect-auto md:h-72 md:max-w-none md:grow-[3] md:basis-0">
               <img
-                src="/images/hands_v2.jpg"
+                src="/images/about/hands_v2.jpg"
                 alt="hands image"
                 className="absolute inset-0 h-full w-full rounded object-cover transition hover:brightness-110"
               />

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 // Brand logo (an image, not an inline SVG) — only the className is configurable.
 export const LogoIcon: FC<{ className?: string }> = ({ className }) => (
   <Image
-    src="/images/drafted-icon.svg"
+    src="/images/logo/drafted-icon.svg"
     alt="PyramidTech logo"
     width={640}
     height={640}
