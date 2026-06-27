@@ -9,7 +9,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HT
 
 const SectionTitle: FC<Props> = ({ title, classes, ...props }) => {
   return (
-    <h3 className={cn('text-5xl font-extrabold leading-none md:text-7xl lg:text-8xl', classes)} {...props}>
+    <h3 className={cn('font-display text-5xl font-extrabold leading-none md:text-7xl lg:text-8xl', classes)} {...props}>
       {title}
     </h3>
   );

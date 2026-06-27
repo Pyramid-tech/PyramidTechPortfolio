@@ -43,7 +43,7 @@ const HoverCards: FC<Props> = ({ cards, itemClasses, wrapperClasses }) => {
           <div className="z-[1] h-full space-y-4 rounded-xl border border-stroke px-6 py-6">
             <div className="flex items-center gap-3">
               {<card.icon />}
-              <h6 className="text-lg md:text-xl">{card.title}</h6>
+              <h6 className="font-display text-lg md:text-xl">{card.title}</h6>
             </div>
             <p className="text-sm font-light leading-relaxed md:text-base">{card.description}</p>
           </div>

@@ -20,7 +20,7 @@ const CallToAction: FC = () => {
     <section id="contact">
       <SectionOpacity classes="flex flex-col">
         <div className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 py-24 text-center md:py-32">
-          <h3 className="text-4xl font-medium md:text-7xl lg:text-8xl">LET&apos;S CONNECT</h3>
+          <h3 className="font-display text-4xl font-medium md:text-7xl lg:text-8xl">LET&apos;S CONNECT</h3>
           <p className="mt-3 text-base font-normal leading-relaxed text-gray-300 md:text-xl">
             Got an idea worth building? Tell us about it. We&apos;ll help you turn it into a smart, scalable product,
             from first concept to production. Let&apos;s make something great together.

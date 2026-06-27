@@ -18,7 +18,7 @@ const FIELD_SPANS: Record<string, string> = {
 };
 
 const SectionTitle: FC<{ children: string }> = ({ children }) => (
-  <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">{children}</h2>
+  <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-primary">{children}</h2>
 );
 
 const BookForm: FC = () => {
@@ -39,7 +39,7 @@ const BookForm: FC = () => {
           </svg>
         </button>
         <div>
-          <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Request form</h1>
+          <h1 className="font-display text-2xl font-bold leading-tight sm:text-3xl">Request form</h1>
           <p className="mt-0.5 text-sm text-text-1/50">Tell us about your project and we&apos;ll be in touch.</p>
         </div>
       </div>

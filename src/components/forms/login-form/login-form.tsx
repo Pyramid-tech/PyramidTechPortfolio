@@ -31,7 +31,7 @@ const LoginForm: FC = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg-1 px-4">
       <div className="w-full max-w-md rounded-2xl border border-stroke bg-bg-2 p-10">
-        <h1 className="mb-2 text-3xl font-bold uppercase tracking-widest text-primary">Pyramid</h1>
+        <h1 className="mb-2 font-display text-3xl font-bold uppercase tracking-widest text-primary">Pyramid</h1>
         <p className="mb-8 text-sm text-text-1/50">Admin access only</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">

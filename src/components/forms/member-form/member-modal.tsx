@@ -28,7 +28,7 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
 
   return (
     <Modal onClose={onClose}>
-      <h2 className="mb-6 text-xl font-bold uppercase tracking-widest text-primary">
+      <h2 className="mb-6 font-display text-xl font-bold uppercase tracking-widest text-primary">
         {mode === 'create' ? 'Add Member' : 'Edit Member'}
       </h2>
 

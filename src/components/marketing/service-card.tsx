@@ -20,7 +20,7 @@ const ServiceCard: FC<Props> = ({ card: { title, services, description, number, 
   });
   return (
     <div ref={ref} key={number} className="px-6 pb-16 last:pb-24 md:px-12">
-      <h4 className="mt-8 text-3xl font-light md:text-5xl lg:text-6xl">{title}</h4>
+      <h4 className="mt-8 font-display text-3xl font-light md:text-5xl lg:text-6xl">{title}</h4>
       <div className={`flex flex-col gap-6 pt-8 first:border-none md:flex-row md:gap-8 ${classes}`}>
         <div className="flex-1">
           <div className="flex flex-col gap-4 md:gap-5">

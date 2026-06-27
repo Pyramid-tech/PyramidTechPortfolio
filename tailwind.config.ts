@@ -6,6 +6,11 @@ module.exports = {
   content: ['src/components/**/*.{ts,tsx}', 'app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        // Falls back to --font-sans while headings share the body font.
+        display: ['var(--font-display, var(--font-sans))', 'system-ui', 'sans-serif'],
+      },
       colors: {
         primary: '#CCC2DC',
         'bg-1': '#141218',

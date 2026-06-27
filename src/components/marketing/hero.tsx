@@ -40,14 +40,14 @@ const Hero = () => {
       >
         <motion.h1
           ref={heading1}
-          className="relative z-20 -mt-6 w-full px-4 text-center text-4xl font-extrabold leading-tight text-text-1 sm:text-6xl md:-mt-10 md:text-7xl lg:text-8xl"
+          className="relative z-20 -mt-6 w-full px-4 text-center font-display text-4xl font-extrabold leading-tight text-text-1 sm:text-6xl md:-mt-10 md:text-7xl lg:text-8xl"
           style={{ opacity }}
         >
           CREATING UNIQUENESS
         </motion.h1>
         <motion.h2
           ref={heading2}
-          className="z-20 text-base font-medium text-text-1/75 sm:text-lg md:text-2xl"
+          className="z-20 font-display text-base font-medium text-text-1/75 sm:text-lg md:text-2xl"
           style={{ opacity }}
         >
           Creative team based in Lebanon

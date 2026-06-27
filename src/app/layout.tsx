@@ -1,11 +1,10 @@
 'use client';
 
 import { ReactLenis } from 'lenis/react';
-import { Montserrat } from 'next/font/google';
+
+import { fontVariables } from '@/lib/fonts';
 
 import './globals.scss';
-
-const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
@@ -13,8 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={montserrat.className}>
+    <html lang="en" className={fontVariables}>
+      <body>
         <ReactLenis root>
           <main>{children}</main>
         </ReactLenis>

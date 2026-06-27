@@ -29,7 +29,7 @@ const SkeletonCard: FC = () => (
 const TeamSkeleton: FC<{ count?: number }> = ({ count = 5 }) => (
   <div className="mx-auto max-w-6xl px-4 sm:px-6">
     <div className="mb-12 text-center sm:mb-16">
-      <h1 className="text-3xl font-bold sm:text-4xl lg:text-5xl">Our Team</h1>
+      <h1 className="font-display text-3xl font-bold sm:text-4xl lg:text-5xl">Our Team</h1>
       <p className="mt-2 text-sm text-gray-400 sm:text-base">The people behind Pyramid.</p>
     </div>
 
