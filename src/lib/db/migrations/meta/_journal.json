@@ -29,6 +29,13 @@
       "when": 1782555767038,
       "tag": "0003_secure_public_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1782597276624,
+      "tag": "0004_fine_master_chief",
+      "breakpoints": true
     }
   ]
 }

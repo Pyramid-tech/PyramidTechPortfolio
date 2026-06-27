@@ -2,7 +2,12 @@
 
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-import type { AdminTeamMemberDTO, CreateTeamMemberDTO, UpdateTeamMemberDTO } from '@/types/team';
+import type {
+  AdminTeamMemberDTO,
+  CreateTeamMemberDTO,
+  UpdateTeamMemberDTO,
+  MemberMutationResult,
+} from '@/types/team';
 
 export interface MemberFormState {
   name: string;
@@ -15,11 +20,13 @@ export interface MemberFormState {
   displayOrder: number | string;
 }
 
+type SuccessResult = Extract<MemberMutationResult, { ok: true }>;
+
 interface Args {
   mode: 'create' | 'edit';
   member?: AdminTeamMemberDTO;
-  onCreate: (data: CreateTeamMemberDTO) => Promise<void>;
-  onUpdate: (id: string, data: UpdateTeamMemberDTO) => Promise<void>;
+  onCreate: (data: CreateTeamMemberDTO) => Promise<MemberMutationResult>;
+  onUpdate: (id: string, data: UpdateTeamMemberDTO) => Promise<MemberMutationResult>;
 }
 
 // Owns the team-member form's state, field binding and create/update mapping.
@@ -36,6 +43,8 @@ export function useMemberForm({ mode, member, onCreate, onUpdate }: Args) {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // On success we keep the AI verdict so the modal can show published/pending.
+  const [result, setResult] = useState<SuccessResult | null>(null);
 
   const setField =
     (key: keyof MemberFormState) =>
@@ -49,8 +58,9 @@ export function useMemberForm({ mode, member, onCreate, onUpdate }: Args) {
     setError(null);
     setLoading(true);
     try {
+      let res: MemberMutationResult;
       if (mode === 'create') {
-        await onCreate({
+        res = await onCreate({
           name: form.name,
           jobTitle: form.jobTitle,
           description: form.description || null,
@@ -70,8 +80,11 @@ export function useMemberForm({ mode, member, onCreate, onUpdate }: Args) {
           displayOrder: Number(form.displayOrder),
         };
         if (form.password) update.password = form.password;
-        await onUpdate(member!.id, update);
+        res = await onUpdate(member!.id, update);
       }
+
+      if (res.ok) setResult(res);
+      else setError(res.error || 'Something went wrong. Please try again.');
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
@@ -79,5 +92,5 @@ export function useMemberForm({ mode, member, onCreate, onUpdate }: Args) {
     }
   };
 
-  return { form, setField, setAvatarUrl, loading, error, handleSubmit };
+  return { form, setField, setAvatarUrl, loading, error, result, handleSubmit };
 }
