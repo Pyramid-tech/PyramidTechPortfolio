@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import Button from '@/components/ui/button';
 import useFloatingImages from '@/hooks/use-floating-images';
+import { useIsCoarsePointer } from '@/hooks/use-media-query';
 
 import { useLenis } from 'lenis/react';
 import { useScroll, useTransform, motion } from 'framer-motion';
@@ -14,6 +15,7 @@ const Hero = () => {
   const ref3 = useRef(null);
 
   const lenis = useLenis();
+  const isCoarsePointer = useIsCoarsePointer();
   const { manageMouseMove } = useFloatingImages(ref1, ref2, ref3);
 
   const scrollToAbout = () => {
@@ -33,19 +35,19 @@ const Hero = () => {
   return (
     <section id="main" className="relative bg-gradient-to-b  ">
       <div
-        onMouseMove={(e) => manageMouseMove(e)}
-        className="relative left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden md:h-[80vh]"
+        onMouseMove={isCoarsePointer ? undefined : manageMouseMove}
+        className="relative left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden"
       >
         <motion.h1
           ref={heading1}
-          className="relative z-20 mt-[-5vw] w-full max-w-[95%] text-center text-[4.5vw] font-extrabold text-text-1 md:text-[6vw] md:leading-[1.2]"
+          className="relative z-20 -mt-6 w-full px-4 text-center text-4xl font-extrabold leading-tight text-text-1 sm:text-6xl md:-mt-10 md:text-7xl lg:text-8xl"
           style={{ opacity }}
         >
           CREATING UNIQUENESS
         </motion.h1>
         <motion.h2
           ref={heading2}
-          className="z-20 text-[1.7vw] font-medium text-text-1/75 md:text-[3vw]"
+          className="z-20 text-base font-medium text-text-1/75 sm:text-lg md:text-2xl"
           style={{ opacity }}
         >
           Creative team based in Lebanon
@@ -54,8 +56,8 @@ const Hero = () => {
           <Button
             onClick={scrollToAbout}
             title="LEARN MORE"
-            classes="px-[1.8vw] w-[22vw] md:w-[32vw] min-h-[4vw] md:min-h-[7vw] text-[1.25vw] md:text-[2.25vw] bg-bg-1 hover:bg-bg-1/80"
-            btnClasses="mt-[2vw]"
+            classes="bg-bg-1 hover:bg-bg-1/80"
+            btnClasses="mt-6"
           />
         </motion.div>
         <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full">

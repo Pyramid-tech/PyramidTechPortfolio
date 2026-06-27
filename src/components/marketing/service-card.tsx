@@ -19,17 +19,17 @@ const ServiceCard: FC<Props> = ({ card: { title, services, description, number, 
     threshold: 0.6,
   });
   return (
-    <div ref={ref} key={number} className="px-[6vw] pb-[9.5vw] last:pb-[13vw] md:px-[3vw]">
-      <h4 className="text-[3.7vw] font-light md:mt-[3vw] md:text-[7vw]">{title}</h4>
-      <div className={`flex items-start space-x-[3vw] pt-[3vw] first:border-none md:flex-col md:space-x-0 ${classes}`}>
-        <div className="flex-1 md:mb-[2vw]">
-          <div className="flex flex-wrap space-y-[2vw] md:space-y-[1.5vw]  ">
+    <div ref={ref} key={number} className="px-6 pb-16 last:pb-24 md:px-12">
+      <h4 className="mt-8 text-3xl font-light md:text-5xl lg:text-6xl">{title}</h4>
+      <div className={`flex flex-col gap-6 pt-8 first:border-none md:flex-row md:gap-8 ${classes}`}>
+        <div className="flex-1">
+          <div className="flex flex-col gap-4 md:gap-5">
             {services.map((service: string[], i: number) => {
               return (
-                <ul key={i} className="flex items-center space-x-[5vw] text-[1.7vw] font-semibold md:text-[3vw]">
+                <ul key={i} className="flex items-center gap-x-8 text-sm font-semibold md:text-lg">
                   {service.map((s) => (
-                    <li key={s} className="flex items-center space-x-[0.6vw]">
-                      <div className="h-[1.2vw] w-[1.2vw] rounded-full bg-[#fff]/40"></div>
+                    <li key={s} className="flex items-center gap-2">
+                      <div className="h-2 w-2 rounded-full bg-white/40"></div>
                       <p>{s}</p>
                     </li>
                   ))}
@@ -40,10 +40,10 @@ const ServiceCard: FC<Props> = ({ card: { title, services, description, number, 
         </div>
 
         <div className="relative flex-1 ">
-          <p className="relative z-[2000] line-clamp-4 text-[1.5vw] font-medium leading-[1.7] md:mt-[3vw] md:text-balance md:text-[3vw] md:leading-[1.5]">
+          <p className="relative z-[2000] line-clamp-4 text-balance text-sm font-medium leading-relaxed md:text-base lg:text-lg">
             {description}
           </p>
-          <div className="absolute right-[6vw] top-[1.8vw] z-[1] text-right text-[16vw] font-extrabold tracking-[5%] text-gray-1 md:top-0 md:text-[28vw]">
+          <div className="absolute right-6 top-0 z-[1] text-right text-8xl font-extrabold tracking-wider text-gray-1 md:text-9xl">
             {number}
           </div>
         </div>

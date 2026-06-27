@@ -15,24 +15,18 @@ const HoverCards: FC<Props> = ({ cards, itemClasses, wrapperClasses }) => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <div className={cn('grid md:grid-cols-2 ', itemClasses)}>
+    <div className={cn('grid grid-cols-1 gap-4 md:grid-cols-2', itemClasses)}>
       {cards.map((card, idx) => (
         <div
           key={idx}
-          className={cn(
-            'relative flex flex-col px-[0.4vw] py-[0.3vw] last:col-span-2 md:col-span-2 md:px-[0.6vw] md:py-[0.5vw]',
-            itemClasses,
-          )}
+          className={cn('relative flex flex-col md:last:col-span-2', itemClasses)}
           onMouseEnter={() => setHoveredIdx(idx)}
           onMouseLeave={() => setHoveredIdx(null)}
         >
           <AnimatePresence>
             {hoveredIdx === idx && (
               <motion.span
-                className={cn(
-                  'absolute inset-0 z-0 block h-full w-full rounded-[1.333vw] bg-stroke/50',
-                  wrapperClasses,
-                )}
+                className={cn('absolute inset-0 z-0 block h-full w-full rounded-2xl bg-stroke/50', wrapperClasses)}
                 layoutId="cardHoverEffect"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -46,18 +40,12 @@ const HoverCards: FC<Props> = ({ cards, itemClasses, wrapperClasses }) => {
               />
             )}
           </AnimatePresence>
-          <div
-            className={cn(
-              'z-[1] h-full min-w-[18vw] space-y-[1.2vw] rounded-[1vw] border-[0.2vw] border-stroke px-[1.4vw] py-[1.6vw] md:min-w-full',
-            )}
-          >
-            <div className="flex items-center space-x-[0.6vw]">
+          <div className="z-[1] h-full space-y-4 rounded-xl border border-stroke px-6 py-6">
+            <div className="flex items-center gap-3">
               {<card.icon />}
-              <h6 className="text-[1.6vw] md:text-[3.5vw] md:tracking-tight">{card.title}</h6>
+              <h6 className="text-lg md:text-xl">{card.title}</h6>
             </div>
-            <p className="text-[1vw] font-light leading-[1.5] md:text-[2.25vw] md:leading-[1.2] md:tracking-tight">
-              {card.description}
-            </p>
+            <p className="text-sm font-light leading-relaxed md:text-base">{card.description}</p>
           </div>
         </div>
       ))}

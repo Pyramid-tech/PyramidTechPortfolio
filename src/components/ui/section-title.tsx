@@ -1,5 +1,7 @@
 import { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
 
+import { cn } from '@/lib/utils';
+
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> {
   title: string;
   classes?: string;
@@ -7,7 +9,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HT
 
 const SectionTitle: FC<Props> = ({ title, classes, ...props }) => {
   return (
-    <h3 className={`text-[7.5vw] font-extrabold leading-[100%] md:text-center md:text-[9vw] ${classes}`} {...props}>
+    <h3 className={cn('text-5xl font-extrabold leading-none md:text-7xl lg:text-8xl', classes)} {...props}>
       {title}
     </h3>
   );

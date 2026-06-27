@@ -27,13 +27,13 @@ const NavLink: FC<Props> = ({ data, isActive, setSelectedIndicator, handleClick 
       onClick={handleClick}
     >
       <motion.div
-        className="absolute left-0 inline-block h-[0.6vw] w-[0.6vw] rounded-full bg-white"
+        className="absolute left-0 inline-block h-2 w-2 rounded-full bg-white"
         variants={scale}
         animate={isActive ? 'open' : 'closed'}
       ></motion.div>
       <div
         tabIndex={0}
-        className="cursor-pointer text-[2.5vw] font-semibold leading-[1.35] tracking-wide transition-[cubic-bezier(.16,1,.3,1)] duration-200 hover:translate-x-[1.6vw]  md:text-[3vw] md:leading-[1.25]"
+        className="cursor-pointer text-2xl font-semibold leading-snug tracking-wide transition duration-200 hover:translate-x-2 md:text-3xl"
       >
         {title}
       </div>

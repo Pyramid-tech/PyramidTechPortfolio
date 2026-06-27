@@ -39,13 +39,13 @@ const SidebarMenu: FC<Props> = ({ close }) => {
         initial="initial"
         animate="enter"
         exit="exit"
-        className="fixed right-0 top-0 z-[4000] h-screen w-[32vw] bg-gray-1 pb-[8vw] pl-[8vw] pr-[6vw] pt-[10vw] text-text-1"
+        className="fixed right-0 top-0 z-[4000] h-screen w-4/5 max-w-xs bg-gray-1 px-8 pb-10 pt-20 text-text-1"
       >
-        <div className="mb-[2.2vw] w-full border-b border-white/20 pb-[0.4vw] uppercase text-white/60 ">
-          <h3 className="text-[0.9vw] leading-[1.1] md:text-[2vw]">Navigation</h3>
+        <div className="mb-6 w-full border-b border-white/20 pb-2 uppercase text-white/60 ">
+          <h3 className="text-xs leading-tight md:text-sm">Navigation</h3>
         </div>
         <div className="flex h-full flex-col justify-between">
-          <div className="flex flex-col justify-end space-y-[0.1vw]" onMouseLeave={() => setSelectedIndicator(null)}>
+          <div className="flex flex-col justify-end space-y-2" onMouseLeave={() => setSelectedIndicator(null)}>
             {NAV_ITEMS.map((item, index) => (
               <NavLink
                 handleClick={() => smoothScroll(item.href)}

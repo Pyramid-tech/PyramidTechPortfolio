@@ -6,9 +6,6 @@ module.exports = {
   content: ['src/components/**/*.{ts,tsx}', 'app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
-      screens: {
-        md: { max: '600px' },
-      },
       colors: {
         primary: '#CCC2DC',
         'bg-1': '#141218',

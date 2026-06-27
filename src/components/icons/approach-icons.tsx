@@ -6,7 +6,7 @@ export const First: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="32"
     height="33"
-    className="h-[2vw] w-[2vw] md:h-[3vw] md:w-[3vw]"
+    className="h-6 w-6 md:h-8 md:w-8"
     viewBox="0 0 32 33"
     fill="none"
     {...props}
@@ -20,7 +20,7 @@ export const Second: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="37"
     height="37"
-    className="h-[2.4vw] w-[2.4vw] md:h-[3vw] md:w-[3vw]"
+    className="h-7 w-7 md:h-8 md:w-8"
     viewBox="0 0 37 37"
     fill="none"
     {...props}
@@ -33,7 +33,7 @@ export const Second: FC<SVGProps<SVGSVGElement>> = (props) => (
 );
 
 export const Third: FC<SVGProps<SVGSVGElement>> = (props) => (
-  <svg width="36" height="36" className="h-[2.4vw] w-[2.4vw] md:h-[3vw] md:w-[3vw]" viewBox="0 0 36 36" {...props}>
+  <svg width="36" height="36" className="h-7 w-7 md:h-8 md:w-8" viewBox="0 0 36 36" {...props}>
     <g clipPath="url(#clip0_250_11)">
       <rect x="3" y="20.6855" width="18" height="18" rx="2" transform="rotate(-25 3 20.6855)" fill="#E6E0E9" />
       <rect x="22.9592" y="-1" width="10" height="10" rx="1" fill="#E6E0E9" />
@@ -47,7 +47,7 @@ export const Third: FC<SVGProps<SVGSVGElement>> = (props) => (
 );
 
 export const Fourth: FC<SVGProps<SVGSVGElement>> = (props) => (
-  <svg width="48" height="49" className="h-[3vw] w-[3vw] md:h-[4vw] md:w-[4vw]" viewBox="0 0 48 49" {...props}>
+  <svg width="48" height="49" className="h-8 w-8 md:h-10 md:w-10" viewBox="0 0 48 49" {...props}>
     <path
       d="M14.638 10.6988C14.9953 10.08 15.6556 9.69879 16.3701 9.69879L31.6299 9.69879C32.3444 9.69879 33.0047 10.08 33.362 10.6988L40.9919 23.9142C41.3491 24.533 41.3491 25.2954 40.9919 25.9142L33.362 39.1296C33.0047 39.7484 32.3444 40.1296 31.6299 40.1296L16.3701 40.1296C15.6556 40.1296 14.9953 39.7484 14.638 39.1296L7.00813 25.9142C6.65086 25.2954 6.65086 24.533 7.00813 23.9142L14.638 10.6988Z"
       fill="#E6E0E9"
@@ -59,7 +59,7 @@ export const Fifth: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="36"
     height="36"
-    className="h-[2.4vw] w-[2.4vw] md:h-[3vw] md:w-[3vw]"
+    className="h-7 w-7 md:h-8 md:w-8"
     viewBox="0 0 36 36"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

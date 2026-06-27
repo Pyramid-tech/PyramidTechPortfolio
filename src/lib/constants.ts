@@ -92,7 +92,7 @@ export const APPROACH_CARDS = [
 export const RADIO_FIELDS = [
   {
     title: 'What type of services you want?',
-    classes: 'md:mr-[2.25vw]',
+    classes: '',
     required: true,
     radioArray: [
       { name: 'AI Solutions', value: 'ai-solutions' },
@@ -117,7 +117,7 @@ export const RADIO_FIELDS = [
   },
   {
     title: 'Approximately how many pages will your project have?',
-    classes: 'md:mr-[2.25vw]',
+    classes: '',
     required: true,
     radioArray: [
       { name: 'Less than 5', value: '<5' },
@@ -142,8 +142,8 @@ export const RADIO_FIELDS = [
 ];
 
 export const INPUT_FIELDS = [
-  { label: 'Your name', name: 'first', classes: 'md:inline-block md:!w-[calc(50%-2vw)] md:mr-[4vw]', required: true },
-  { label: 'Phone', name: 'phone', classes: 'md:inline-block md:!w-[calc(50%-2vw)]', type: 'tel', required: true },
+  { label: 'Your name', name: 'first', classes: '', required: true },
+  { label: 'Phone', name: 'phone', classes: '', type: 'tel', required: true },
   { label: 'Email', name: 'email', classes: '', type: 'email', required: true },
   { label: 'Company name', name: 'company', classes: '', required: true },
   { label: 'Company website', name: 'websiteUrl', classes: '' },

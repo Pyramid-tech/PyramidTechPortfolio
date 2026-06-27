@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 export type InputVariant = 'admin' | 'marketing';
 
 // Two distinct visual systems live behind one component: the compact admin
-// style (dashboard / login) and the responsive vw-based marketing style (book).
+// style (dashboard / login) and the larger marketing style (book form).
 const VARIANTS: Record<InputVariant, string> = {
   admin:
     'rounded-lg border border-stroke bg-transparent px-3 py-2 text-sm text-text-1 outline-none transition focus:border-primary',

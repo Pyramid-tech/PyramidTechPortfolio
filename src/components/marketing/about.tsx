@@ -15,13 +15,13 @@ const About: FC<Props> = ({ hasTeam = false }) => {
   const router = useRouter();
 
   return (
-    <section id="about" className="z-0 border-t border-gray-1 bg-gradient-to-b py-[6vw] md:py-[4vw]">
+    <section id="about" className="z-0 border-t border-gray-1 bg-gradient-to-b py-16 md:py-24">
       <SectionOpacity classes="z-2">
-        <SectionTitle title="ABOUT." classes="px-[6vw] md:px-[3vw] pt-[3vw] z-10" />
-        <div className="relative self-start px-[6vw] pb-[5vw] pt-[3vw] md:px-[3vw]">
-          <div className="flex space-x-[5vw] md:flex-col md:items-center md:space-x-0 md:space-y-[3vw]">
-            <div className="flex grow-[4] basis-0 flex-col gap-[2vw] md:items-center">
-              <p className="flex-wrap text-[2.3vw] md:text-balance md:text-center md:text-[3.8vw] md:leading-[1.3]">
+        <SectionTitle title="ABOUT." classes="px-6 pt-8 z-10 md:px-12" />
+        <div className="relative self-start px-6 pb-12 pt-8 md:px-12">
+          <div className="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-12">
+            <div className="flex w-full flex-col items-center gap-6 md:grow-[4] md:basis-0 md:items-start">
+              <p className="text-balance text-center text-base leading-relaxed md:text-left md:text-2xl lg:text-3xl">
                 We are a young, close-knit team of like-minded people ready to help brands from USA prosper in the
                 digital world.
               </p>
@@ -29,17 +29,17 @@ const About: FC<Props> = ({ hasTeam = false }) => {
                 <Button
                   onClick={() => router.push('/team')}
                   title="MEET THE TEAM"
-                  classes="px-[1.8vw] py-[1vw] min-h-[4vw] md:min-h-[8vw] text-[1.25vw] md:text-[2.25vw] bg-bg-1 hover:bg-bg-1/80"
+                  classes="bg-bg-1 hover:bg-bg-1/80"
                   btnClasses="w-fit"
                 />
               )}
             </div>
 
-            <div className="relative h-[20vw] w-[30vw] grow-[3] basis-0 bg-bg-2 md:h-[40vw] md:w-full md:max-w-[90%] md:basis-[initial]  md:text-center">
+            <div className="relative aspect-[3/2] w-full max-w-md bg-bg-2 md:aspect-auto md:h-72 md:max-w-none md:grow-[3] md:basis-0">
               <img
                 src="/images/hands_v2.jpg"
                 alt="hands image"
-                className="absolute inset-0 inline-block h-full w-full rounded-[0.125vw] transition hover:brightness-110 md:rounded-[0.25vw] md:object-cover"
+                className="absolute inset-0 h-full w-full rounded object-cover transition hover:brightness-110"
               />
             </div>
           </div>
