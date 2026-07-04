@@ -13,7 +13,7 @@ export default defineConfig({
   title: 'Pyramid Portfolio',
   // 'unconfigured' keeps the config valid before NEXT_PUBLIC_SANITY_PROJECT_ID
   // is set; the Studio simply won't connect until it is.
-  projectId: projectId || 'a7go2cze', 
+  projectId: projectId || 'unconfigured',
   dataset,
   schema: { types: schemaTypes },
   plugins: [
