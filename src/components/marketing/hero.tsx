@@ -9,7 +9,13 @@ import { useIsCoarsePointer } from '@/hooks/use-media-query';
 import { useLenis } from 'lenis/react';
 import { useScroll, useTransform, motion } from 'framer-motion';
 
-const Hero = () => {
+import type { HomeContent } from '@/types/home-content';
+
+interface Props {
+  content: HomeContent['hero'];
+}
+
+const Hero = ({ content }: Props) => {
   const ref1 = useRef(null);
   const ref2 = useRef(null);
   const ref3 = useRef(null);
@@ -43,19 +49,19 @@ const Hero = () => {
           className="relative z-20 -mt-6 w-full px-4 text-center font-display text-4xl font-extrabold leading-tight text-text-1 sm:text-6xl md:-mt-10 md:text-7xl lg:text-8xl"
           style={{ opacity }}
         >
-          CREATING UNIQUENESS
+          {content?.title}
         </motion.h1>
         <motion.h2
           ref={heading2}
           className="z-20 font-display text-base font-medium text-text-1/75 sm:text-lg md:text-2xl"
           style={{ opacity }}
         >
-          Creative team based in Lebanon
+          {content?.subtitle}
         </motion.h2>
         <motion.div className="z-20" style={{ opacity }}>
           <Button
             onClick={scrollToAbout}
-            title="LEARN MORE"
+            title={content?.ctaLabel ?? ''}
             classes="bg-bg-1 hover:bg-bg-1/80"
             btnClasses="mt-6"
           />

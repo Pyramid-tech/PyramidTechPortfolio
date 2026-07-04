@@ -1,18 +1,31 @@
 import { FC } from 'react';
 
 import SectionTitle from '@/components/ui/section-title';
+import { chunk } from '@/lib/utils';
 
-import { CARDS } from '@/lib/constants';
+import type { HomeContent } from '@/types/home-content';
 
 import ServiceCard from './service-card';
 
+interface Props {
+  content: HomeContent['services'];
+}
 
-const Services: FC = () => {
+const Services: FC<Props> = ({ content }) => {
   return (
     <section id="services" className="relative border-t border-gray-1 py-16 md:py-24">
-      <SectionTitle title="SERVICES." classes="text-right px-6 pt-8 md:px-12" />
-      {CARDS.map((card) => (
-        <ServiceCard key={card.title} card={card} />
+      <SectionTitle title={content?.sectionTitle ?? ''} classes="text-right px-6 pt-8 md:px-12" />
+      {(content?.cards ?? []).map((card, i) => (
+        <ServiceCard
+          key={i}
+          card={{
+            title: card.title ?? '',
+            description: card.description ?? '',
+            services: chunk(card.tags ?? [], 2),
+            number: `${String(i + 1).padStart(2, '0')}.`,
+            classes: i === 0 ? '' : 'border-t border-gray-1/50',
+          }}
+        />
       ))}
     </section>
   );

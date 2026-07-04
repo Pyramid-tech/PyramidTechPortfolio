@@ -8,8 +8,13 @@ import SectionOpacity from '@/components/ui/section-opacity';
 
 import Footer from './footer';
 
+import type { HomeContent } from '@/types/home-content';
 
-const CallToAction: FC = () => {
+interface Props {
+  content: HomeContent['cta'];
+}
+
+const CallToAction: FC<Props> = ({ content }) => {
   const router = useRouter();
 
   const handleFormToggle = () => {
@@ -20,14 +25,13 @@ const CallToAction: FC = () => {
     <section id="contact">
       <SectionOpacity classes="flex flex-col">
         <div className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 py-24 text-center md:py-32">
-          <h3 className="font-display text-4xl font-medium md:text-7xl lg:text-8xl">LET&apos;S CONNECT</h3>
+          <h3 className="font-display text-4xl font-medium md:text-7xl lg:text-8xl">{content?.heading}</h3>
           <p className="mt-3 text-base font-normal leading-relaxed text-gray-300 md:text-xl">
-            Got an idea worth building? Tell us about it. We&apos;ll help you turn it into a smart, scalable product,
-            from first concept to production. Let&apos;s make something great together.
+            {content?.paragraph}
           </p>
           <Button
             onClick={handleFormToggle}
-            title="SUBMIT A REQUEST"
+            title={content?.ctaLabel ?? ''}
             classes="bg-bg-1 hover:bg-bg-1/80"
             btnClasses="mt-6"
           />

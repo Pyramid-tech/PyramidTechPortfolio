@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { ReactLenis } from 'lenis/react';
 
 import { fontVariables } from '@/lib/fonts';
@@ -11,12 +12,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Lenis hijacks native scrolling, which breaks the Sanity Studio panes.
+  const isStudio = usePathname().startsWith('/studio');
+
   return (
     <html lang="en" className={fontVariables}>
       <body>
-        <ReactLenis root>
-          <main>{children}</main>
-        </ReactLenis>
+        {isStudio ? children : (
+          <ReactLenis root>
+            <main>{children}</main>
+          </ReactLenis>
+        )}
       </body>
     </html>
   );
