@@ -5,7 +5,7 @@ services:
     ports:
       - '3400:3400'
     env_file:
-      - .env.production
+      - .env
     environment:
       - NODE_ENV=production
     restart: unless-stopped
@@ -16,5 +16,5 @@ services:
       dockerfile: Dockerfile.worker
     container_name: pyramid-worker
     env_file:
-      - .env.production
+      - .env
     restart: unless-stopped

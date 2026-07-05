@@ -8,8 +8,8 @@ yarn-error.log*
 *.log
 .git
 .gitignore
+.env
 .env*.local
-.env.production
 .DS_Store
 *.pem
 .vercel
