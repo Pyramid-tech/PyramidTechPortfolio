@@ -1,3 +1,6 @@
+// Run all pending captures:  npx tsx scripts/run-capture.ts
+// Run a single project:      npx tsx scripts/run-capture.ts <slug>
+
 import { config } from 'dotenv';
 
 config({ path: `${process.cwd()}/.env.local` });

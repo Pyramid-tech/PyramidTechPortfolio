@@ -37,12 +37,14 @@ const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
           <ProjectFacts project={project} />
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-2xl border border-stroke">
-          <ProjectMedia media={project.featuredMedia} aspect="aspect-[16/9]" eager />
+        <div className="lg:hidden">
+          <div className="mt-12 overflow-hidden rounded-2xl border border-stroke">
+            <ProjectMedia media={project.featuredMedia} aspect="aspect-[16/9]" eager />
+          </div>
+          {project.featuredMedia?.caption && (
+            <p className="mt-3 text-xs text-text-1/40">{project.featuredMedia.caption}</p>
+          )}
         </div>
-        {project.featuredMedia?.caption && (
-          <p className="mt-3 text-xs text-text-1/40">{project.featuredMedia.caption}</p>
-        )}
       </div>
     </header>
   );

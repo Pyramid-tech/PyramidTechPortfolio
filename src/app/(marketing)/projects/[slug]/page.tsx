@@ -5,12 +5,14 @@ import Navigation from '@/components/navigation';
 import { Footer } from '@/components/marketing';
 import {
   ProjectHero,
+  ProjectMedia,
   ProjectSectionRenderer,
   AdjacentProjects,
   ProjectContactCta,
 } from '@/components/projects';
 import { visibleActions } from '@/components/projects/project-actions';
 import { getActiveProjectBySlug, getAdjacentActiveProjects } from '@/lib/data/project';
+import { cn } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,6 +52,11 @@ export default async function ProjectDetailPage({ params }: Params) {
 
   const { previous, next } = await getAdjacentActiveProjects(project.slug);
 
+  const overviewParagraphs = project.overview
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
   return (
     <>
       <Navigation />
@@ -61,19 +68,33 @@ export default async function ProjectDetailPage({ params }: Params) {
             <h2 className="mb-8 font-display text-2xl font-semibold text-text-1 md:text-3xl">
               Overview
             </h2>
-            <div className="max-w-3xl">
-              {project.overview
-                .split(/\n\s*\n/)
-                .map((paragraph) => paragraph.trim())
-                .filter(Boolean)
-                .map((paragraph, i) => (
-                  <p
-                    key={i}
-                    className="mb-4 text-base leading-relaxed text-text-1/75 last:mb-0 md:text-lg"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+            <div className="max-w-3xl lg:max-w-none lg:flow-root">
+              {project.featuredMedia && (
+                <figure className="hidden lg:float-right lg:mb-5 lg:ml-9 lg:block lg:w-[42%]">
+                  <div className="overflow-hidden rounded-xl border border-stroke">
+                    <ProjectMedia media={project.featuredMedia} aspect="aspect-[16/10]" eager />
+                  </div>
+                  {project.featuredMedia.caption && (
+                    <figcaption className="mt-2 text-xs leading-relaxed text-text-1/40">
+                      {project.featuredMedia.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              )}
+
+              {overviewParagraphs.map((paragraph, i) => (
+                <p
+                  key={i}
+                  className={cn(
+                    'mb-4 text-base leading-relaxed text-text-1/75 last:mb-0 md:text-lg lg:mb-0',
+                    i === 0
+                      ? 'lg:first-letter:float-left lg:first-letter:mr-3 lg:first-letter:mt-1 lg:first-letter:font-display lg:first-letter:text-6xl lg:first-letter:font-bold lg:first-letter:leading-[0.8] lg:first-letter:text-primary'
+                      : 'lg:indent-8',
+                  )}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </section>
