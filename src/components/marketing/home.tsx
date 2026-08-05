@@ -1,6 +1,5 @@
 'use client';
 
-import Navigation from '@/components/navigation';
 import { ShadowCursor } from '@/components/ui/cursor';
 import { useHashScroll } from '@/hooks/use-hash-scroll';
 
@@ -26,11 +25,10 @@ export default function Home({ hasTeam, content, featuredProjects, projectCount 
 
   return (
     <>
-      <Navigation />
       <Hero content={content.hero} />
       <About content={content.about} hasTeam={hasTeam} />
       <Services content={content.services} />
-      <SelectedWork projects={featuredProjects} totalCount={projectCount} />
+      <SelectedWork content={content.work} projects={featuredProjects} totalCount={projectCount} />
       <Approach content={content.approach} />
       <CallToAction content={content.cta} />
 

@@ -1,13 +1,7 @@
 import { FC } from 'react';
 
 import type { ProjectCardDTO, ProjectPlatform, ProjectService } from '@/types/project';
-import {
-  ORIGIN_LABELS,
-  LIFECYCLE_LABELS,
-  AVAILABILITY_LABELS,
-  PLATFORM_LABELS,
-  SERVICE_LABELS,
-} from '@/types/project';
+import { ORIGIN_LABELS, LIFECYCLE_LABELS, PLATFORM_LABELS, SERVICE_LABELS } from '@/types/project';
 import Badge, { type BadgeTone } from '@/components/ui/badge';
 
 interface StatusBadge {
@@ -29,19 +23,7 @@ function cardStatusBadges(project: ProjectCardDTO): StatusBadge[] {
 }
 
 export function detailStatusBadges(project: ProjectCardDTO): StatusBadge[] {
-  const badges: StatusBadge[] = [
-    { key: 'origin', label: ORIGIN_LABELS[project.origin], tone: 'brand' },
-    { key: 'lifecycle', label: LIFECYCLE_LABELS[project.lifecycle], tone: 'neutral' },
-  ];
-
-  if (project.availability !== 'public') {
-    badges.push({
-      key: 'availability',
-      label: AVAILABILITY_LABELS[project.availability],
-      tone: 'amber',
-    });
-  }
-  return badges;
+  return [{ key: 'origin', label: ORIGIN_LABELS[project.origin], tone: 'brand' }];
 }
 
 export const StatusBadges: FC<{ badges: StatusBadge[]; label?: string }> = ({ badges, label }) => {
@@ -96,7 +78,11 @@ export const ServiceTags: FC<{ services: ProjectService[]; label?: string }> = (
   );
 };
 
-const ProjectBadges: FC<{ project: ProjectCardDTO; label?: string }> = ({ project, label }) => {
+const ProjectBadges: FC<{ project: ProjectCardDTO; label?: string; quiet?: boolean }> = ({
+  project,
+  label,
+  quiet,
+}) => {
   const status = cardStatusBadges(project);
   if (status.length === 0 && project.platforms.length === 0) return null;
 
@@ -104,12 +90,14 @@ const ProjectBadges: FC<{ project: ProjectCardDTO; label?: string }> = ({ projec
     <ul aria-label={label ?? 'Project classification'} className="flex flex-wrap gap-1.5">
       {status.map((badge) => (
         <li key={badge.key}>
-          <Badge tone={badge.tone}>{badge.label}</Badge>
+          <Badge tone={badge.tone} variant={quiet ? 'outline' : 'solid'}>
+            {badge.label}
+          </Badge>
         </li>
       ))}
       {project.platforms.map((platform) => (
         <li key={platform}>
-          <Badge tone="sky" variant="outline">
+          <Badge tone={quiet ? 'neutral' : 'sky'} variant="outline">
             {PLATFORM_LABELS[platform]}
           </Badge>
         </li>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import Navigation from '@/components/navigation';
 import { Footer } from '@/components/marketing';
 import {
   ProjectHero,
@@ -29,12 +28,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `${project.title} | Pyramid`,
     description: project.summary,
-    alternates: { canonical: `/projects/${project.slug}` },
+    alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
       type: 'article',
       title: project.title,
       description: project.summary,
-      url: `/projects/${project.slug}`,
+      url: `/work/${project.slug}`,
       images: image ? [{ url: image, alt: project.featuredMedia?.altText ?? project.title }] : undefined,
     },
     twitter: {
@@ -59,7 +58,6 @@ export default async function ProjectDetailPage({ params }: Params) {
 
   return (
     <>
-      <Navigation />
       <main className="min-h-screen w-full bg-bg-1">
         <ProjectHero project={project} />
 

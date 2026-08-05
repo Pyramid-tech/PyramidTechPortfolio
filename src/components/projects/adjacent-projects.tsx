@@ -13,7 +13,7 @@ const AdjacentLink: FC<{ project: AdjacentProject; direction: 'previous' | 'next
   direction,
 }) => (
   <Link
-    href={`/projects/${project.slug}`}
+    href={`/work/${project.slug}`}
     rel={direction === 'previous' ? 'prev' : 'next'}
     className={`group flex flex-col gap-1 rounded-xl border border-stroke p-5 transition hover:border-text-1/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
       direction === 'next' ? 'sm:items-end sm:text-right' : ''

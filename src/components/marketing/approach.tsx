@@ -25,7 +25,10 @@ const Approach: FC<Props> = ({ content }) => {
   return (
     <section id="approach" className="border-t border-gray-1 bg-bg-1 py-16 pb-24 md:py-24">
       <SectionOpacity>
-        <SectionTitle title={content?.sectionTitle ?? ''} classes="px-6 pt-6 top-0 z-20 md:px-12" />
+        <SectionTitle
+          title={content?.sectionTitle ?? ''}
+          classes="text-right px-6 pt-6 top-0 z-20 md:px-12"
+        />
         <div className="px-6 pt-6 md:px-12">
           <HoverCards cards={cards} />
         </div>

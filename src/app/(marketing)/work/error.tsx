@@ -28,10 +28,10 @@ export default function ProjectsError({
           Try again
         </button>
         <Link
-          href="/projects"
+          href="/work"
           className="rounded-full border border-stroke px-5 py-2.5 text-sm text-text-1/70 transition hover:border-text-1/50 hover:text-text-1"
         >
-          All projects
+          All work
         </Link>
       </div>
     </main>

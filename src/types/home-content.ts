@@ -1,6 +1,8 @@
-// Content is authored in Sanity and is the single source of truth. Every field
-// is optional because the CMS may return a document with any field left unset;
-// components render what's present and omit what isn't (no hardcoded fallback).
+// Content is authored in Sanity and is the source of truth for authored copy.
+// Every field is optional because the CMS may return a document with any field
+// left unset; components render what's present and omit what isn't. The one
+// exception is the structural labels in HOME_CONTENT_FALLBACK, which have a
+// built-in default so the page never renders a blank heading.
 
 export interface ServiceCardContent {
   title?: string;
@@ -27,6 +29,10 @@ export interface HomeContent {
   services?: {
     sectionTitle?: string;
     cards?: ServiceCardContent[];
+  };
+  work?: {
+    sectionTitle?: string;
+    ctaLabel?: string;
   };
   approach?: {
     sectionTitle?: string;

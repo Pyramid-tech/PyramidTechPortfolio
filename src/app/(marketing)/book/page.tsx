@@ -2,7 +2,7 @@ import { BookForm } from '@/components/forms';
 
 const Index = () => {
   return (
-    <section className="min-h-screen w-full bg-bg-1 px-4 py-12 sm:py-16">
+    <section className="min-h-screen w-full bg-bg-1 px-4 pb-12 pt-24 sm:pb-16 sm:pt-28">
       <BookForm />
     </section>
   );

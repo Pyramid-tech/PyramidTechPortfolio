@@ -25,7 +25,7 @@ const BookForm: FC = () => {
   const { setValue, submitting, feedback, handleSubmit, resetKey, goHome } = useBookForm();
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 sm:px-6">
+    <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
       {/* Header */}
       <div className="mb-8 flex items-center gap-4">
         <button

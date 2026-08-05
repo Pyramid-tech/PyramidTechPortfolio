@@ -28,12 +28,12 @@ export type ProjectActionResult = { ok: true } | { ok: false; error: string };
 
 function revalidate(slugs: (string | null | undefined)[], projectId?: string): void {
   revalidatePath('/');
-  revalidatePath('/projects');
+  revalidatePath('/work');
   revalidatePath('/dashboard/projects');
   revalidatePath('/sitemap.xml');
   if (projectId) revalidatePath(`/dashboard/projects/${projectId}/edit`);
   for (const slug of slugs) {
-    if (slug) revalidatePath(`/projects/${slug}`);
+    if (slug) revalidatePath(`/work/${slug}`);
   }
 }
 

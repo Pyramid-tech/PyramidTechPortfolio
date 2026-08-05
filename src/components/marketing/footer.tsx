@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { LogoIcon } from '@/components/icons';
+import BackToTop from '@/components/ui/back-to-top';
 
 const CONTACT_EMAIL = 'aliassii2025@gmail.com';
 
@@ -67,9 +68,7 @@ const Footer: FC = () => {
         <span className="flex items-center gap-2">
           <LogoIcon className="h-4 w-4" />© {new Date().getFullYear()} Pyramid.
         </span>
-        <a href="#main" className="inline-flex items-center gap-1 transition hover:text-text-1">
-          Back to top ↑
-        </a>
+        <BackToTop />
       </div>
     </footer>
   );

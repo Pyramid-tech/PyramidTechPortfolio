@@ -22,8 +22,8 @@ Three things follow from this:
 flowchart LR
     A["You fill in<br/>the project form"] --> B["Save"]
     B --> C["Homepage<br/>Selected Work"]
-    B --> D["Projects page<br/>/projects"]
-    B --> E["The project's own page<br/>/projects/its-name"]
+    B --> D["Work page<br/>/work"]
+    B --> E["The project's own page<br/>/work/its-name"]
     C -.->|"visitor clicks"| E
     D -.->|"visitor clicks"| E
 ```
@@ -34,28 +34,28 @@ flowchart LR
 
 Three new things exist on the public site.
 
-### a. "Selected Work" on the homepage
+### a. The "Work" section on the homepage
 
 A new section between **Services** and **Approach**, showing a handful of hand-picked projects — the first one larger than the rest.
 
 - Only projects you tick **"Show in Selected Work"** appear here.
 - It shows at most **6**.
-- If more projects exist than the ones shown, a **"View all projects"** link appears at the bottom right.
+- If more projects exist than the ones shown, the link you set in **Sanity → Home Page → Work section → Link label** appears at the bottom right.
 - **Tick none and the whole section vanishes** — no empty heading, no blank space.
 
-A new **Work** item in the site menu takes visitors to the projects page.
+A **Work** item in the site menu takes visitors to the work page.
 
-### b. The Projects page (`/projects`)
+### b. The Work page (`/work`)
 
 Every live project in one list, with a short introduction at the top and the same card design as the homepage. No filters or search — just the full list in your chosen order.
 
 With no projects yet, it shows one quiet line: *"Project case studies are on their way."*
 
-### c. Each project's own page (`/projects/name-of-project`)
+### c. Each project's own page (`/work/name-of-project`)
 
 The real case study, top to bottom:
 
-1. A **← Projects** link back to the list
+1. A **← Work** link back to the list
 2. A small line of context — e.g. *Demo · Launched*, or *Client work · Maintained · Private*
 3. The **title** and **summary**
 4. The **buttons** you set up (visit site, app store, source code…)
@@ -71,7 +71,7 @@ Visitors never hit a dead end at the bottom of a page.
 
 ## 3. What a card looks like
 
-Cards appear on the homepage and the projects page, built from your entries like this:
+Cards appear on the homepage and the work page, built from your entries like this:
 
 ```mermaid
 flowchart TD
@@ -100,7 +100,7 @@ Open **Dashboard → Projects → + Add Project**. Six blocks.
 | Field | Required | What it does |
 |---|---|---|
 | **Title** | Yes | The project's name. The card heading and the big page title. |
-| **Slug** | Yes | The web address — `beit` becomes `/projects/beit`. **Fills in automatically from the title**; you can override it. Must be unique. |
+| **Slug** | Yes | The web address — `beit` becomes `/work/beit`. **Fills in automatically from the title**; you can override it. Must be unique. |
 | **Summary** | Yes | One or two lines. Used on the card (trimmed to 2 lines), under the page title, and in Google results. |
 | **Client** | No | The client's name. **Leave empty for demos and internal work** — nothing is shown. Write `Confidential client` if you want to say a client exists without naming them. |
 | **Industry** | No | e.g. *Retail*, *Education*. Facts panel only. |
@@ -243,7 +243,7 @@ flowchart LR
     B -->|"Reactivate"| A
 ```
 
-Deactivating removes the project from **everywhere at once**: the homepage, the projects page, its own page (which becomes "not found"), the previous/next links on other projects, and the list search engines read.
+Deactivating removes the project from **everywhere at once**: the homepage, the work page, its own page (which becomes "not found"), the previous/next links on other projects, and the list search engines read.
 
 It stays fully visible and editable in the dashboard, marked **Inactive**, so you can fix it up and bring it back whenever you like.
 

@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { or, and, isNull, gt, asc, sql, eq } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
 
@@ -65,14 +66,16 @@ export async function getActiveTeamMembers(): Promise<TeamMemberDTO[]> {
   return rows.map(toPublicDTO);
 }
 
-export async function getActiveTeamCount(): Promise<{ count: number; hasTeam: boolean }> {
-  const result = await db
-    .select({ total: sql<number>`count(*)::int` })
-    .from(pyramidTeam)
-    .where(publishedFilter);
-  const count = result[0]?.total ?? 0;
-  return { count, hasTeam: count > 0 };
-}
+export const getActiveTeamCount = cache(
+  async (): Promise<{ count: number; hasTeam: boolean }> => {
+    const result = await db
+      .select({ total: sql<number>`count(*)::int` })
+      .from(pyramidTeam)
+      .where(publishedFilter);
+    const count = result[0]?.total ?? 0;
+    return { count, hasTeam: count > 0 };
+  },
+);
 
 /**
  * The single member allowed to approve pending submissions: the earliest-created

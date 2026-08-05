@@ -5,7 +5,7 @@ import type { ProjectCardDTO } from '@/types/project';
 import { cn } from '@/lib/utils';
 
 import ProjectMedia from './project-media';
-import ProjectBadges, { ServiceTags } from './project-badges';
+import ProjectBadges from './project-badges';
 import ProjectActions, { visibleActions } from './project-actions';
 
 interface Props {
@@ -16,20 +16,34 @@ interface Props {
 
 const ProjectCard: FC<Props> = ({ project, lead, eager }) => {
   const actions = visibleActions(project);
-  const services = project.services.slice(0, 3);
-  const meta = [project.client, project.timeframe].filter(Boolean) as string[];
+  const client = project.client && project.client !== project.title ? project.client : null;
+  const meta = [client, project.timeframe].filter(Boolean) as string[];
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-stroke bg-bg-2 transition focus-within:border-primary/60 hover:border-text-1/30">
+    <article
+      className={cn(
+        'group relative flex flex-col overflow-hidden rounded-2xl border border-stroke bg-bg-2 transition focus-within:border-primary/60 hover:border-text-1/30',
+        lead && 'gap-6 p-5 sm:p-6 md:grid md:grid-cols-[1.15fr_1fr] md:items-center md:gap-8',
+      )}
+    >
       <ProjectMedia
         media={project.featuredMedia}
         aspect={lead ? 'aspect-[16/9]' : 'aspect-[16/10]'}
         eager={eager}
-        className="transition duration-500 motion-safe:group-hover:scale-[1.02]"
+        fallbackLabel={project.title}
+        className={cn(
+          'transition duration-500 motion-safe:group-hover:scale-[1.02]',
+          lead && 'rounded-xl border border-stroke/60',
+        )}
       />
 
-      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+      <div className={cn('flex flex-1 flex-col gap-3', !lead && 'p-5 sm:p-6')}>
         <div className="flex flex-col gap-1.5">
+          {meta.length > 0 && (
+            <p className="text-[0.7rem] uppercase tracking-[0.14em] text-text-1/45">
+              {meta.join(' · ')}
+            </p>
+          )}
           <h3
             className={cn(
               'font-display font-semibold leading-tight text-text-1',
@@ -37,29 +51,31 @@ const ProjectCard: FC<Props> = ({ project, lead, eager }) => {
             )}
           >
             <Link
-              href={`/projects/${project.slug}`}
+              href={`/work/${project.slug}`}
               className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
             >
               {project.title}
+              <span
+                aria-hidden
+                className="ml-2 inline-block text-primary transition-transform duration-300 group-hover:translate-x-1"
+              >
+                →
+              </span>
             </Link>
           </h3>
-          {meta.length > 0 && (
-            <p className="text-xs text-text-1/50">{meta.join(' · ')}</p>
-          )}
         </div>
 
-        <p className="line-clamp-2 text-sm leading-relaxed text-text-1/70">{project.summary}</p>
+        <p className="line-clamp-3 max-w-[60ch] text-sm leading-relaxed text-text-1/70">
+          {project.summary}
+        </p>
 
-        <ProjectBadges project={project} label={`${project.title} platforms`} />
+        <ProjectBadges project={project} label={`${project.title} platforms`} quiet />
 
-        <ServiceTags services={services} label={`${project.title} Pyramid services`} />
-
-        <div className="relative z-[1] mt-auto flex flex-wrap items-center gap-3 pt-2">
-          <span className="text-xs font-medium text-primary">
-            View case study <span aria-hidden>→</span>
-          </span>
-          {actions.length > 0 && <ProjectActions actions={actions.slice(0, 2)} />}
-        </div>
+        {actions.length > 0 && (
+          <div className="relative z-[1] mt-auto flex flex-wrap items-center gap-3 pt-2">
+            <ProjectActions actions={actions.slice(0, 2)} />
+          </div>
+        )}
       </div>
     </article>
   );

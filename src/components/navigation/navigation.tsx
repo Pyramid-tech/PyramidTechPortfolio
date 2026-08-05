@@ -1,14 +1,19 @@
 'use client';
 import { FC, useEffect, useState } from 'react';
 
+import Link from 'next/link';
 import { AnimatePresence } from 'framer-motion';
 
 import { LogoIcon } from '@/components/icons';
+import type { NavItem } from '@/lib/constants';
 
 import SidebarMenu from './sidebar-menu';
 
+interface Props {
+  items: NavItem[];
+}
 
-const Navigation: FC = () => {
+const Navigation: FC<Props> = ({ items }) => {
   const [isActive, setIsActive] = useState(false);
   const closeSidebar = () => setIsActive(false);
 
@@ -45,16 +50,20 @@ const Navigation: FC = () => {
           </div>
         </button>
       </div>
-      <button
+      <Link
+        href="/"
         title="Pyramid"
-        className="group fixed left-0 top-0 z-[100] flex items-center gap-2 p-4 md:gap-3 md:p-6"
+        aria-label="Pyramid — home"
+        className="group fixed left-0 top-0 z-[100] flex items-center gap-2 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:gap-3 md:p-6"
       >
         <LogoIcon className="h-10 w-10 transition duration-300 group-hover:text-white/80 md:h-12 md:w-12" />
         <span className="font-display text-xl font-extrabold uppercase tracking-[0.15em] text-text-1 transition duration-300 group-hover:text-white md:text-2xl">
           Pyramid
         </span>
-      </button>
-      <AnimatePresence mode="wait">{isActive && <SidebarMenu close={closeSidebar} />}</AnimatePresence>
+      </Link>
+      <AnimatePresence mode="wait">
+        {isActive && <SidebarMenu items={items} close={closeSidebar} />}
+      </AnimatePresence>
     </div>
   );
 };

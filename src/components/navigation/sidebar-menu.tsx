@@ -1,44 +1,42 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { NAV_ITEMS, type NavItem } from '@/lib/constants';
+import { type NavItem } from '@/lib/constants';
 import { menuSlide } from '@/lib/animations';
 
 import NavLink from './nav-link';
 
 interface Props {
+  items: NavItem[];
   close: () => void;
 }
 
-const SidebarMenu: FC<Props> = ({ close }) => {
+const SidebarMenu: FC<Props> = ({ items, close }) => {
   const [selectedIndicator, setSelectedIndicator] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
   const lenis = useLenis();
 
-  const navigate = (item: NavItem) => {
-    if (item.route) {
-      router.push(item.route);
-      close();
-      return;
-    }
-    smoothScroll(item.href);
-  };
+  useEffect(() => {
+    lenis?.stop();
+    return () => lenis?.start();
+  }, [lenis]);
 
-  const smoothScroll = (id: string) => {
-    if (pathname !== '/') {
-      // Let the home page's useHashScroll handle the smooth scroll on arrival.
-      router.push(`/#${id}`, { scroll: false });
-      close();
-      return;
+  const isCurrent = (item: NavItem) =>
+    item.route === '/' ? pathname === '/' : pathname.startsWith(item.route);
+
+  const navigate = (item: NavItem) => {
+    lenis?.start();
+
+    if (pathname === item.route) {
+      lenis?.scrollTo(0, { duration: 1.1 });
+    } else {
+      router.push(item.route);
     }
-    // Scroll through Lenis (the active smooth-scroll engine) instead of the
-    // browser's native scroll, which otherwise fights Lenis and stutters.
-    lenis?.scrollTo(`#${id}`, { duration: 1.1 });
     close();
   };
   return (
@@ -55,12 +53,13 @@ const SidebarMenu: FC<Props> = ({ close }) => {
         </div>
         <div className="flex h-full flex-col justify-between">
           <div className="flex flex-col justify-end space-y-2" onMouseLeave={() => setSelectedIndicator(null)}>
-            {NAV_ITEMS.map((item, index) => (
+            {items.map((item, index) => (
               <NavLink
                 handleClick={() => navigate(item)}
                 key={item.title}
                 data={{ ...item, index }}
-                isActive={selectedIndicator === item.href}
+                isActive={selectedIndicator === item.route}
+                isCurrent={isCurrent(item)}
                 setSelectedIndicator={setSelectedIndicator}
               />
             ))}

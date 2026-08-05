@@ -12,12 +12,19 @@ interface Props {
   aspect?: string;
   className?: string;
   eager?: boolean;
+  fallbackLabel?: string;
 }
 
-const ProjectMedia: FC<Props> = ({ media, aspect = 'aspect-[16/10]', className, eager }) => (
+const ProjectMedia: FC<Props> = ({
+  media,
+  aspect = 'aspect-[16/10]',
+  className,
+  eager,
+  fallbackLabel,
+}) => (
   <div className={cn('relative w-full overflow-hidden bg-bg-2', aspect, className)}>
     {!media ? (
-      <ProjectFallbackVisual />
+      <ProjectFallbackVisual label={fallbackLabel} />
     ) : media.kind === 'video' || media.kind === 'animation' ? (
       media.url ? (
         <ProjectVideo

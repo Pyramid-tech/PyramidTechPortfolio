@@ -61,6 +61,20 @@ export const homePage = defineType({
       ],
     }),
     defineField({
+      name: 'work',
+      title: 'Work section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'sectionTitle', title: 'Section title', type: 'string' }),
+        defineField({
+          name: 'ctaLabel',
+          title: 'Link label',
+          description: 'Shown when there are more projects than the homepage lists.',
+          type: 'string',
+        }),
+      ],
+    }),
+    defineField({
       name: 'approach',
       title: 'Approach section',
       type: 'object',

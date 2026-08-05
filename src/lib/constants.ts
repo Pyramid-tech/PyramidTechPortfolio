@@ -1,36 +1,19 @@
 export interface NavItem {
   title: string;
-  href: string;
-  route?: string;
+  route: string;
+  requires?: 'team' | 'projects';
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  {
-    title: 'Main',
-    href: 'main',
-  },
-  {
-    title: 'About',
-    href: 'about',
-  },
-  {
-    title: 'Services',
-    href: 'services',
-  },
-  {
-    title: 'Work',
-    href: 'work',
-    route: '/projects',
-  },
-  {
-    title: 'Approach',
-    href: 'approach',
-  },
-  {
-    title: 'Contact',
-    href: 'contact',
-  },
+  { title: 'Our Story', route: '/' },
+  { title: 'Our Team', route: '/team', requires: 'team' },
+  { title: 'Our Work', route: '/work', requires: 'projects' },
+  { title: 'Your Project', route: '/book' },
 ];
+
+export function visibleNavItems(available: { team: boolean; projects: boolean }): NavItem[] {
+  return NAV_ITEMS.filter((item) => !item.requires || available[item.requires]);
+}
 
 export const RADIO_FIELDS = [
   {

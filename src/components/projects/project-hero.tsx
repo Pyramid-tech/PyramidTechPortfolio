@@ -16,10 +16,10 @@ const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
     <header className="border-b border-gray-1 px-6 pb-12 pt-24 md:px-12 md:pb-16 md:pt-28">
       <div className="mx-auto max-w-6xl">
         <Link
-          href="/projects"
+          href="/work"
           className="inline-flex items-center gap-1.5 text-sm text-text-1/50 transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <span aria-hidden>←</span> Projects
+          <span aria-hidden>←</span> Work
         </Link>
 
         <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">

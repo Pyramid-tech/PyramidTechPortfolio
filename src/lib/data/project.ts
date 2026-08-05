@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { or, and, eq, ne, isNull, gt, asc, desc, inArray, sql } from 'drizzle-orm';
 
 import { db } from '@/lib/db';
@@ -200,13 +201,13 @@ export async function getActiveProjects(): Promise<ProjectCardDTO[]> {
   return toCards(rows);
 }
 
-export async function getActiveProjectCount(): Promise<number> {
+export const getActiveProjectCount = cache(async (): Promise<number> => {
   const result = await db
     .select({ total: sql<number>`count(*)::int` })
     .from(pyramidProjects)
     .where(activeProjectFilter);
   return result[0]?.total ?? 0;
-}
+});
 
 export async function getActiveProjectSlugs(): Promise<{ slug: string; updatedAt: Date | null }[]> {
   return db
