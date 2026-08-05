@@ -2,19 +2,15 @@ import { FC } from 'react';
 import Link from 'next/link';
 
 import type { ProjectDetailDTO } from '@/types/project';
-import { ORIGIN_LABELS, LIFECYCLE_LABELS, AVAILABILITY_LABELS } from '@/types/project';
 
 import ProjectMedia from './project-media';
 import ProjectFacts from './project-facts';
 import ProjectActions, { visibleActions } from './project-actions';
+import { StatusBadges, detailStatusBadges } from './project-badges';
 
 const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
   const actions = visibleActions(project);
-  const context = [
-    ORIGIN_LABELS[project.origin],
-    LIFECYCLE_LABELS[project.lifecycle],
-    project.availability === 'public' ? null : AVAILABILITY_LABELS[project.availability],
-  ].filter(Boolean) as string[];
+  const status = detailStatusBadges(project);
 
   return (
     <header className="border-b border-gray-1 px-6 pb-12 pt-24 md:px-12 md:pb-16 md:pt-28">
@@ -28,7 +24,7 @@ const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
 
         <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
           <div className="flex flex-col gap-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary">{context.join(' · ')}</p>
+            <StatusBadges badges={status} label={`${project.title} status`} />
             <h1 className="font-display text-4xl font-extrabold leading-none md:text-6xl lg:text-7xl">
               {project.title}
             </h1>

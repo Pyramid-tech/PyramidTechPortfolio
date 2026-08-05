@@ -2,11 +2,10 @@ import { FC } from 'react';
 import Link from 'next/link';
 
 import type { ProjectCardDTO } from '@/types/project';
-import { SERVICE_LABELS } from '@/types/project';
 import { cn } from '@/lib/utils';
 
 import ProjectMedia from './project-media';
-import ProjectBadges from './project-badges';
+import ProjectBadges, { ServiceTags } from './project-badges';
 import ProjectActions, { visibleActions } from './project-actions';
 
 interface Props {
@@ -17,7 +16,7 @@ interface Props {
 
 const ProjectCard: FC<Props> = ({ project, lead, eager }) => {
   const actions = visibleActions(project);
-  const services = project.services.slice(0, 3).map((service) => SERVICE_LABELS[service]);
+  const services = project.services.slice(0, 3);
   const meta = [project.client, project.timeframe].filter(Boolean) as string[];
 
   return (
@@ -53,9 +52,7 @@ const ProjectCard: FC<Props> = ({ project, lead, eager }) => {
 
         <ProjectBadges project={project} label={`${project.title} platforms`} />
 
-        {services.length > 0 && (
-          <p className="text-xs text-text-1/40">{services.join(' · ')}</p>
-        )}
+        <ServiceTags services={services} label={`${project.title} Pyramid services`} />
 
         <div className="relative z-[1] mt-auto flex flex-wrap items-center gap-3 pt-2">
           <span className="text-xs font-medium text-primary">
