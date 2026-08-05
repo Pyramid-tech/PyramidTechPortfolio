@@ -1,21 +1,10 @@
-import { Dashboard } from '@/components/dashboard';
+import TeamManager from '@/components/dashboard/team-manager';
 import { requireUser } from '@/lib/auth';
 import { getAdminTeamMembers, getApproverId } from '@/lib/data/team';
-import { getBookRequests } from '@/lib/data/book';
 
 export default async function DashboardPage() {
   const user = await requireUser();
-  const [members, requests, approverId] = await Promise.all([
-    getAdminTeamMembers(),
-    getBookRequests(),
-    getApproverId(),
-  ]);
+  const [members, approverId] = await Promise.all([getAdminTeamMembers(), getApproverId()]);
 
-  return (
-    <Dashboard
-      initialMembers={members}
-      initialRequests={requests}
-      isApprover={user.id === approverId}
-    />
-  );
+  return <TeamManager members={members} isApprover={user.id === approverId} />;
 }

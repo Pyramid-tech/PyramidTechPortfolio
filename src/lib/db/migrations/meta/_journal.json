@@ -36,6 +36,13 @@
       "when": 1782597276624,
       "tag": "0004_fine_master_chief",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1785689998361,
+      "tag": "0005_solid_northstar",
+      "breakpoints": true
     }
   ]
 }

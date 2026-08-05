@@ -1,4 +1,10 @@
-export const NAV_ITEMS = [
+export interface NavItem {
+  title: string;
+  href: string;
+  route?: string;
+}
+
+export const NAV_ITEMS: NavItem[] = [
   {
     title: 'Main',
     href: 'main',
@@ -10,6 +16,11 @@ export const NAV_ITEMS = [
   {
     title: 'Services',
     href: 'services',
+  },
+  {
+    title: 'Work',
+    href: 'work',
+    route: '/projects',
   },
   {
     title: 'Approach',

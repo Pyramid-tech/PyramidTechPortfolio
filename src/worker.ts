@@ -4,6 +4,8 @@ config({ path: `${process.cwd()}/.env.local` });
 import { getBoss } from '@/lib/jobs/boss';
 import { registerCleanupAvatars } from '@/lib/jobs/cleanup-avatars';
 import { registerCleanupLogs } from '@/lib/jobs/cleanup-logs';
+import { registerCleanupProjectMedia } from '@/lib/jobs/cleanup-project-media';
+import { registerCaptureProjectMedia } from '@/lib/jobs/capture-project-media';
 import { logger } from '@/lib/logger';
 
 async function start(): Promise<void> {
@@ -17,6 +19,8 @@ async function start(): Promise<void> {
 
   await registerCleanupAvatars(boss);
   await registerCleanupLogs(boss);
+  await registerCleanupProjectMedia(boss);
+  await registerCaptureProjectMedia(boss);
 
   logger.info('Worker started — waiting for jobs');
 

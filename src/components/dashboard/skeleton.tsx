@@ -1,69 +1,80 @@
 import { FC } from 'react';
 
-const TeamSkeletonRow: FC = () => (
-  <tr className="border-b border-stroke/50">
-    <td className="px-4 py-4 sm:px-6"><div className="h-3.5 w-24 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 sm:table-cell sm:px-6"><div className="h-3.5 w-28 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 md:table-cell sm:px-6"><div className="h-3.5 w-36 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 lg:table-cell sm:px-6"><div className="h-3.5 w-6 rounded bg-bg-1" /></td>
-    <td className="px-4 py-4 sm:px-6"><div className="h-5 w-14 rounded-full bg-bg-1" /></td>
-    <td className="px-4 py-4 sm:px-6">
-      <div className="flex items-center justify-end gap-2">
-        <div className="h-6 w-8 rounded-md bg-bg-1" />
-        <div className="h-6 w-16 rounded-md bg-bg-1" />
+export type SkeletonVariant = 'team' | 'requests' | 'projects';
+
+interface Column {
+  label: string;
+  className?: string;
+  width: string;
+}
+
+const COLUMNS: Record<SkeletonVariant, Column[]> = {
+  team: [
+    { label: 'Name', width: 'w-24' },
+    { label: 'Job Title', className: 'hidden sm:table-cell', width: 'w-28' },
+    { label: 'Email', className: 'hidden md:table-cell', width: 'w-36' },
+    { label: 'Order', className: 'hidden lg:table-cell', width: 'w-6' },
+    { label: 'Status', width: 'w-14' },
+    { label: 'Actions', className: 'text-right', width: 'w-24' },
+  ],
+  requests: [
+    { label: 'Name', width: 'w-24' },
+    { label: 'Email', className: 'hidden md:table-cell', width: 'w-36' },
+    { label: 'Company', className: 'hidden md:table-cell', width: 'w-28' },
+    { label: 'Service', width: 'w-20' },
+    { label: 'Budget', className: 'hidden lg:table-cell', width: 'w-16' },
+    { label: 'Date', className: 'hidden sm:table-cell', width: 'w-20' },
+    { label: 'Details', className: 'text-right', width: 'w-10' },
+  ],
+  projects: [
+    { label: 'Title', width: 'w-32' },
+    { label: 'Client', className: 'hidden lg:table-cell', width: 'w-24' },
+    { label: 'Origin', className: 'hidden md:table-cell', width: 'w-20' },
+    { label: 'Platforms', className: 'hidden lg:table-cell', width: 'w-28' },
+    { label: 'Order', className: 'hidden lg:table-cell', width: 'w-6' },
+    { label: 'Status', width: 'w-14' },
+    { label: 'Actions', className: 'text-right', width: 'w-24' },
+  ],
+};
+
+const DashboardSkeleton: FC<{ rows?: number; variant?: SkeletonVariant }> = ({
+  rows = 5,
+  variant = 'team',
+}) => {
+  const columns = COLUMNS[variant];
+
+  return (
+    <div className="animate-pulse overflow-hidden rounded-2xl border border-stroke bg-bg-2">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[480px] text-sm">
+          <thead>
+            <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-1/40">
+              {columns.map((column) => (
+                <th key={column.label} className={`px-4 py-4 sm:px-6 ${column.className ?? ''}`}>
+                  {column.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: rows }).map((_, rowIndex) => (
+              <tr key={rowIndex} className="border-b border-stroke/50">
+                {columns.map((column) => (
+                  <td key={column.label} className={`px-4 py-4 sm:px-6 ${column.className ?? ''}`}>
+                    <div
+                      className={`h-3.5 rounded bg-bg-1 ${column.width} ${
+                        column.className?.includes('text-right') ? 'ml-auto' : ''
+                      }`}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </td>
-  </tr>
-);
-
-const RequestSkeletonRow: FC = () => (
-  <tr className="border-b border-stroke/50">
-    <td className="px-4 py-4 sm:px-6"><div className="h-3.5 w-24 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 md:table-cell sm:px-6"><div className="h-3.5 w-36 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 md:table-cell sm:px-6"><div className="h-3.5 w-28 rounded bg-bg-1" /></td>
-    <td className="px-4 py-4 sm:px-6"><div className="h-3.5 w-20 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 lg:table-cell sm:px-6"><div className="h-3.5 w-16 rounded bg-bg-1" /></td>
-    <td className="hidden px-4 py-4 sm:table-cell sm:px-6"><div className="h-3.5 w-20 rounded bg-bg-1" /></td>
-    <td className="px-4 py-4 sm:px-6">
-      <div className="flex justify-end"><div className="h-6 w-10 rounded-md bg-bg-1" /></div>
-    </td>
-  </tr>
-);
-
-const DashboardSkeleton: FC<{ rows?: number; tab?: 'team' | 'requests' }> = ({ rows = 5, tab = 'team' }) => (
-  <div className="animate-pulse overflow-hidden rounded-2xl border border-stroke bg-bg-2">
-    <div className="overflow-x-auto">
-      <table className={`w-full text-sm ${tab === 'team' ? 'min-w-[480px]' : 'min-w-[480px]'}`}>
-        <thead>
-          {tab === 'team' ? (
-            <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-1/40">
-              <th className="px-4 py-4 sm:px-6">Name</th>
-              <th className="hidden px-4 py-4 sm:table-cell sm:px-6">Job Title</th>
-              <th className="hidden px-4 py-4 md:table-cell sm:px-6">Email</th>
-              <th className="hidden px-4 py-4 lg:table-cell sm:px-6">Order</th>
-              <th className="px-4 py-4 sm:px-6">Status</th>
-              <th className="px-4 py-4 text-right sm:px-6">Actions</th>
-            </tr>
-          ) : (
-            <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-1/40">
-              <th className="px-4 py-4 sm:px-6">Name</th>
-              <th className="hidden px-4 py-4 md:table-cell sm:px-6">Email</th>
-              <th className="hidden px-4 py-4 md:table-cell sm:px-6">Company</th>
-              <th className="px-4 py-4 sm:px-6">Service</th>
-              <th className="hidden px-4 py-4 lg:table-cell sm:px-6">Budget</th>
-              <th className="hidden px-4 py-4 sm:table-cell sm:px-6">Date</th>
-              <th className="px-4 py-4 text-right sm:px-6">Details</th>
-            </tr>
-          )}
-        </thead>
-        <tbody>
-          {Array.from({ length: rows }).map((_, i) =>
-            tab === 'team' ? <TeamSkeletonRow key={i} /> : <RequestSkeletonRow key={i} />,
-          )}
-        </tbody>
-      </table>
     </div>
-  </div>
-);
+  );
+};
 
 export default DashboardSkeleton;

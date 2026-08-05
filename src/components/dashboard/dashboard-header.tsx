@@ -1,38 +1,37 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, ReactNode, useState } from 'react';
 
-interface Props {
-  showAdd: boolean;
-  onAdd: () => void;
-  onLogout: () => void;
-  loggingOut: boolean;
-}
+import { logoutAction } from '@/lib/actions/auth';
 
-const DashboardHeader: FC<Props> = ({ showAdd, onAdd, onLogout, loggingOut }) => (
-  <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
-    <div>
-      <h1 className="font-display text-2xl font-bold uppercase tracking-widest text-primary sm:text-3xl">Pyramid</h1>
-      <p className="mt-1 text-xs text-text-1/50 sm:text-sm">Admin Dashboard</p>
-    </div>
-    <div className="flex flex-wrap gap-2 sm:gap-3">
-      {showAdd && (
+const DashboardHeader: FC<{ actions?: ReactNode }> = ({ actions }) => {
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    await logoutAction();
+  };
+
+  return (
+    <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 className="font-display text-2xl font-bold uppercase tracking-widest text-primary sm:text-3xl">
+          Pyramid
+        </h1>
+        <p className="mt-1 text-xs text-text-1/50 sm:text-sm">Admin Dashboard</p>
+      </div>
+      <div className="flex flex-wrap gap-2 sm:gap-3">
+        {actions}
         <button
-          onClick={onAdd}
-          className="rounded-lg border border-primary px-3 py-2 text-xs font-medium text-primary transition hover:bg-primary hover:text-bg-1 sm:px-4 sm:text-sm"
+          onClick={handleLogout}
+          disabled={loggingOut}
+          className="rounded-lg border border-stroke px-3 py-2 text-xs text-text-1/60 transition hover:border-text-1/40 hover:text-text-1 disabled:opacity-50 sm:px-4 sm:text-sm"
         >
-          + Add Member
+          {loggingOut ? 'Logging out…' : 'Logout'}
         </button>
-      )}
-      <button
-        onClick={onLogout}
-        disabled={loggingOut}
-        className="rounded-lg border border-stroke px-3 py-2 text-xs text-text-1/60 transition hover:border-text-1/40 hover:text-text-1 disabled:opacity-50 sm:px-4 sm:text-sm"
-      >
-        {loggingOut ? 'Logging out…' : 'Logout'}
-      </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default DashboardHeader;

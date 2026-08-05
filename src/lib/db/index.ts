@@ -8,7 +8,14 @@ let _db: Db | null = null;
 function getInstance(): Db {
   if (!_db) {
     const isPooler = process.env.DATABASE_URL?.includes('pooler.supabase.com');
-    _db = drizzle(postgres(process.env.DATABASE_URL!, { prepare: !isPooler }));
+    const isServerless = Boolean(process.env.VERCEL);
+    _db = drizzle(
+      postgres(process.env.DATABASE_URL!, {
+        prepare: !isPooler,
+        max: isServerless ? 1 : 10,
+        idle_timeout: isServerless ? 20 : undefined,
+      }),
+    );
   }
   return _db;
 }

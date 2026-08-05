@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { NAV_ITEMS } from '@/lib/constants';
+import { NAV_ITEMS, type NavItem } from '@/lib/constants';
 import { menuSlide } from '@/lib/animations';
 
 import NavLink from './nav-link';
@@ -19,6 +19,15 @@ const SidebarMenu: FC<Props> = ({ close }) => {
   const pathname = usePathname();
   const router = useRouter();
   const lenis = useLenis();
+
+  const navigate = (item: NavItem) => {
+    if (item.route) {
+      router.push(item.route);
+      close();
+      return;
+    }
+    smoothScroll(item.href);
+  };
 
   const smoothScroll = (id: string) => {
     if (pathname !== '/') {
@@ -48,7 +57,7 @@ const SidebarMenu: FC<Props> = ({ close }) => {
           <div className="flex flex-col justify-end space-y-2" onMouseLeave={() => setSelectedIndicator(null)}>
             {NAV_ITEMS.map((item, index) => (
               <NavLink
-                handleClick={() => smoothScroll(item.href)}
+                handleClick={() => navigate(item)}
                 key={item.title}
                 data={{ ...item, index }}
                 isActive={selectedIndicator === item.href}
