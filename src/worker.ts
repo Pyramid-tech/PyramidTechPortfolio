@@ -6,6 +6,7 @@ import { registerCleanupAvatars } from '@/lib/jobs/cleanup-avatars';
 import { registerCleanupLogs } from '@/lib/jobs/cleanup-logs';
 import { registerCleanupProjectMedia } from '@/lib/jobs/cleanup-project-media';
 import { registerCaptureProjectMedia } from '@/lib/jobs/capture-project-media';
+import { registerTeamNudge } from '@/lib/jobs/team-nudge';
 import { logger } from '@/lib/logger';
 
 async function start(): Promise<void> {
@@ -21,6 +22,7 @@ async function start(): Promise<void> {
   await registerCleanupLogs(boss);
   await registerCleanupProjectMedia(boss);
   await registerCaptureProjectMedia(boss);
+  await registerTeamNudge(boss);
 
   logger.info('Worker started — waiting for jobs');
 

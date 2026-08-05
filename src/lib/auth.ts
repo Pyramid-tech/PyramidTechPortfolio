@@ -52,6 +52,11 @@ export async function verifyCredentials(
   const valid = await bcrypt.compare(password, member.password);
   if (!valid) throw new AuthError();
 
+  await db
+    .update(pyramidTeam)
+    .set({ latestLoginAt: new Date() })
+    .where(eq(pyramidTeam.id, member.id));
+
   const user: AuthUserDTO = {
     id: member.id,
     name: member.name,

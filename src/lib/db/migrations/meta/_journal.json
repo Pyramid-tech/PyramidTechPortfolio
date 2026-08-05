@@ -43,6 +43,13 @@
       "when": 1785689998361,
       "tag": "0005_solid_northstar",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1785959320793,
+      "tag": "0006_parallel_william_stryker",
+      "breakpoints": true
     }
   ]
 }

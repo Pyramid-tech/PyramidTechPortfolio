@@ -12,6 +12,7 @@ export const pyramidTeam = pgTable(
     avatarUrl: text('avatar_url'),
     password: varchar('password', { length: 255 }),
     displayOrder: integer('display_order').default(0),
+    latestLoginAt: timestamp('latest_login_at', { withTimezone: true }),
     deactivatedAt: timestamp('deactivated_at', { withTimezone: true }),
     reactivatedAt: timestamp('reactivated_at', { withTimezone: true }),
     // AI confidence gate / approval workflow. Default 'approved' keeps existing
