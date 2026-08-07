@@ -1,8 +1,9 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 import { requireUser } from '@/lib/auth';
+import { NAV_COUNTS_TAG, FEATURED_PROJECTS_TAG } from '@/lib/data/cache-tags';
 import { createProjectSchema, updateProjectSchema } from '@/lib/validations/project';
 import {
   createProject,
@@ -27,6 +28,8 @@ import type {
 export type ProjectActionResult = { ok: true } | { ok: false; error: string };
 
 function revalidate(slugs: (string | null | undefined)[], projectId?: string): void {
+  revalidateTag(NAV_COUNTS_TAG);
+  revalidateTag(FEATURED_PROJECTS_TAG);
   revalidatePath('/');
   revalidatePath('/work');
   revalidatePath('/dashboard/projects');

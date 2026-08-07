@@ -1,8 +1,9 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 import { requireUser } from '@/lib/auth';
+import { NAV_COUNTS_TAG } from '@/lib/data/cache-tags';
 import { createMemberSchema, updateMemberSchema } from '@/lib/validations/team';
 import {
   createTeamMember,
@@ -26,6 +27,7 @@ import type {
 export type ActionResult = { ok: true } | { ok: false; error: string };
 
 function revalidate(): void {
+  revalidateTag(NAV_COUNTS_TAG);
   revalidatePath('/dashboard');
   revalidatePath('/team');
   revalidatePath('/'); // home "Meet the team" CTA depends on the team count

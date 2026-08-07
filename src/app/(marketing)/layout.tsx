@@ -1,13 +1,9 @@
 import Navigation from '@/components/navigation';
 import { visibleNavItems } from '@/lib/constants';
-import { getActiveTeamCount } from '@/lib/data/team';
-import { getActiveProjectCount } from '@/lib/data/project';
+import { getNavCounts } from '@/lib/data/nav';
 
 export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
-  const [{ hasTeam }, projectCount] = await Promise.all([
-    getActiveTeamCount(),
-    getActiveProjectCount(),
-  ]);
+  const { hasTeam, projectCount } = await getNavCounts();
 
   return (
     <>

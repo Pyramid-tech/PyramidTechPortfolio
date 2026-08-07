@@ -14,6 +14,8 @@ function getInstance(): Db {
         prepare: !isPooler,
         max: isServerless ? 1 : 10,
         idle_timeout: isServerless ? 20 : undefined,
+        connect_timeout: 10,
+        max_lifetime: 60 * 5,
       }),
     );
   }

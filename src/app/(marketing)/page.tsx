@@ -1,16 +1,16 @@
 import { Home as HomeContent } from '@/components/marketing';
-import { getActiveTeamCount } from '@/lib/data/team';
 import { getHomeContent } from '@/lib/data/home-content';
-import { getFeaturedProjects, getActiveProjectCount } from '@/lib/data/project';
+import { getCachedFeaturedProjects } from '@/lib/data/project';
+import { getNavCounts } from '@/lib/data/nav';
+import { resilient } from '@/lib/data/resilient';
 
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [{ hasTeam }, content, featuredProjects, projectCount] = await Promise.all([
-    getActiveTeamCount(),
+  const [{ hasTeam, projectCount }, content, featuredProjects] = await Promise.all([
+    getNavCounts(),
     getHomeContent(),
-    getFeaturedProjects(6),
-    getActiveProjectCount(),
+    resilient('home:featured-projects', () => getCachedFeaturedProjects(6), []),
   ]);
 
   return (
