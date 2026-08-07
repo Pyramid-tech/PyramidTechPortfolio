@@ -168,7 +168,7 @@ const MediaFields: FC<Props> = ({
               name="featured-media"
               checked={item.isFeatured}
               onChange={() => setFeatured(index)}
-              className="accent-[#CCC2DC]"
+              className="accent-primary"
             />
             Featured visual
           </label>

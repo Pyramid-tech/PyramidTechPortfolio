@@ -53,7 +53,7 @@ const AvatarPicker: FC<Props> = ({ name, avatarUrl, onChange, onUploadingChange 
           </div>
         )}
         {uploading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+          <div className="absolute inset-0 flex items-center justify-center bg-scrim">
             <Spinner />
           </div>
         )}
@@ -73,12 +73,12 @@ const AvatarPicker: FC<Props> = ({ name, avatarUrl, onChange, onUploadingChange 
           <button
             type="button"
             onClick={() => onChange('')}
-            className="text-left text-xs text-red-400/70 transition hover:text-red-400"
+            className="text-left text-xs text-danger/70 transition hover:text-danger"
           >
             Remove
           </button>
         )}
-        {uploadError && <p className="text-xs text-red-400">{uploadError}</p>}
+        {uploadError && <p className="text-xs text-danger">{uploadError}</p>}
       </div>
     </div>
   );

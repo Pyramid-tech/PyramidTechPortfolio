@@ -2,13 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --c-bg-1: 20 18 24;
+  --c-bg-2: 33 31 38;
+  --c-bg-3: 43 41 48;
+  --c-gray-1: 48 48 48;
+  --c-stroke: 74 68 88;
+
+  --c-primary: 204 194 220;
+  --c-on-primary: 20 18 24;
+
+  --c-control: 168 162 158;
+  --c-on-control: 64 64 64;
+
+  --c-text-1: 230 224 233;
+  --c-text-strong: 255 255 255;
+
+  --c-overlay: 0 0 0;
+  --overlay-opacity: 0.6;
+
+  --c-success: 74 222 128;
+  --c-success-surface: 34 197 94;
+  --c-danger: 248 113 113;
+  --c-danger-surface: 239 68 68;
+  --c-warning: 251 191 36;
+  --c-warning-surface: 245 158 11;
+
+  --hero-blob-from: #1c1c1c;
+  --hero-blob-to: #211f26;
+  --hero-accent: #404040;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --c-bg-1: 246 244 249;
+  --c-bg-2: 255 255 255;
+  --c-bg-3: 239 235 244;
+  --c-gray-1: 229 225 235;
+  --c-stroke: 207 199 219;
+
+  --c-primary: 91 76 125;
+  --c-on-primary: 255 255 255;
+
+  --c-control: 43 41 48;
+  --c-on-control: 246 244 249;
+
+  --c-text-1: 28 26 33;
+  --c-text-strong: 10 9 13;
+
+  --c-overlay: 28 26 33;
+  --overlay-opacity: 0.45;
+
+  --c-success: 21 122 70;
+  --c-success-surface: 22 163 74;
+  --c-danger: 179 38 30;
+  --c-danger-surface: 220 38 38;
+  --c-warning: 146 94 4;
+  --c-warning-surface: 217 119 6;
+
+  --hero-blob-from: #ece7f3;
+  --hero-blob-to: #ded6ea;
+  --hero-accent: #c6bcd7;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 
   &::selection {
-    @apply bg-primary text-bg-1;
+    @apply bg-primary text-on-primary;
   }
 }
 
@@ -17,12 +84,27 @@ body {
   @apply text-text-1;
 }
 
-html {
-  color-scheme: dark;
-}
-
 body {
   @apply bg-bg-1;
+}
+
+:root.theme-transition,
+:root.theme-transition *,
+:root.theme-transition *::before,
+:root.theme-transition *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  transition-delay: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root.theme-transition,
+  :root.theme-transition *,
+  :root.theme-transition *::before,
+  :root.theme-transition *::after {
+    transition: none !important;
+  }
 }
 
 a {

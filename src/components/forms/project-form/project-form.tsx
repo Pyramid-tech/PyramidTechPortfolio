@@ -237,7 +237,7 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
               type="checkbox"
               checked={form.featured}
               onChange={(e) => update('featured', e.target.checked)}
-              className="accent-[#CCC2DC]"
+              className="accent-primary"
             />
             Show in Selected Work on the homepage
           </label>
@@ -253,12 +253,12 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
       </FormSection>
 
       {error && (
-        <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400" role="alert">
+        <p className="rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger" role="alert">
           {error}
         </p>
       )}
       {saved && (
-        <p className="rounded-lg bg-green-500/10 px-4 py-2 text-sm text-green-400" role="status">
+        <p className="rounded-lg bg-success-surface/10 px-4 py-2 text-sm text-success" role="status">
           Saved.
         </p>
       )}

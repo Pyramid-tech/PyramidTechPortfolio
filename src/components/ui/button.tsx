@@ -17,10 +17,10 @@ const Button: FC<Props> = ({ title, classes, btnClasses, ...props }) => {
       )}
       {...props}
     >
-      <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#CCC2DC_0%,#4A4458_50%,#CCC2DC_100%)] motion-reduce:animate-none" />
+      <span className="absolute inset-[-1000%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,rgb(var(--c-primary))_0%,rgb(var(--c-stroke))_50%,rgb(var(--c-primary))_100%)] motion-reduce:animate-none" />
       <span
         className={cn(
-          'inline-flex h-full min-h-12 cursor-pointer items-center justify-center rounded-full px-6 py-3 font-medium text-white backdrop-blur-3xl transition duration-300',
+          'inline-flex h-full min-h-12 cursor-pointer items-center justify-center rounded-full px-6 py-3 font-medium text-text-1 backdrop-blur-3xl transition duration-300',
           classes,
         )}
       >

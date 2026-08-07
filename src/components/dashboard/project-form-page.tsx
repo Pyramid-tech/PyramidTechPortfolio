@@ -50,7 +50,7 @@ const ProjectFormPage: FC<Props> = ({ mode, project }) => {
           </h2>
         </div>
         {mode === 'edit' && project && !project.isActive && (
-          <p className="rounded-full bg-red-500/15 px-3 py-1 text-xs text-red-400">
+          <p className="rounded-full bg-danger-surface/15 px-3 py-1 text-xs text-danger">
             Deactivated — hidden from all public pages
           </p>
         )}

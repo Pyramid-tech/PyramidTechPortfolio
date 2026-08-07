@@ -22,7 +22,7 @@ const AdjacentLink: FC<{ project: AdjacentProject; direction: 'previous' | 'next
     <span className="text-xs uppercase tracking-widest text-text-1/40">
       {direction === 'previous' ? 'Previous project' : 'Next project'}
     </span>
-    <span className="font-display text-lg font-semibold text-text-1 transition group-hover:text-white">
+    <span className="font-display text-lg font-semibold text-text-1 transition group-hover:text-text-strong">
       {project.title}
     </span>
   </Link>

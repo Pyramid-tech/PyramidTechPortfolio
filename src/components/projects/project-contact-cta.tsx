@@ -18,7 +18,7 @@ const ProjectContactCta: FC<Props> = ({ actions }) => {
         <h2 className="font-display text-3xl font-medium md:text-5xl lg:text-6xl">
           Have something like this in mind?
         </h2>
-        <p className="mt-3 text-base leading-relaxed text-gray-300 md:text-lg">
+        <p className="mt-3 text-base leading-relaxed text-text-1/75 md:text-lg">
           Tell us what you are building and we will map out how to get it shipped.
         </p>
 

@@ -57,7 +57,7 @@ const ProjectsManager: FC<{ projects: AdminProjectListItemDTO[] }> = ({ projects
       <DashboardNav />
 
       {error && (
-        <p className="mb-4 rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400" role="alert">
+        <p className="mb-4 rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger" role="alert">
           {error}
         </p>
       )}
@@ -90,7 +90,7 @@ const ProjectsManager: FC<{ projects: AdminProjectListItemDTO[] }> = ({ projects
               type="button"
               onClick={() => runToggle(confirming)}
               disabled={togglingId === confirming.id}
-              className="rounded-lg border border-red-400/60 bg-red-500/10 px-6 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500 hover:text-bg-1 disabled:opacity-50"
+              className="rounded-lg border border-danger/60 bg-danger-surface/10 px-6 py-2 text-sm font-medium text-danger transition hover:bg-danger-surface hover:text-bg-1 disabled:opacity-50"
             >
               {togglingId === confirming.id ? 'Deactivating…' : 'Deactivate'}
             </button>

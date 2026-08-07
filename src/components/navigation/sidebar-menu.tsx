@@ -26,8 +26,7 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
     return () => lenis?.start();
   }, [lenis]);
 
-  const isCurrent = (item: NavItem) =>
-    item.route === '/' ? pathname === '/' : pathname.startsWith(item.route);
+  const isCurrent = (item: NavItem) => (item.route === '/' ? pathname === '/' : pathname.startsWith(item.route));
 
   const navigate = (item: NavItem) => {
     lenis?.start();
@@ -41,14 +40,16 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
   };
   return (
     <>
-      <motion.div
+      <motion.nav
+        id="site-navigation"
+        aria-label="Main"
         variants={menuSlide}
         initial="initial"
         animate="enter"
         exit="exit"
         className="fixed right-0 top-0 z-[4000] h-screen w-4/5 max-w-xs bg-gray-1 px-8 pb-10 pt-20 text-text-1"
       >
-        <div className="mb-6 w-full border-b border-white/20 pb-2 uppercase text-white/60 ">
+        <div className="mb-6 w-full border-b border-stroke pb-2 uppercase text-text-1/60 ">
           <h3 className="font-display text-xs leading-tight md:text-sm">Navigation</h3>
         </div>
         <div className="flex h-full flex-col justify-between">
@@ -65,11 +66,11 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
             ))}
           </div>
         </div>
-      </motion.div>
+      </motion.nav>
       <div
-        aria-label="button"
+        aria-hidden="true"
         onClick={close}
-        className="fixed bottom-0 left-0 right-0 top-0 z-[750] bg-bg-1/60 transition"
+        className="fixed bottom-0 left-0 right-0 top-0 z-[750] bg-scrim transition"
       ></div>
     </>
   );

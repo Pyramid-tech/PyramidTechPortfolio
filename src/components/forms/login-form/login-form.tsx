@@ -6,6 +6,7 @@ import { loginAction } from '@/lib/actions/auth';
 import Button from '@/components/ui/button';
 import Field from '@/components/ui/field';
 import Input from '@/components/ui/input';
+import { ThemeToggle } from '@/components/theme';
 
 const LoginForm: FC = () => {
   const [email, setEmail] = useState('');
@@ -31,8 +32,13 @@ const LoginForm: FC = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-bg-1 px-4">
       <div className="w-full max-w-md rounded-2xl border border-stroke bg-bg-2 p-10">
-        <h1 className="mb-2 font-display text-3xl font-bold uppercase tracking-widest text-primary">Pyramid</h1>
-        <p className="mb-8 text-sm text-text-1/50">Admin access only</p>
+        <div className="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="mb-2 font-display text-3xl font-bold uppercase tracking-widest text-primary">Pyramid</h1>
+            <p className="text-sm text-text-1/50">Admin access only</p>
+          </div>
+          <ThemeToggle className="-mr-1 rounded-lg ring-offset-bg-2" />
+        </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <Field label="Email" labelClassName="text-text-1/60">
@@ -57,7 +63,7 @@ const LoginForm: FC = () => {
             />
           </Field>
 
-          {error && <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400">{error}</p>}
+          {error && <p className="rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger">{error}</p>}
 
           <Button
             type="submit"

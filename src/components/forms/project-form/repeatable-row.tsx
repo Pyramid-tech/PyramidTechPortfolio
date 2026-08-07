@@ -40,7 +40,7 @@ const RepeatableRow: FC<Props> = ({ label, index, total, onMove, onRemove, child
           type="button"
           onClick={() => onRemove(index)}
           aria-label={`Remove ${label} ${index + 1}`}
-          className="rounded-md border border-stroke px-2 py-1 text-xs text-red-400/80 transition hover:border-red-400/60 hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="rounded-md border border-stroke px-2 py-1 text-xs text-danger/80 transition hover:border-danger/60 hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           Remove
         </button>

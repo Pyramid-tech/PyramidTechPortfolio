@@ -32,7 +32,7 @@ const ProjectFacts: FC<{ project: ProjectDetailDTO }> = ({ project }) => (
 
     <Fact term="Stage">{LIFECYCLE_LABELS[project.lifecycle]}</Fact>
     <Fact term="Availability">
-      <span className={project.availability === 'public' ? undefined : 'text-amber-400'}>
+      <span className={project.availability === 'public' ? undefined : 'text-warning'}>
         {AVAILABILITY_LABELS[project.availability]}
       </span>
     </Fact>

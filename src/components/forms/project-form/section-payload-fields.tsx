@@ -156,7 +156,7 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
                   onClick={() =>
                     onChange({ ...payload, items: payload.items.filter((_, idx) => idx !== i) })
                   }
-                  className="mt-2 text-xs text-red-400/70 transition hover:text-red-400"
+                  className="mt-2 text-xs text-danger/70 transition hover:text-danger"
                 >
                   Remove image
                 </button>
@@ -239,7 +239,7 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
                   onClick={() =>
                     onChange({ ...payload, items: payload.items.filter((_, idx) => idx !== i) })
                   }
-                  className="w-fit text-xs text-red-400/70 transition hover:text-red-400"
+                  className="w-fit text-xs text-danger/70 transition hover:text-danger"
                 >
                   Remove feature
                 </button>
@@ -297,7 +297,7 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
                   onClick={() =>
                     onChange({ ...payload, items: payload.items.filter((_, idx) => idx !== i) })
                   }
-                  className="w-fit text-xs text-red-400/70 transition hover:text-red-400"
+                  className="w-fit text-xs text-danger/70 transition hover:text-danger"
                 >
                   Remove metric
                 </button>

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { ReactLenis } from 'lenis/react';
 
 import { fontVariables } from '@/lib/fonts';
+import { ThemeProvider, ThemeScript } from '@/components/theme';
 
 import './globals.scss';
 
@@ -16,13 +17,20 @@ export default function RootLayout({
   const isStudio = usePathname().startsWith('/studio');
 
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="en" className={fontVariables} data-theme="dark" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>
-        {isStudio ? children : (
-          <ReactLenis root>
-            <main>{children}</main>
-          </ReactLenis>
-        )}
+        <ThemeProvider>
+          {isStudio ? (
+            children
+          ) : (
+            <ReactLenis root>
+              <main>{children}</main>
+            </ReactLenis>
+          )}
+        </ThemeProvider>
       </body>
     </html>
   );

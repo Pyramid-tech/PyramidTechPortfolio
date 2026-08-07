@@ -58,7 +58,7 @@ const ImageField: FC<Props> = ({ label, value, projectId, onChange, onUploadingC
             </div>
           )}
           {uploading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+            <div className="absolute inset-0 flex items-center justify-center bg-scrim">
               <Spinner />
             </div>
           )}
@@ -91,13 +91,13 @@ const ImageField: FC<Props> = ({ label, value, projectId, onChange, onUploadingC
               <button
                 type="button"
                 onClick={() => onChange('')}
-                className="text-xs text-red-400/70 transition hover:text-red-400"
+                className="text-xs text-danger/70 transition hover:text-danger"
               >
                 Clear
               </button>
             )}
           </div>
-          {uploadError && <p className="text-xs text-red-400">{uploadError}</p>}
+          {uploadError && <p className="text-xs text-danger">{uploadError}</p>}
         </div>
       </div>
     </Field>

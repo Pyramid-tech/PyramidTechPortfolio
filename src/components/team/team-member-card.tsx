@@ -12,7 +12,7 @@ const getInitials = (name: string) =>
 
 const TeamMemberCard: FC<{ member: TeamMemberDTO }> = ({ member }) => (
   <div className="group flex w-full flex-col gap-3">
-    <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-stroke/40 bg-gradient-to-b from-stone-700 to-stone-900">
+    <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-stroke/40 bg-gradient-to-b from-bg-3 to-bg-2">
       {member.avatarUrl ? (
         <img
           src={member.avatarUrl}
@@ -30,7 +30,7 @@ const TeamMemberCard: FC<{ member: TeamMemberDTO }> = ({ member }) => (
       <p className="text-base font-semibold leading-tight">{member.name}</p>
       <p className="text-sm text-primary">{member.jobTitle}</p>
       {member.description && (
-        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-gray-400">{member.description}</p>
+        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-text-1/70">{member.description}</p>
       )}
     </div>
 

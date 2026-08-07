@@ -75,7 +75,7 @@ const ActionFields: FC<Props> = ({ actions, onChange, onMove, onAdd }) => {
               name="primary-action"
               checked={action.isPrimary}
               onChange={() => setPrimary(index)}
-              className="accent-[#CCC2DC]"
+              className="accent-primary"
             />
             Primary action
           </label>

@@ -76,8 +76,8 @@ const MemberActions: FC<RowProps> = ({
         disabled={togglingId === member.id}
         className={`rounded-md px-2 py-1.5 text-xs transition disabled:opacity-50 sm:px-3 ${
           member.isActive
-            ? 'text-red-400 hover:bg-red-500/10'
-            : 'text-green-400 hover:bg-green-500/10'
+            ? 'text-danger hover:bg-danger-surface/10'
+            : 'text-success hover:bg-success-surface/10'
         }`}
       >
         {togglingId === member.id ? '…' : member.isActive ? 'Deactivate' : 'Reactivate'}
@@ -87,7 +87,7 @@ const MemberActions: FC<RowProps> = ({
         <button
           onClick={() => onApprove(member)}
           disabled={reviewingId === member.id}
-          className="rounded-md px-2 py-1.5 text-xs text-green-400 transition hover:bg-green-500/10 disabled:opacity-50 sm:px-3"
+          className="rounded-md px-2 py-1.5 text-xs text-success transition hover:bg-success-surface/10 disabled:opacity-50 sm:px-3"
         >
           {reviewingId === member.id ? '…' : 'Approve'}
         </button>
@@ -95,7 +95,7 @@ const MemberActions: FC<RowProps> = ({
           <button
             onClick={() => onReject(member)}
             disabled={reviewingId === member.id}
-            className="rounded-md px-2 py-1.5 text-xs text-red-400 transition hover:bg-red-500/10 disabled:opacity-50 sm:px-3"
+            className="rounded-md px-2 py-1.5 text-xs text-danger transition hover:bg-danger-surface/10 disabled:opacity-50 sm:px-3"
           >
             Reject
           </button>

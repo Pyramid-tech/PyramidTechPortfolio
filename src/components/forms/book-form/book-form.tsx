@@ -99,7 +99,7 @@ const BookForm: FC = () => {
             <p
               className={cn(
                 'rounded-lg px-4 py-2.5 text-sm sm:text-right',
-                feedback.type === 'success' ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400',
+                feedback.type === 'success' ? 'bg-success-surface/10 text-success' : 'bg-danger-surface/10 text-danger',
               )}
             >
               {feedback.message}

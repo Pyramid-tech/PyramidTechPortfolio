@@ -30,7 +30,7 @@ const SelectedWork: FC<Props> = ({ content, projects, totalCount }) => {
           <div className="mt-10 flex justify-end">
             <Link
               href="/work"
-              className="group inline-flex items-center gap-1.5 text-sm text-text-1 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
+              className="group inline-flex items-center gap-1.5 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
             >
               {ctaLabel}
               <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>

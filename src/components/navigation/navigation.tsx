@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AnimatePresence } from 'framer-motion';
 
 import { LogoIcon } from '@/components/icons';
+import { ThemeToggle } from '@/components/theme';
 import type { NavItem } from '@/lib/constants';
 
 import SidebarMenu from './sidebar-menu';
@@ -29,41 +30,42 @@ const Navigation: FC<Props> = ({ items }) => {
   }, []);
   return (
     <div>
-      <div className="fixed right-0 z-[4001] p-4 md:p-6">
-        <button
-          type="button"
-          aria-label="Toggle menu"
-          onClick={() => setIsActive(!isActive)}
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-stone-400 md:h-12 md:w-12"
-        >
-          <div className="flex h-5 w-6 flex-col items-center justify-center gap-1.5">
-            <span
-              className={`h-0.5 w-full origin-center bg-neutral-700 transition duration-300 ${
-                isActive ? 'translate-y-1 rotate-45' : ''
-              }`}
-            />
-            <span
-              className={`h-0.5 w-full origin-center bg-neutral-700 transition duration-300 ${
-                isActive ? '-translate-y-1 -rotate-45' : ''
-              }`}
-            />
-          </div>
-        </button>
-      </div>
       <Link
         href="/"
         title="Pyramid"
         aria-label="Pyramid — home"
         className="group fixed left-0 top-0 z-[100] flex items-center gap-2 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:gap-3 md:p-6"
       >
-        <LogoIcon className="h-10 w-10 transition duration-300 group-hover:text-white/80 md:h-12 md:w-12" />
-        <span className="font-display text-xl font-extrabold uppercase tracking-[0.15em] text-text-1 transition duration-300 group-hover:text-white md:text-2xl">
+        <LogoIcon className="h-10 w-10 transition duration-300 group-hover:text-text-strong/80 md:h-12 md:w-12" />
+        <span className="font-display text-lg font-extrabold uppercase tracking-[0.1em] text-text-1 transition duration-300 group-hover:text-text-strong sm:text-xl sm:tracking-[0.15em] md:text-2xl">
           Pyramid
         </span>
       </Link>
-      <AnimatePresence mode="wait">
-        {isActive && <SidebarMenu items={items} close={closeSidebar} />}
-      </AnimatePresence>
+      <div className="fixed right-0 z-[4001] flex items-center gap-2 p-4 md:gap-3 md:p-6">
+        <ThemeToggle />
+        <button
+          type="button"
+          aria-label={isActive ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={isActive}
+          aria-controls="site-navigation"
+          onClick={() => setIsActive(!isActive)}
+          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-control transition duration-200 ease-out hover:brightness-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-1 active:scale-[0.97] motion-reduce:transition-none md:h-12 md:w-12"
+        >
+          <div className="flex h-5 w-6 flex-col items-center justify-center gap-1.5">
+            <span
+              className={`h-0.5 w-full origin-center bg-on-control transition duration-300 motion-reduce:transition-none ${
+                isActive ? 'translate-y-1 rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-0.5 w-full origin-center bg-on-control transition duration-300 motion-reduce:transition-none ${
+                isActive ? '-translate-y-1 -rotate-45' : ''
+              }`}
+            />
+          </div>
+        </button>
+      </div>
+      <AnimatePresence mode="wait">{isActive && <SidebarMenu items={items} close={closeSidebar} />}</AnimatePresence>
     </div>
   );
 };

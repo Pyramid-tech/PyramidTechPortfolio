@@ -20,7 +20,7 @@ const RadioFieldGroup: FC<Props> = ({ field, onChange }) => (
   <fieldset className="flex flex-col rounded-xl border border-stroke/60 bg-bg-1/40 p-4 sm:p-5">
     <legend className="px-1 text-sm font-semibold text-text-1">
       {field.title}
-      {field.required && <span className="ml-1 text-red-400">*</span>}
+      {field.required && <span className="ml-1 text-danger">*</span>}
     </legend>
     <RadioGroup onValueChange={onChange} className="mt-3 gap-1" required>
       {field.radioArray.map((radio) => (

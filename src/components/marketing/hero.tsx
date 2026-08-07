@@ -1,8 +1,7 @@
 'use client';
 import { useRef } from 'react';
-import Image from 'next/image';
-
 import Button from '@/components/ui/button';
+import { HeroFrameMobile, HeroFrameOne, HeroFrameThree, HeroFrameTwo } from './hero-frames';
 import useFloatingImages from '@/hooks/use-floating-images';
 import { useIsCoarsePointer } from '@/hooks/use-media-query';
 
@@ -68,21 +67,21 @@ const Hero = ({ content }: Props) => {
         </motion.div>
         {/* Landscape (wide) viewports: layered, mouse-parallax frames (wide art) */}
         <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-10 hidden h-full w-full landscape:block">
-          <Image src="/images/hero/frame-1.svg" fill={true} alt="" className="object-cover" />
+          <HeroFrameOne />
         </div>
 
         <div ref={ref2} className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block">
-          <Image src="/images/hero/frame-2.svg" fill={true} alt="" className="object-cover" />
+          <HeroFrameTwo />
         </div>
 
         <div ref={ref3} className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block">
-          <Image src="/images/hero/frame-3.svg" fill={true} alt="" className="object-cover" />
+          <HeroFrameThree />
         </div>
 
         {/* Portrait viewports (phones, folds, portrait tablets): single portrait
             composition with smaller, scattered circles */}
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full landscape:hidden">
-          <Image src="/images/hero/frame-mobile.svg" fill={true} alt="" className="object-cover" />
+          <HeroFrameMobile />
         </div>
       </div>
     </section>

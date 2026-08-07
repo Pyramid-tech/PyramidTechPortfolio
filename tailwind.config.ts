@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
-const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
+const channel = (name: string) => `rgb(var(--c-${name}) / <alpha-value>)`;
 
 module.exports = {
+  darkMode: ['class', '[data-theme="dark"]'],
   content: ['src/components/**/*.{ts,tsx}', 'app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
@@ -12,15 +13,31 @@ module.exports = {
         display: ['var(--font-display, var(--font-sans))', 'system-ui', 'sans-serif'],
       },
       colors: {
-        primary: '#CCC2DC',
-        'bg-1': '#141218',
-        'bg-2': '#211F26',
+        primary: channel('primary'),
+        'on-primary': channel('on-primary'),
 
-        'text-1': '#E6E0E9',
+        control: channel('control'),
+        'on-control': channel('on-control'),
 
-        'gray-1': '#303030',
+        'bg-1': channel('bg-1'),
+        'bg-2': channel('bg-2'),
+        'bg-3': channel('bg-3'),
 
-        stroke: '#4A4458',
+        'text-1': channel('text-1'),
+        'text-strong': channel('text-strong'),
+
+        'gray-1': channel('gray-1'),
+
+        stroke: channel('stroke'),
+
+        scrim: 'rgb(var(--c-overlay) / var(--overlay-opacity))',
+
+        success: channel('success'),
+        'success-surface': channel('success-surface'),
+        danger: channel('danger'),
+        'danger-surface': channel('danger-surface'),
+        warning: channel('warning'),
+        'warning-surface': channel('warning-surface'),
       },
 
       animation: {
@@ -49,15 +66,5 @@ module.exports = {
       },
     },
   },
-  plugins: [addVariablesForColors, require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')],
 };
-
-// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme('colors'));
-  let newVars = Object.fromEntries(Object.entries(allColors).map(([key, val]) => [`--${key}`, val]));
-
-  addBase({
-    ':root': newVars,
-  });
-}

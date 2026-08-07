@@ -38,7 +38,7 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
         <div className="flex flex-col gap-4">
           <p
             className={`rounded-lg px-4 py-3 text-sm ${
-              published ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'
+              published ? 'bg-success-surface/10 text-success' : 'bg-warning-surface/10 text-warning'
             }`}
           >
             {published
@@ -90,7 +90,7 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
         />
         <MemberFormFields mode={mode} form={form} setField={setField} />
 
-        {error && <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400">{error}</p>}
+        {error && <p className="rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger">{error}</p>}
 
         <div className="mt-2 flex justify-end gap-3">
           <button

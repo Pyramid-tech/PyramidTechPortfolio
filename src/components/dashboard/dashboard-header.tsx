@@ -3,6 +3,7 @@
 import { FC, ReactNode, useState } from 'react';
 
 import { logoutAction } from '@/lib/actions/auth';
+import { ThemeToggle } from '@/components/theme';
 
 const DashboardHeader: FC<{ actions?: ReactNode }> = ({ actions }) => {
   const [loggingOut, setLoggingOut] = useState(false);
@@ -20,8 +21,9 @@ const DashboardHeader: FC<{ actions?: ReactNode }> = ({ actions }) => {
         </h1>
         <p className="mt-1 text-xs text-text-1/50 sm:text-sm">Admin Dashboard</p>
       </div>
-      <div className="flex flex-wrap gap-2 sm:gap-3">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
         {actions}
+        <ThemeToggle className="rounded-lg" />
         <button
           onClick={handleLogout}
           disabled={loggingOut}
