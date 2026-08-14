@@ -12,7 +12,7 @@ const SOLID: Record<BadgeTone, string> = {
   brand: 'bg-primary/15 text-primary',
   sky: 'bg-sky-500/15 text-sky-300',
   emerald: 'bg-success-surface/15 text-success',
-  neutral: 'bg-text-1/10 text-text-1/70',
+  neutral: 'bg-text-1/10 text-text-2',
 };
 
 const OUTLINE: Record<BadgeTone, string> = {
@@ -22,7 +22,7 @@ const OUTLINE: Record<BadgeTone, string> = {
   brand: 'border border-primary/40 bg-primary/5 text-primary',
   sky: 'border border-sky-400/30 bg-sky-500/5 text-sky-300',
   emerald: 'border border-success/30 bg-success-surface/5 text-success',
-  neutral: 'border border-stroke bg-transparent text-text-1/60',
+  neutral: 'border border-stroke bg-transparent text-text-3',
 };
 
 interface Props {

@@ -19,7 +19,7 @@ const DashboardHeader: FC<{ actions?: ReactNode }> = ({ actions }) => {
         <h1 className="font-display text-2xl font-bold uppercase tracking-widest text-primary sm:text-3xl">
           Pyramid
         </h1>
-        <p className="mt-1 text-xs text-text-1/50 sm:text-sm">Admin Dashboard</p>
+        <p className="mt-1 text-xs text-text-3 sm:text-sm">Admin Dashboard</p>
       </div>
       <div className="flex flex-wrap items-center gap-2 sm:gap-3">
         {actions}
@@ -27,7 +27,7 @@ const DashboardHeader: FC<{ actions?: ReactNode }> = ({ actions }) => {
         <button
           onClick={handleLogout}
           disabled={loggingOut}
-          className="rounded-lg border border-stroke px-3 py-2 text-xs text-text-1/60 transition hover:border-text-1/40 hover:text-text-1 disabled:opacity-50 sm:px-4 sm:text-sm"
+          className="rounded-lg border border-stroke px-3 py-2 text-xs text-text-3 transition hover:border-text-1/40 hover:text-text-1 disabled:opacity-50 sm:px-4 sm:text-sm"
         >
           {loggingOut ? 'Logging out…' : 'Logout'}
         </button>

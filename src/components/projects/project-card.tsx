@@ -40,19 +40,19 @@ const ProjectCard: FC<Props> = ({ project, lead, eager }) => {
       <div className={cn('flex flex-1 flex-col gap-3', !lead && 'p-5 sm:p-6')}>
         <div className="flex flex-col gap-1.5">
           {meta.length > 0 && (
-            <p className="text-[0.7rem] uppercase tracking-[0.14em] text-text-1/45">
+            <p className="text-[0.7rem] uppercase tracking-[0.14em] text-text-3">
               {meta.join(' · ')}
             </p>
           )}
           <h3
             className={cn(
-              'font-display font-semibold leading-tight text-text-1',
-              lead ? 'text-2xl md:text-3xl' : 'text-xl',
+              'font-display font-semibold leading-tight tracking-tight text-text-1',
+              lead ? 'text-3xl md:text-4xl' : 'text-2xl md:text-[1.75rem]',
             )}
           >
             <Link
               href={`/work/${project.slug}`}
-              className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+              className="inline-flex min-h-11 items-center after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
             >
               {project.title}
               <span
@@ -65,14 +65,12 @@ const ProjectCard: FC<Props> = ({ project, lead, eager }) => {
           </h3>
         </div>
 
-        <p className="line-clamp-3 max-w-[60ch] text-sm leading-relaxed text-text-1/70">
-          {project.summary}
-        </p>
+        <p className="max-w-[60ch] text-sm leading-relaxed text-text-2">{project.summary}</p>
 
         <ProjectBadges project={project} label={`${project.title} platforms`} quiet />
 
         {actions.length > 0 && (
-          <div className="relative z-[1] mt-auto flex flex-wrap items-center gap-3 pt-2">
+          <div className="relative z-raised mt-auto flex flex-wrap items-center gap-3 pt-2">
             <ProjectActions actions={actions.slice(0, 2)} />
           </div>
         )}

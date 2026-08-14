@@ -21,19 +21,23 @@ const SelectedWork: FC<Props> = ({ content, projects, totalCount }) => {
 
   return (
     <section id="work" className="border-t border-gray-1 py-16 md:py-24">
-      <SectionTitle title={sectionTitle} classes="px-6 pt-8 md:px-12" />
+      <div className="px-6 md:px-12">
+        <SectionTitle title={sectionTitle} />
 
-      <div className="px-6 pt-10 md:px-12">
-        <ProjectGrid projects={projects} leadFirst />
+        <div className="mt-10 md:mt-14">
+          <ProjectGrid projects={projects} leadFirst />
+        </div>
 
         {totalCount > projects.length && (
-          <div className="mt-10 flex justify-end">
+          <div className="mt-10 flex justify-start">
             <Link
               href="/work"
-              className="group inline-flex items-center gap-1.5 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
+              className="group inline-flex min-h-11 items-center gap-1.5 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
             >
               {ctaLabel}
-              <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+              <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+                →
+              </span>
             </Link>
           </div>
         )}

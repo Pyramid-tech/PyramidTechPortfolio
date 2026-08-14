@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import SectionTitle from '@/components/ui/section-title';
+
 const SkeletonCard: FC = () => (
   <div className="flex w-full flex-col gap-3">
     {/* avatar */}
@@ -26,14 +28,17 @@ const SkeletonCard: FC = () => (
   </div>
 );
 
-const TeamSkeleton: FC<{ count?: number }> = ({ count = 5 }) => (
-  <div className="mx-auto max-w-6xl px-4 sm:px-6">
-    <div className="mb-12 text-center sm:mb-16">
-      <h1 className="font-display text-3xl font-bold sm:text-4xl lg:text-5xl">Our Team</h1>
-      <p className="mt-2 text-sm text-text-1/70 sm:text-base">The people behind Pyramid.</p>
-    </div>
+const TeamSkeleton: FC<{ count?: number }> = ({ count = 8 }) => (
+  <div className="mx-auto max-w-6xl px-6 md:px-12">
+    <header className="mb-12 sm:mb-16">
+      <SectionTitle as="h1" title="TEAM." />
+      <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">
+        The engineers and designers who build the work. Small on purpose, so the people who scope your
+        project are the people who ship it.
+      </p>
+    </header>
 
-    <div className="grid animate-pulse grid-cols-[repeat(auto-fit,minmax(140px,200px))] justify-center gap-x-8 gap-y-12">
+    <div className="grid animate-pulse grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:gap-x-8 lg:grid-cols-4">
       {Array.from({ length: count }).map((_, i) => (
         <SkeletonCard key={i} />
       ))}

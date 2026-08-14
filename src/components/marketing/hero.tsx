@@ -41,32 +41,32 @@ const Hero = ({ content }: Props) => {
     <section id="main" className="relative bg-gradient-to-b  ">
       <div
         onMouseMove={isCoarsePointer ? undefined : manageMouseMove}
-        className="relative left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden"
+        className="relative left-0 top-0 flex h-[100svh] w-full flex-col items-center justify-center overflow-hidden px-6"
       >
         <motion.h1
           ref={heading1}
-          className="relative z-20 -mt-6 w-full px-4 text-center font-display text-4xl font-extrabold leading-tight text-text-1 sm:text-6xl md:-mt-10 md:text-7xl lg:text-8xl"
+          className="relative z-raised mx-auto max-w-[16ch] text-balance text-center font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-text-1 sm:text-6xl md:text-7xl lg:text-8xl"
           style={{ opacity }}
         >
           {content?.title}
         </motion.h1>
-        <motion.h2
+        <motion.p
           ref={heading2}
-          className="z-20 font-display text-base font-medium text-text-1/75 sm:text-lg md:text-2xl"
+          className="z-raised mt-5 max-w-[46ch] text-balance text-center text-base font-medium text-text-2 sm:text-lg md:mt-6 md:text-xl"
           style={{ opacity }}
         >
           {content?.subtitle}
-        </motion.h2>
-        <motion.div className="z-20" style={{ opacity }}>
+        </motion.p>
+        <motion.div className="z-raised" style={{ opacity }}>
           <Button
             onClick={scrollToAbout}
             title={content?.ctaLabel ?? ''}
             classes="bg-bg-1 hover:bg-bg-1/80"
-            btnClasses="mt-6"
+            btnClasses="mt-8"
           />
         </motion.div>
         {/* Landscape (wide) viewports: layered, mouse-parallax frames (wide art) */}
-        <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-10 hidden h-full w-full landscape:block">
+        <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-0 hidden h-full w-full landscape:block">
           <HeroFrameOne />
         </div>
 
@@ -80,7 +80,7 @@ const Hero = ({ content }: Props) => {
 
         {/* Portrait viewports (phones, folds, portrait tablets): single portrait
             composition with smaller, scattered circles */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full landscape:hidden">
+        <div className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full landscape:hidden">
           <HeroFrameMobile />
         </div>
       </div>

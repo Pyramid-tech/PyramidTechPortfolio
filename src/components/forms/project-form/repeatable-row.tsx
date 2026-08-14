@@ -14,7 +14,7 @@ interface Props {
 const RepeatableRow: FC<Props> = ({ label, index, total, onMove, onRemove, children }) => (
   <div className="rounded-xl border border-stroke/70 bg-bg-1/40 p-4">
     <div className="mb-3 flex items-center justify-between gap-3">
-      <p className="text-xs uppercase tracking-widest text-text-1/40">
+      <p className="text-xs uppercase tracking-widest text-text-3">
         {label} {index + 1}
       </p>
       <div className="flex items-center gap-1">
@@ -23,7 +23,7 @@ const RepeatableRow: FC<Props> = ({ label, index, total, onMove, onRemove, child
           onClick={() => onMove(index, -1)}
           disabled={index === 0}
           aria-label={`Move ${label} ${index + 1} up`}
-          className="rounded-md border border-stroke px-2 py-1 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-30"
+          className="rounded-md border border-stroke px-2 py-1 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-30"
         >
           ↑
         </button>
@@ -32,7 +32,7 @@ const RepeatableRow: FC<Props> = ({ label, index, total, onMove, onRemove, child
           onClick={() => onMove(index, 1)}
           disabled={index === total - 1}
           aria-label={`Move ${label} ${index + 1} down`}
-          className="rounded-md border border-stroke px-2 py-1 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-30"
+          className="rounded-md border border-stroke px-2 py-1 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-30"
         >
           ↓
         </button>

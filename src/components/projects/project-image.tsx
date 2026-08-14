@@ -11,9 +11,10 @@ interface Props {
   alt: string | null;
   className?: string;
   eager?: boolean;
+  fallbackLabel?: string;
 }
 
-const ProjectImage: FC<Props> = ({ src, alt, className, eager }) => {
+const ProjectImage: FC<Props> = ({ src, alt, className, eager, fallbackLabel }) => {
   const [failed, setFailed] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
 
@@ -26,7 +27,7 @@ const ProjectImage: FC<Props> = ({ src, alt, className, eager }) => {
     if (img && img.complete && img.naturalWidth === 0) setFailed(true);
   }, [src]);
 
-  if (!src || failed) return <ProjectFallbackVisual className={className} />;
+  if (!src || failed) return <ProjectFallbackVisual label={fallbackLabel} className={className} />;
 
   return (
     <img

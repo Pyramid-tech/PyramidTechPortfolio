@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useId } from 'react';
 
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
@@ -16,25 +16,39 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-const RadioFieldGroup: FC<Props> = ({ field, onChange }) => (
-  <fieldset className="flex flex-col rounded-xl border border-stroke/60 bg-bg-1/40 p-4 sm:p-5">
-    <legend className="px-1 text-sm font-semibold text-text-1">
-      {field.title}
-      {field.required && <span className="ml-1 text-danger">*</span>}
-    </legend>
-    <RadioGroup onValueChange={onChange} className="mt-3 gap-1" required>
-      {field.radioArray.map((radio) => (
-        <label
-          key={radio.value}
-          htmlFor={radio.name}
-          className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-2 text-sm text-text-1/80 transition hover:bg-bg-2/70 hover:text-text-1"
-        >
-          <RadioGroupItem value={radio.value} id={radio.name} required />
-          <span>{radio.name.trim()}</span>
-        </label>
-      ))}
-    </RadioGroup>
-  </fieldset>
-);
+const RadioFieldGroup: FC<Props> = ({ field, onChange }) => {
+  const labelId = useId();
+
+  return (
+    <div className="flex flex-col gap-3">
+      <p id={labelId} className="text-balance text-sm font-semibold text-text-1">
+        {field.title}
+        {field.required && (
+          <span className="ml-1 text-danger" aria-hidden>
+            *
+          </span>
+        )}
+      </p>
+      <RadioGroup
+        onValueChange={onChange}
+        aria-labelledby={labelId}
+        aria-required={field.required}
+        className="flex flex-wrap gap-2"
+        required
+      >
+        {field.radioArray.map((radio) => (
+          <label
+            key={radio.value}
+            htmlFor={`${labelId}-${radio.value.trim()}`}
+            className="group flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-stroke bg-bg-1/40 px-4 text-sm text-text-2 transition hover:border-text-3 hover:text-text-1 has-[button[data-state=checked]]:border-primary has-[button[data-state=checked]]:bg-primary/10 has-[button[data-state=checked]]:text-text-1"
+          >
+            <RadioGroupItem value={radio.value} id={`${labelId}-${radio.value.trim()}`} required />
+            <span>{radio.name.trim()}</span>
+          </label>
+        ))}
+      </RadioGroup>
+    </div>
+  );
+};
 
 export default RadioFieldGroup;

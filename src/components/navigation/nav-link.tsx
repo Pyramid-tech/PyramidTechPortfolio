@@ -28,18 +28,19 @@ const NavLink: FC<Props> = ({ data, isActive, isCurrent, setSelectedIndicator, h
       animate="enter"
       exit="exit"
     >
-      <motion.div
-        className="absolute left-0 inline-block h-2 w-2 rounded-full bg-text-strong"
+      <motion.span
+        aria-hidden
+        className={cn('absolute left-0 inline-block h-2 w-2 rounded-full', isCurrent ? 'bg-accent' : 'bg-text-1')}
         variants={scale}
-        animate={isActive ? 'open' : 'closed'}
-      ></motion.div>
+        animate={isActive || isCurrent ? 'open' : 'closed'}
+      />
       <button
         type="button"
         onClick={handleClick}
         aria-current={isCurrent ? 'page' : undefined}
         className={cn(
-          'cursor-pointer text-left text-2xl font-semibold leading-snug tracking-wide transition duration-200 hover:translate-x-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-3xl',
-          isCurrent && 'text-text-strong',
+          'flex min-h-[52px] w-full cursor-pointer items-center pl-6 text-left font-display text-[1.75rem] font-bold leading-none tracking-tight transition duration-200 hover:translate-x-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary motion-reduce:transition-none md:text-4xl',
+          isCurrent ? 'text-text-strong' : 'text-text-1',
         )}
       >
         {title}

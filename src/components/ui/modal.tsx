@@ -18,7 +18,7 @@ const Modal: FC<Props> = ({ onClose, children, className }) => (
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute right-5 top-5 text-text-1/40 transition hover:text-text-1"
+        className="absolute right-5 top-5 text-text-3 transition hover:text-text-1"
       >
         ✕
       </button>

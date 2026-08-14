@@ -17,7 +17,7 @@ const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
       <div className="mx-auto max-w-6xl">
         <Link
           href="/work"
-          className="inline-flex items-center gap-1.5 text-sm text-text-1/50 transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="inline-flex items-center gap-1.5 text-sm text-text-3 transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           <span aria-hidden>←</span> Work
         </Link>
@@ -28,7 +28,7 @@ const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
             <h1 className="font-display text-4xl font-extrabold leading-none md:text-6xl lg:text-7xl">
               {project.title}
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-text-1/70 md:text-lg">
+            <p className="max-w-2xl text-base leading-relaxed text-text-2 md:text-lg">
               {project.summary}
             </p>
             {actions.length > 0 && <ProjectActions actions={actions} size="md" />}
@@ -42,7 +42,7 @@ const ProjectHero: FC<{ project: ProjectDetailDTO }> = ({ project }) => {
             <ProjectMedia media={project.featuredMedia} aspect="aspect-[16/9]" eager />
           </div>
           {project.featuredMedia?.caption && (
-            <p className="mt-3 text-xs text-text-1/40">{project.featuredMedia.caption}</p>
+            <p className="mt-3 text-xs text-text-3">{project.featuredMedia.caption}</p>
           )}
         </div>
       </div>

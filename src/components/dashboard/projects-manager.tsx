@@ -73,7 +73,7 @@ const ProjectsManager: FC<{ projects: AdminProjectListItemDTO[] }> = ({ projects
           <h2 className="mb-4 font-display text-xl font-bold uppercase tracking-widest text-primary">
             Deactivate project
           </h2>
-          <p className="text-sm leading-relaxed text-text-1/70">
+          <p className="text-sm leading-relaxed text-text-2">
             <span className="font-medium text-text-1">{confirming.title}</span> will disappear from
             Selected Work, the projects page, project navigation and the sitemap. Nothing is
             deleted — it stays here and you can reactivate it at any time.
@@ -82,7 +82,7 @@ const ProjectsManager: FC<{ projects: AdminProjectListItemDTO[] }> = ({ projects
             <button
               type="button"
               onClick={() => setConfirming(null)}
-              className="rounded-lg px-4 py-2 text-sm text-text-1/50 transition hover:text-text-1"
+              className="rounded-lg px-4 py-2 text-sm text-text-3 transition hover:text-text-1"
             >
               Cancel
             </button>

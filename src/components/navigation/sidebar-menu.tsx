@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { type NavItem } from '@/lib/constants';
 import { menuSlide } from '@/lib/animations';
+import { SITE } from '@/lib/site';
 
 import NavLink from './nav-link';
 
@@ -47,13 +48,13 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
         initial="initial"
         animate="enter"
         exit="exit"
-        className="fixed right-0 top-0 z-[4000] h-screen w-4/5 max-w-xs bg-gray-1 px-8 pb-10 pt-20 text-text-1"
+        className="fixed right-0 top-0 z-drawer flex h-[100svh] w-[86%] max-w-sm flex-col justify-between bg-gray-1 px-8 pb-10 pt-24 text-text-1"
       >
-        <div className="mb-6 w-full border-b border-stroke pb-2 uppercase text-text-1/60 ">
-          <h3 className="font-display text-xs leading-tight md:text-sm">Navigation</h3>
-        </div>
-        <div className="flex h-full flex-col justify-between">
-          <div className="flex flex-col justify-end space-y-2" onMouseLeave={() => setSelectedIndicator(null)}>
+        <div>
+          <div className="mb-8 w-full border-b border-stroke pb-2 uppercase text-text-3">
+            <h2 className="font-display text-xs leading-tight tracking-[0.18em] md:text-sm">Navigation</h2>
+          </div>
+          <div className="flex flex-col gap-1" onMouseLeave={() => setSelectedIndicator(null)}>
             {items.map((item, index) => (
               <NavLink
                 handleClick={() => navigate(item)}
@@ -66,11 +67,24 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
             ))}
           </div>
         </div>
+
+        <div className="flex flex-col gap-4 border-t border-stroke pt-6 text-sm">
+          <div className="flex flex-col gap-1">
+            <span className="font-display text-[0.7rem] uppercase tracking-[0.18em] text-text-3">Get in touch</span>
+            <a
+              href={`mailto:${SITE.email}`}
+              className="flex min-h-11 items-center text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              {SITE.email}
+            </a>
+          </div>
+          <span className="text-text-3">{SITE.location}</span>
+        </div>
       </motion.nav>
       <div
         aria-hidden="true"
         onClick={close}
-        className="fixed bottom-0 left-0 right-0 top-0 z-[750] bg-scrim transition"
+        className="fixed bottom-0 left-0 right-0 top-0 z-scrim bg-scrim transition"
       ></div>
     </>
   );

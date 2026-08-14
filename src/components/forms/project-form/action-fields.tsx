@@ -69,7 +69,7 @@ const ActionFields: FC<Props> = ({ actions, onChange, onMove, onAdd }) => {
             />
           </Field>
 
-          <label className="flex w-fit cursor-pointer items-center gap-2 text-sm text-text-1/70">
+          <label className="flex w-fit cursor-pointer items-center gap-2 text-sm text-text-2">
             <input
               type="radio"
               name="primary-action"
@@ -85,7 +85,7 @@ const ActionFields: FC<Props> = ({ actions, onChange, onMove, onAdd }) => {
       <button
         type="button"
         onClick={onAdd}
-        className="w-fit rounded-lg border border-stroke px-4 py-2 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="w-fit rounded-lg border border-stroke px-4 py-2 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         + Add action
       </button>

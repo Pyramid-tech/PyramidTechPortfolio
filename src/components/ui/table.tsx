@@ -16,7 +16,7 @@ export const Table: FC<{ className?: string; children: ReactNode }> = ({ classNa
 
 // Pre-styled header row.
 export const HeadRow: FC<{ children: ReactNode }> = ({ children }) => (
-  <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-1/40">{children}</tr>
+  <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-3">{children}</tr>
 );
 
 export const Th: FC<ThHTMLAttributes<HTMLTableCellElement>> = ({ className, children, ...props }) => (
@@ -32,5 +32,5 @@ export const Td: FC<TdHTMLAttributes<HTMLTableCellElement>> = ({ className, chil
 );
 
 export const EmptyState: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="py-16 text-center text-text-1/40">{children}</div>
+  <div className="py-16 text-center text-text-3">{children}</div>
 );

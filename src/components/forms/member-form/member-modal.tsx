@@ -48,14 +48,14 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
 
           <dl className="flex flex-col gap-2 text-sm">
             <div className="flex items-center justify-between gap-4">
-              <dt className="text-text-1/50">Confidence score</dt>
+              <dt className="text-text-3">Confidence score</dt>
               <dd className="font-medium text-text-1">
                 {result.confidence === null ? '—' : `${result.confidence}/100`}
               </dd>
             </div>
             {result.reason && (
               <div className="flex flex-col gap-1">
-                <dt className="text-text-1/50">Reason</dt>
+                <dt className="text-text-3">Reason</dt>
                 <dd className="text-text-1">{result.reason}</dd>
               </div>
             )}
@@ -96,7 +96,7 @@ const MemberModal: FC<Props> = ({ mode, member, onCreate, onUpdate, onClose }) =
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg px-4 py-2 text-sm text-text-1/50 transition hover:text-text-1"
+            className="rounded-lg px-4 py-2 text-sm text-text-3 transition hover:text-text-1"
           >
             Cancel
           </button>

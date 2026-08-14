@@ -21,12 +21,12 @@ interface Params {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = await getActiveProjectBySlug(params.slug);
-  if (!project) return { title: 'Project not found | Pyramid' };
+  if (!project) return { title: 'Project not found' };
 
   const image = project.featuredMedia?.url ?? project.featuredMedia?.posterUrl ?? undefined;
 
   return {
-    title: `${project.title} | Pyramid`,
+    title: project.title,
     description: project.summary,
     alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
@@ -73,7 +73,7 @@ export default async function ProjectDetailPage({ params }: Params) {
                     <ProjectMedia media={project.featuredMedia} aspect="aspect-[16/10]" eager />
                   </div>
                   {project.featuredMedia.caption && (
-                    <figcaption className="mt-2 text-xs leading-relaxed text-text-1/40">
+                    <figcaption className="mt-2 text-xs leading-relaxed text-text-3">
                       {project.featuredMedia.caption}
                     </figcaption>
                   )}
@@ -84,7 +84,7 @@ export default async function ProjectDetailPage({ params }: Params) {
                 <p
                   key={i}
                   className={cn(
-                    'mb-4 text-base leading-relaxed text-text-1/75 last:mb-0 md:text-lg lg:mb-0',
+                    'mb-4 text-base leading-relaxed text-text-2 last:mb-0 md:text-lg lg:mb-0',
                     i === 0
                       ? 'lg:first-letter:float-left lg:first-letter:mr-3 lg:first-letter:mt-1 lg:first-letter:font-display lg:first-letter:text-6xl lg:first-letter:font-bold lg:first-letter:leading-[0.8] lg:first-letter:text-primary'
                       : 'lg:indent-8',

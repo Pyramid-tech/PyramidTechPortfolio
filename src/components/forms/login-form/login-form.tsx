@@ -35,13 +35,13 @@ const LoginForm: FC = () => {
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
             <h1 className="mb-2 font-display text-3xl font-bold uppercase tracking-widest text-primary">Pyramid</h1>
-            <p className="text-sm text-text-1/50">Admin access only</p>
+            <p className="text-sm text-text-3">Admin access only</p>
           </div>
           <ThemeToggle className="-mr-1 rounded-lg ring-offset-bg-2" />
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          <Field label="Email" labelClassName="text-text-1/60">
+          <Field label="Email" labelClassName="text-text-3">
             <Input
               type="email"
               value={email}
@@ -52,7 +52,7 @@ const LoginForm: FC = () => {
             />
           </Field>
 
-          <Field label="Password" labelClassName="text-text-1/60">
+          <Field label="Password" labelClassName="text-text-3">
             <Input
               type="password"
               value={password}

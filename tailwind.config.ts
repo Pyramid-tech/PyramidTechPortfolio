@@ -24,7 +24,12 @@ module.exports = {
         'bg-3': channel('bg-3'),
 
         'text-1': channel('text-1'),
+        'text-2': channel('text-2'),
+        'text-3': channel('text-3'),
         'text-strong': channel('text-strong'),
+
+        accent: channel('accent'),
+        'accent-deep': channel('accent-deep'),
 
         'gray-1': channel('gray-1'),
 
@@ -38,6 +43,14 @@ module.exports = {
         'danger-surface': channel('danger-surface'),
         warning: channel('warning'),
         'warning-surface': channel('warning-surface'),
+      },
+
+      zIndex: {
+        raised: '10',
+        header: '100',
+        scrim: '200',
+        drawer: '300',
+        'drawer-controls': '310',
       },
 
       animation: {

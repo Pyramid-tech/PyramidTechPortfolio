@@ -11,7 +11,7 @@ const FormSection: FC<Props> = ({ title, description, children }) => (
     <legend className="px-2 font-display text-sm font-semibold uppercase tracking-widest text-primary">
       {title}
     </legend>
-    {description && <p className="mb-4 mt-1 text-xs text-text-1/50">{description}</p>}
+    {description && <p className="mb-4 mt-1 text-xs text-text-3">{description}</p>}
     <div className="flex flex-col gap-4">{children}</div>
   </fieldset>
 );

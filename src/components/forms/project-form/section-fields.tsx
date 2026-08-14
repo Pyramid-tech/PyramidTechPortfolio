@@ -80,7 +80,7 @@ const SectionFields: FC<Props> = ({
       <button
         type="button"
         onClick={onAdd}
-        className="w-fit rounded-lg border border-stroke px-4 py-2 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="w-fit rounded-lg border border-stroke px-4 py-2 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         + Add module
       </button>

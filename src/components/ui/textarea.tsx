@@ -8,7 +8,7 @@ const VARIANTS: Record<TextareaVariant, string> = {
   admin:
     'resize-none rounded-lg border border-stroke bg-transparent px-3 py-2 text-sm text-text-1 outline-none transition focus:border-primary',
   marketing:
-    'min-h-[140px] w-full resize-none rounded-lg border border-stroke bg-bg-1/40 px-4 py-3 text-base text-text-1 outline-none transition placeholder:text-text-1/30 hover:border-stroke/80 focus:border-primary focus:ring-2 focus:ring-primary/30',
+    'min-h-[140px] w-full resize-none rounded-lg border border-stroke bg-bg-1/40 px-4 py-3 text-base text-text-1 outline-none transition placeholder:text-text-3 hover:border-stroke/80 focus:border-primary focus:ring-2 focus:ring-primary/30',
 };
 
 interface Props extends ComponentPropsWithoutRef<'textarea'> {

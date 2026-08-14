@@ -46,7 +46,7 @@ const ListEditor: FC<{
         onChange(next.filter((v, i) => v.length > 0 || i === next.length - 1));
       }}
     />
-    <p className="text-xs text-text-1/40">One per line.</p>
+    <p className="text-xs text-text-3">One per line.</p>
   </Field>
 );
 
@@ -168,7 +168,7 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
             onClick={() =>
               onChange({ ...payload, items: [...payload.items, { url: '', altText: '' }] })
             }
-            className="w-fit rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary"
+            className="w-fit rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary"
           >
             + Add image
           </button>
@@ -251,7 +251,7 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
             onClick={() =>
               onChange({ ...payload, items: [...payload.items, { title: '', description: '' }] })
             }
-            className="w-fit rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary"
+            className="w-fit rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary"
           >
             + Add feature
           </button>
@@ -309,7 +309,7 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
             onClick={() =>
               onChange({ ...payload, items: [...payload.items, { value: '', label: '' }] })
             }
-            className="w-fit rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary"
+            className="w-fit rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary"
           >
             + Add metric
           </button>

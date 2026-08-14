@@ -53,7 +53,7 @@ const ImageField: FC<Props> = ({ label, value, projectId, onChange, onUploadingC
           {value ? (
             <img src={value} alt="" className="h-full w-full object-cover" />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-[10px] uppercase tracking-widest text-text-1/20">
+            <div className="flex h-full w-full items-center justify-center text-[10px] uppercase tracking-widest text-text-3">
               None
             </div>
           )}
@@ -83,7 +83,7 @@ const ImageField: FC<Props> = ({ label, value, projectId, onChange, onUploadingC
               type="button"
               disabled={uploading}
               onClick={() => fileRef.current?.click()}
-              className="rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
+              className="rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
             >
               {uploading ? 'Uploading…' : value ? 'Replace image' : 'Upload image'}
             </button>

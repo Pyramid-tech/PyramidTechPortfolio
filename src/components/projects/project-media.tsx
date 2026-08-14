@@ -34,10 +34,15 @@ const ProjectMedia: FC<Props> = ({
           autoPlay={media.kind === 'animation'}
         />
       ) : (
-        <ProjectImage src={media.posterUrl} alt={media.altText} eager={eager} />
+        <ProjectImage src={media.posterUrl} alt={media.altText} eager={eager} fallbackLabel={fallbackLabel} />
       )
     ) : (
-      <ProjectImage src={media.url ?? media.posterUrl} alt={media.altText} eager={eager} />
+      <ProjectImage
+        src={media.url ?? media.posterUrl}
+        alt={media.altText}
+        eager={eager}
+        fallbackLabel={fallbackLabel}
+      />
     )}
   </div>
 );

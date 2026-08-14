@@ -24,7 +24,7 @@ interface Props {
 const ProjectActions: FC<Props> = ({ actions, size = 'sm' }) => {
   if (actions.length === 0) return null;
 
-  const padding = size === 'md' ? 'px-5 py-2.5 text-sm' : 'px-3 py-1.5 text-xs';
+  const padding = size === 'md' ? 'min-h-11 px-5 text-sm' : 'min-h-11 px-4 text-xs';
 
   return (
     <ul className="flex flex-wrap gap-2">
@@ -39,7 +39,7 @@ const ProjectActions: FC<Props> = ({ actions, size = 'sm' }) => {
               className={`inline-flex items-center gap-1.5 rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-1 ${padding} ${
                 action.isPrimary
                   ? 'border-primary bg-primary/10 text-primary hover:bg-primary hover:text-bg-1'
-                  : 'border-stroke text-text-1/70 hover:border-text-1/50 hover:text-text-1'
+                  : 'border-stroke text-text-2 hover:border-text-1/50 hover:text-text-1'
               }`}
             >
               {action.label}

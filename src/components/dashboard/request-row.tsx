@@ -21,11 +21,11 @@ const RequestRow: FC<Props> = ({ request: r, expanded, isLast, onToggle }) => (
       }`}
     >
       <Td className="font-medium text-text-1">{r.name}</Td>
-      <Td className="hidden text-text-1/70 md:table-cell">{r.email}</Td>
-      <Td className="hidden text-text-1/70 md:table-cell">{r.company}</Td>
-      <Td className="text-text-1/70">{SERVICE_LABELS[r.service] ?? r.service}</Td>
-      <Td className="hidden text-text-1/50 lg:table-cell">{r.budget}</Td>
-      <Td className="hidden text-text-1/50 sm:table-cell">
+      <Td className="hidden text-text-2 md:table-cell">{r.email}</Td>
+      <Td className="hidden text-text-2 md:table-cell">{r.company}</Td>
+      <Td className="text-text-2">{SERVICE_LABELS[r.service] ?? r.service}</Td>
+      <Td className="hidden text-text-3 lg:table-cell">{r.budget}</Td>
+      <Td className="hidden text-text-3 sm:table-cell">
         {r.createdAt ? new Date(r.createdAt).toLocaleDateString() : '—'}
       </Td>
       <Td className="text-right">
@@ -40,33 +40,33 @@ const RequestRow: FC<Props> = ({ request: r, expanded, isLast, onToggle }) => (
     {expanded && (
       <tr className={`border-b border-stroke/50 bg-bg-1/60 ${isLast ? 'border-b-0' : ''}`}>
         <td colSpan={7} className="px-4 pb-4 pt-2 sm:px-6">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-1.5 text-xs text-text-1/60 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-1.5 text-xs text-text-3 sm:grid-cols-2">
             <span>
-              <strong className="text-text-1/80">Email:</strong> {r.email}
+              <strong className="text-text-2">Email:</strong> {r.email}
             </span>
             <span>
-              <strong className="text-text-1/80">Company:</strong> {r.company}
+              <strong className="text-text-2">Company:</strong> {r.company}
             </span>
             <span>
-              <strong className="text-text-1/80">Phone:</strong> {r.phone}
+              <strong className="text-text-2">Phone:</strong> {r.phone}
             </span>
             <span>
-              <strong className="text-text-1/80">Pages:</strong> {r.pages}
+              <strong className="text-text-2">Pages:</strong> {r.pages}
             </span>
             <span>
-              <strong className="text-text-1/80">Budget:</strong> {r.budget}
+              <strong className="text-text-2">Budget:</strong> {r.budget}
             </span>
             <span>
-              <strong className="text-text-1/80">Timeline:</strong> {r.quickness}
+              <strong className="text-text-2">Timeline:</strong> {r.quickness}
             </span>
             {r.websiteUrl && (
               <span className="sm:col-span-2">
-                <strong className="text-text-1/80">Website:</strong> {r.websiteUrl}
+                <strong className="text-text-2">Website:</strong> {r.websiteUrl}
               </span>
             )}
             {r.message && (
               <span className="mt-1 sm:col-span-2">
-                <strong className="text-text-1/80">Message:</strong> {r.message}
+                <strong className="text-text-2">Message:</strong> {r.message}
               </span>
             )}
           </div>

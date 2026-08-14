@@ -19,7 +19,7 @@ export default function CheckboxGroup<T extends string>({
 }: Props<T>) {
   return (
     <fieldset>
-      <legend className="mb-2 text-xs uppercase tracking-widest text-text-1/50">{legend}</legend>
+      <legend className="mb-2 text-xs uppercase tracking-widest text-text-3">{legend}</legend>
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
           const checked = selected.includes(option);
@@ -29,7 +29,7 @@ export default function CheckboxGroup<T extends string>({
               className={`cursor-pointer rounded-full border px-3 py-1.5 text-xs transition focus-within:ring-2 focus-within:ring-primary ${
                 checked
                   ? 'border-primary bg-primary/15 text-primary'
-                  : 'border-stroke text-text-1/60 hover:border-text-1/40 hover:text-text-1'
+                  : 'border-stroke text-text-3 hover:border-text-1/40 hover:text-text-1'
               }`}
             >
               <input

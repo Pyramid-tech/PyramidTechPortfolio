@@ -129,20 +129,20 @@ const MediaFields: FC<Props> = ({
                   className="h-16 w-24 rounded-lg border border-stroke object-cover"
                 />
               ) : (
-                <p className="text-xs text-text-1/40">No capture generated yet.</p>
+                <p className="text-xs text-text-3">No capture generated yet.</p>
               )}
               {item.id && onRequestCapture && (
                 <button
                   type="button"
                   onClick={() => onRequestCapture(item.id!)}
                   disabled={capturingId === item.id}
-                  className="rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
+                  className="rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50"
                 >
                   {capturingId === item.id ? 'Requesting…' : 'Generate capture'}
                 </button>
               )}
               {!item.id && (
-                <p className="text-xs text-text-1/40">Save the project first to generate a capture.</p>
+                <p className="text-xs text-text-3">Save the project first to generate a capture.</p>
               )}
             </div>
           )}
@@ -162,7 +162,7 @@ const MediaFields: FC<Props> = ({
             />
           </Field>
 
-          <label className="flex w-fit cursor-pointer items-center gap-2 text-sm text-text-1/70">
+          <label className="flex w-fit cursor-pointer items-center gap-2 text-sm text-text-2">
             <input
               type="radio"
               name="featured-media"
@@ -178,7 +178,7 @@ const MediaFields: FC<Props> = ({
       <button
         type="button"
         onClick={onAdd}
-        className="w-fit rounded-lg border border-stroke px-4 py-2 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="w-fit rounded-lg border border-stroke px-4 py-2 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         + Add asset
       </button>

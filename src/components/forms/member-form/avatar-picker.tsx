@@ -48,7 +48,7 @@ const AvatarPicker: FC<Props> = ({ name, avatarUrl, onChange, onUploadingChange 
         {avatarUrl ? (
           <img src={avatarUrl} alt="Avatar preview" className="h-full w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-2xl text-text-1/20">
+          <div className="flex h-full w-full items-center justify-center text-2xl text-text-3">
             {name?.[0]?.toUpperCase() ?? '?'}
           </div>
         )}
@@ -65,7 +65,7 @@ const AvatarPicker: FC<Props> = ({ name, avatarUrl, onChange, onUploadingChange 
           type="button"
           disabled={uploading}
           onClick={() => fileRef.current?.click()}
-          className="rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-1/60 transition hover:border-primary/60 hover:text-primary disabled:opacity-50"
+          className="rounded-lg border border-stroke px-3 py-1.5 text-xs text-text-3 transition hover:border-primary/60 hover:text-primary disabled:opacity-50"
         >
           {uploading ? 'Uploading…' : avatarUrl ? 'Change photo' : 'Upload photo'}
         </button>

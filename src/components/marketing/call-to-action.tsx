@@ -22,18 +22,20 @@ const CallToAction: FC<Props> = ({ content }) => {
   };
 
   return (
-    <section id="contact">
-      <SectionOpacity classes="flex flex-col">
-        <div className="mx-auto flex w-full max-w-2xl flex-col items-center px-6 py-24 text-center md:py-32">
-          <h3 className="font-display text-4xl font-medium md:text-7xl lg:text-8xl">{content?.heading}</h3>
-          <p className="mt-3 text-base font-normal leading-relaxed text-text-1/75 md:text-xl">
+    <section id="contact" className="border-t border-gray-1">
+      <SectionOpacity classes="flex flex-col" offset={['start 0.55', 'start 0.95']}>
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-6 py-24 text-center md:py-32">
+          <h2 className="text-balance font-display text-4xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            {content?.heading}
+          </h2>
+          <p className="mt-5 max-w-[52ch] text-balance text-base leading-relaxed text-text-2 md:text-lg">
             {content?.paragraph}
           </p>
           <Button
             onClick={handleFormToggle}
             title={content?.ctaLabel ?? ''}
             classes="bg-bg-1 hover:bg-bg-1/80"
-            btnClasses="mt-6"
+            btnClasses="mt-8"
           />
         </div>
 

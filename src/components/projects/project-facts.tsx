@@ -7,8 +7,8 @@ import { PlatformTags, ServiceTags } from './project-badges';
 
 const Fact: FC<{ term: string; children: ReactNode }> = ({ term, children }) => (
   <div className="flex flex-col gap-1.5 border-t border-stroke/60 pt-3">
-    <dt className="text-xs uppercase tracking-widest text-text-1/40">{term}</dt>
-    <dd className="text-sm text-text-1/80">{children}</dd>
+    <dt className="text-xs uppercase tracking-widest text-text-3">{term}</dt>
+    <dd className="text-sm text-text-2">{children}</dd>
   </div>
 );
 

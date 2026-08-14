@@ -7,47 +7,36 @@ interface Props {
   card: {
     title: string;
     description: string;
-    services: string[][];
-    number: string;
+    services: string[];
     classes: string;
   };
 }
 
-const ServiceCard: FC<Props> = ({ card: { title, services, description, number, classes } }) => {
+const ServiceCard: FC<Props> = ({ card: { title, services, description, classes } }) => {
   const { ref } = useInView({
     triggerOnce: true,
     threshold: 0.6,
   });
   return (
-    <div ref={ref} key={number} className="px-6 pb-16 last:pb-24 md:px-12">
-      <h4 className="mt-8 font-display text-3xl font-light md:text-5xl lg:text-6xl">{title}</h4>
-      <div className={`flex flex-col gap-6 pt-8 first:border-none md:flex-row md:gap-8 ${classes}`}>
-        <div className="flex-1">
-          <div className="flex flex-col gap-4 md:gap-5">
-            {services.map((service: string[], i: number) => {
-              return (
-                <ul key={i} className="flex items-center gap-x-8 text-sm font-semibold md:text-lg">
-                  {service.map((s) => (
-                    <li key={s} className="flex items-center gap-2">
-                      <div className="h-2 w-2 rounded-full bg-text-1/40"></div>
-                      <p>{s}</p>
-                    </li>
-                  ))}
-                </ul>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="relative flex-1 ">
-          <p className="relative z-[2000] line-clamp-4 text-balance text-sm font-medium leading-relaxed md:text-base lg:text-lg">
-            {description}
-          </p>
-          <div className="absolute right-6 top-0 z-[1] text-right text-8xl font-extrabold tracking-wider text-gray-1 md:text-9xl">
-            {number}
-          </div>
-        </div>
+    <div
+      ref={ref}
+      className={`grid grid-cols-1 gap-6 px-6 py-10 md:grid-cols-2 md:gap-12 md:px-12 md:py-12 ${classes}`}
+    >
+      <div className="flex flex-col gap-5">
+        <h3 className="font-display text-[1.75rem] font-light leading-tight md:text-4xl lg:text-5xl">{title}</h3>
+        <ul className="flex flex-wrap gap-x-6 gap-y-2.5">
+          {services.map((service) => (
+            <li key={service} className="flex items-center gap-2 text-sm font-semibold md:text-base">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
+              {service}
+            </li>
+          ))}
+        </ul>
       </div>
+
+      <p className="max-w-[62ch] text-balance text-sm font-medium leading-relaxed text-text-2 md:self-center md:text-base lg:text-lg">
+        {description}
+      </p>
     </div>
   );
 };

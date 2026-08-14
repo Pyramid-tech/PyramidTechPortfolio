@@ -17,7 +17,7 @@ const FIELD_SPANS: Record<string, string> = {
   websiteUrl: 'sm:col-span-2',
 };
 
-const SectionTitle: FC<{ children: string }> = ({ children }) => (
+const Eyebrow: FC<{ children: string }> = ({ children }) => (
   <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-primary">{children}</h2>
 );
 
@@ -25,30 +25,36 @@ const BookForm: FC = () => {
   const { setValue, submitting, feedback, handleSubmit, resetKey, goHome } = useBookForm();
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
-      {/* Header */}
-      <div className="mb-8 flex items-center gap-4">
+    <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
+      <div className="mb-10 md:mb-14">
         <button
           type="button"
-          aria-label="Back to home"
           onClick={goHome}
-          className="group flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-stroke text-text-1/70 transition hover:border-primary hover:text-primary"
+          className="group inline-flex min-h-11 items-center gap-2 text-sm text-text-2 transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <svg className="h-5 w-5 fill-current" focusable="false" viewBox="0 0 24 24">
+          <svg aria-hidden className="h-4 w-4 fill-current" focusable="false" viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z" />
           </svg>
+          Back to home
         </button>
-        <div>
-          <h1 className="font-display text-2xl font-bold leading-tight sm:text-3xl">Request form</h1>
-          <p className="mt-0.5 text-sm text-text-1/50">Tell us about your project and we&apos;ll be in touch.</p>
-        </div>
+
+        <h1 className="mt-6 text-balance font-display text-4xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-6xl">
+          Start a project
+        </h1>
+        <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">
+          Six questions and a few details. We read every request and reply within two working days with
+          a first take on scope, timeline and cost.
+        </p>
       </div>
 
-      <form key={resetKey} onSubmit={handleSubmit} className="flex flex-col gap-10 rounded-2xl border border-stroke bg-bg-2/60 p-5 sm:p-8">
-        {/* Project details */}
-        <section className="flex flex-col gap-4">
-          <SectionTitle>Project details</SectionTitle>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <form
+        key={resetKey}
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-10 rounded-2xl border border-stroke bg-bg-2/60 p-5 sm:p-8"
+      >
+        <section className="flex flex-col gap-6">
+          <Eyebrow>Project details</Eyebrow>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {RADIO_FIELDS.map((field) => (
               <RadioFieldGroup key={field.title} field={field} onChange={(value) => setValue(field.formKey, value)} />
             ))}
@@ -57,7 +63,7 @@ const BookForm: FC = () => {
 
         {/* Your details */}
         <section className="flex flex-col gap-4">
-          <SectionTitle>Your details</SectionTitle>
+          <Eyebrow>Your details</Eyebrow>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {INPUT_FIELDS.map((field) => (
               <TextField
@@ -69,7 +75,7 @@ const BookForm: FC = () => {
             ))}
 
             <div className="flex flex-col gap-1.5 sm:col-span-2">
-              <label htmlFor="message" className="text-sm font-medium text-text-1/80">
+              <label htmlFor="message" className="text-sm font-medium text-text-2">
                 Tell us about your project
               </label>
               <Textarea
@@ -81,7 +87,7 @@ const BookForm: FC = () => {
                 name="message"
                 placeholder="A few sentences about your goals, timeline, and anything else we should know…"
               />
-              <p className="text-xs text-text-1/40">Minimum 20 characters.</p>
+              <p className="text-xs text-text-2">Minimum 20 characters.</p>
             </div>
           </div>
         </section>

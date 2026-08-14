@@ -59,27 +59,27 @@ const ProjectCard: FC<RowProps> = (props) => {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate font-medium text-text-1">{project.title}</p>
-          <p className="truncate text-sm text-text-1/60">{ORIGIN_LABELS[project.origin]}</p>
+          <p className="truncate text-sm text-text-3">{ORIGIN_LABELS[project.origin]}</p>
         </div>
         <ProjectStatusBadge isActive={project.isActive} className="shrink-0" />
       </div>
 
-      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-text-1/50">
+      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-text-3">
         {project.client && (
           <div className="flex min-w-0 items-center gap-1">
             <dt className="shrink-0">Client:</dt>
-            <dd className="truncate text-text-1/70">{project.client}</dd>
+            <dd className="truncate text-text-2">{project.client}</dd>
           </div>
         )}
         {project.platforms.length > 0 && (
           <div className="flex min-w-0 items-center gap-1">
             <dt className="shrink-0">Platforms:</dt>
-            <dd className="truncate text-text-1/70">{platformSummary(project.platforms)}</dd>
+            <dd className="truncate text-text-2">{platformSummary(project.platforms)}</dd>
           </div>
         )}
         <div className="flex items-center gap-1">
           <dt className="shrink-0">Order:</dt>
-          <dd className="text-text-1/70">{project.displayOrder}</dd>
+          <dd className="text-text-2">{project.displayOrder}</dd>
         </div>
         {project.featured && (
           <div className="flex items-center gap-1">
@@ -137,14 +137,14 @@ const ProjectsTable: FC<Props> = ({ projects, ...handlers }) => {
                   }`}
                 >
                   <Td className="font-medium text-text-1">{p.title}</Td>
-                  <Td className="hidden text-text-1/70 lg:table-cell">{p.client || '—'}</Td>
-                  <Td className="hidden text-text-1/70 md:table-cell">{ORIGIN_LABELS[p.origin]}</Td>
-                  <Td className="hidden text-text-1/70 lg:table-cell">
+                  <Td className="hidden text-text-2 lg:table-cell">{p.client || '—'}</Td>
+                  <Td className="hidden text-text-2 md:table-cell">{ORIGIN_LABELS[p.origin]}</Td>
+                  <Td className="hidden text-text-2 lg:table-cell">
                     {platformSummary(p.platforms)}
                   </Td>
-                  <Td className="hidden text-text-1/70 xl:table-cell">{p.featured ? 'Yes' : 'No'}</Td>
-                  <Td className="hidden text-text-1/50 lg:table-cell">{p.displayOrder}</Td>
-                  <Td className="hidden text-text-1/50 xl:table-cell">{updatedLabel(p.updatedAt)}</Td>
+                  <Td className="hidden text-text-2 xl:table-cell">{p.featured ? 'Yes' : 'No'}</Td>
+                  <Td className="hidden text-text-3 lg:table-cell">{p.displayOrder}</Td>
+                  <Td className="hidden text-text-3 xl:table-cell">{updatedLabel(p.updatedAt)}</Td>
                   <Td>
                     <ProjectStatusBadge isActive={p.isActive} />
                   </Td>

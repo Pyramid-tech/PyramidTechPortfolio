@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import SectionTitle from '@/components/ui/section-title';
 import SectionOpacity from '@/components/ui/section-opacity';
-import HoverCards from '@/components/ui/hover-cards';
+import ProcessSteps from '@/components/ui/process-steps';
 import { First, Second, Third, Fourth, Fifth } from '@/components/icons/approach-icons';
 
 import type { HomeContent } from '@/types/home-content';
@@ -16,21 +16,28 @@ interface Props {
 }
 
 const Approach: FC<Props> = ({ content }) => {
-  const cards = (content?.cards ?? []).map((card, i) => ({
+  const steps = (content?.cards ?? []).map((card, i) => ({
     title: card.title ?? '',
     description: card.description ?? '',
     icon: APPROACH_ICONS[i % APPROACH_ICONS.length],
   }));
 
   return (
-    <section id="approach" className="border-t border-gray-1 bg-bg-1 py-16 pb-24 md:py-24">
+    <section id="approach" className="border-t border-gray-1 bg-bg-1 py-16 md:py-24">
       <SectionOpacity>
-        <SectionTitle
-          title={content?.sectionTitle ?? ''}
-          classes="text-right px-6 pt-6 top-0 z-20 md:px-12"
-        />
-        <div className="px-6 pt-6 md:px-12">
-          <HoverCards cards={cards} />
+        <div className="flex flex-col gap-10 px-6 md:flex-row md:gap-16 md:px-12">
+          <div className="md:w-[38%] md:shrink-0">
+            <div className="md:sticky md:top-32">
+              <SectionTitle title={content?.sectionTitle ?? ''} />
+              <p className="mt-5 max-w-[38ch] text-base leading-relaxed text-text-2 md:text-lg">
+                Five steps from first conversation to a product in production, with you in the room at
+                every one.
+              </p>
+            </div>
+          </div>
+          <div className="flex-1">
+            <ProcessSteps steps={steps} />
+          </div>
         </div>
       </SectionOpacity>
     </section>

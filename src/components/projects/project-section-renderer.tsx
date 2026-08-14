@@ -12,7 +12,7 @@ const Paragraphs: FC<{ paragraphs: string[]; className?: string }> = ({
 }) => (
   <div className={className}>
     {paragraphs.map((paragraph, i) => (
-      <p key={i} className="mb-4 text-base leading-relaxed text-text-1/75 last:mb-0 md:text-lg">
+      <p key={i} className="mb-4 text-base leading-relaxed text-text-2 last:mb-0 md:text-lg">
         {paragraph}
       </p>
     ))}
@@ -28,7 +28,7 @@ const Figure: FC<{ url: string; alt: string | null; caption?: string | null }> =
     <div className="overflow-hidden rounded-2xl border border-stroke bg-bg-2">
       <ProjectImage src={url} alt={alt} className="w-full object-cover" />
     </div>
-    {caption && <figcaption className="mt-2 text-xs text-text-1/40">{caption}</figcaption>}
+    {caption && <figcaption className="mt-2 text-xs text-text-3">{caption}</figcaption>}
   </figure>
 );
 
@@ -90,7 +90,7 @@ const PayloadRenderer: FC<{ payload: SectionPayload }> = ({ payload }) => {
             <li key={i} className="border-t border-stroke/60 pt-4">
               <p className="font-medium text-text-1">{item.title}</p>
               {item.description && (
-                <p className="mt-1.5 text-sm leading-relaxed text-text-1/60">{item.description}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-text-3">{item.description}</p>
               )}
             </li>
           ))}
@@ -107,7 +107,7 @@ const PayloadRenderer: FC<{ payload: SectionPayload }> = ({ payload }) => {
                 <span className="block font-display text-4xl font-extrabold text-primary md:text-5xl">
                   {item.value}
                 </span>
-                <span className="mt-2 block text-sm text-text-1/60">{item.label}</span>
+                <span className="mt-2 block text-sm text-text-3">{item.label}</span>
               </dd>
             </div>
           ))}
@@ -121,7 +121,7 @@ const PayloadRenderer: FC<{ payload: SectionPayload }> = ({ payload }) => {
             “{payload.quote}”
           </blockquote>
           {(payload.attribution || payload.role) && (
-            <figcaption className="mt-4 text-sm text-text-1/50">
+            <figcaption className="mt-4 text-sm text-text-3">
               {[payload.attribution, payload.role].filter(Boolean).join(' · ')}
             </figcaption>
           )}
@@ -134,7 +134,7 @@ const PayloadRenderer: FC<{ payload: SectionPayload }> = ({ payload }) => {
           {payload.items.map((item) => (
             <li
               key={item}
-              className="rounded-full border border-stroke px-3 py-1.5 text-sm text-text-1/70"
+              className="rounded-full border border-stroke px-3 py-1.5 text-sm text-text-2"
             >
               {item}
             </li>

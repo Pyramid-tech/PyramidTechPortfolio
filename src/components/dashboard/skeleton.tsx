@@ -48,7 +48,7 @@ const DashboardSkeleton: FC<{ rows?: number; variant?: SkeletonVariant }> = ({
       <div className="overflow-x-auto">
         <table className="w-full min-w-[480px] text-sm">
           <thead>
-            <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-1/40">
+            <tr className="border-b border-stroke text-left text-xs uppercase tracking-widest text-text-3">
               {columns.map((column) => (
                 <th key={column.label} className={`px-4 py-4 sm:px-6 ${column.className ?? ''}`}>
                   {column.label}

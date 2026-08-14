@@ -21,7 +21,7 @@ interface Props {
 
 const TextField: FC<Props> = ({ field, className, onChange }) => (
   <div className={cn('flex flex-col gap-1.5', className)}>
-    <label htmlFor={field.name} className="text-sm font-medium text-text-1/80">
+    <label htmlFor={field.name} className="text-sm font-medium text-text-2">
       {field.label}
       {field.required && <span className="ml-1 text-danger">*</span>}
     </label>

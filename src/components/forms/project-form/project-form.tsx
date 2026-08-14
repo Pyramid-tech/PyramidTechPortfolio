@@ -194,7 +194,7 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
           onRequestCapture={handleRequestCapture}
           capturingId={capturingId}
         />
-        {captureNote && <p className="text-xs text-text-1/60">{captureNote}</p>}
+        {captureNote && <p className="text-xs text-text-3">{captureNote}</p>}
       </FormSection>
 
       <FormSection
@@ -232,7 +232,7 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
 
       <FormSection title="Display">
         <div className="flex flex-wrap items-end gap-6">
-          <label className="flex cursor-pointer items-center gap-2 text-sm text-text-1/70">
+          <label className="flex cursor-pointer items-center gap-2 text-sm text-text-2">
             <input
               type="checkbox"
               checked={form.featured}
@@ -266,7 +266,7 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
       <div className="flex flex-wrap justify-end gap-3">
         <Link
           href="/dashboard/projects"
-          className="rounded-lg px-4 py-2 text-sm text-text-1/50 transition hover:text-text-1"
+          className="rounded-lg px-4 py-2 text-sm text-text-3 transition hover:text-text-1"
         >
           Cancel
         </Link>

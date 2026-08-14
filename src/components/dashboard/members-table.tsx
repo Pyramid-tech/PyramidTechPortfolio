@@ -113,20 +113,20 @@ const MemberCard: FC<RowProps> = (props) => {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate font-medium text-text-1">{member.name}</p>
-          <p className="truncate text-sm text-text-1/60">{member.jobTitle}</p>
+          <p className="truncate text-sm text-text-3">{member.jobTitle}</p>
         </div>
         <StatusBadge member={member} className="shrink-0" />
       </div>
 
-      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-text-1/50">
+      <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-text-3">
         <div className="flex min-w-0 items-center gap-1">
           <dt className="shrink-0">Email:</dt>
-          <dd className="truncate text-text-1/70">{member.email}</dd>
+          <dd className="truncate text-text-2">{member.email}</dd>
         </div>
         {showsConfidence(member) && (
           <div className="flex items-center gap-1">
             <dt className="shrink-0">Confidence:</dt>
-            <dd className="text-text-1/70">{confidenceLabel(member)}</dd>
+            <dd className="text-text-2">{confidenceLabel(member)}</dd>
           </div>
         )}
       </dl>
@@ -180,10 +180,10 @@ const MembersTable: FC<Props> = ({ members, ...handlers }) => {
                   }`}
                 >
                   <Td className="font-medium text-text-1">{m.name}</Td>
-                  <Td className="hidden text-text-1/70 sm:table-cell">{m.jobTitle}</Td>
-                  <Td className="hidden text-text-1/70 md:table-cell">{m.email}</Td>
-                  <Td className="hidden text-text-1/50 lg:table-cell">{m.displayOrder}</Td>
-                  <Td className="hidden text-text-1/70 lg:table-cell">{confidenceLabel(m)}</Td>
+                  <Td className="hidden text-text-2 sm:table-cell">{m.jobTitle}</Td>
+                  <Td className="hidden text-text-2 md:table-cell">{m.email}</Td>
+                  <Td className="hidden text-text-3 lg:table-cell">{m.displayOrder}</Td>
+                  <Td className="hidden text-text-2 lg:table-cell">{confidenceLabel(m)}</Td>
                   <Td>
                     <StatusBadge member={m} />
                   </Td>

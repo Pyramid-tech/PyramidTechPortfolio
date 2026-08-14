@@ -41,7 +41,7 @@ const ProjectFormPage: FC<Props> = ({ mode, project }) => {
         <div>
           <Link
             href="/dashboard/projects"
-            className="text-xs text-text-1/50 transition hover:text-text-1"
+            className="text-xs text-text-3 transition hover:text-text-1"
           >
             ← Back to projects
           </Link>

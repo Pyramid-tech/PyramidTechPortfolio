@@ -20,9 +20,9 @@ const BackToTop: FC = () => {
     <button
       type="button"
       onClick={scrollToTop}
-      className="inline-flex items-center gap-1 rounded transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="inline-flex min-h-11 items-center gap-1 rounded text-text-2 transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
-      Back to top ↑
+      Back to top <span aria-hidden>↑</span>
     </button>
   );
 };
