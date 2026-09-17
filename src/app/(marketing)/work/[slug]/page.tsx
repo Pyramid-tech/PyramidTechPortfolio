@@ -11,6 +11,7 @@ import {
 } from '@/components/projects';
 import { visibleActions } from '@/components/projects/project-actions';
 import { getActiveProjectBySlug, getAdjacentActiveProjects } from '@/lib/data/project';
+import { withDbRetry } from '@/lib/db/retry';
 import { cn } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
@@ -20,7 +21,7 @@ interface Params {
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const project = await getActiveProjectBySlug(params.slug);
+  const project = await withDbRetry(() => getActiveProjectBySlug(params.slug));
   if (!project) return { title: 'Project not found' };
 
   const image = project.featuredMedia?.url ?? project.featuredMedia?.posterUrl ?? undefined;
@@ -46,10 +47,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function ProjectDetailPage({ params }: Params) {
-  const project = await getActiveProjectBySlug(params.slug);
+  const project = await withDbRetry(() => getActiveProjectBySlug(params.slug));
   if (!project) notFound();
 
-  const { previous, next } = await getAdjacentActiveProjects(project.slug);
+  const { previous, next } = await withDbRetry(() => getAdjacentActiveProjects(project.slug));
 
   const overviewParagraphs = project.overview
     .split(/\n\s*\n/)
