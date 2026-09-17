@@ -30,6 +30,13 @@ export const metadata: Metadata = {
     description: SITE.description,
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: '/icon.png?v=2', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon.ico?v=2', sizes: 'any' },
+    ],
+    apple: [{ url: '/apple-icon.png?v=2', sizes: '180x180' }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -44,6 +51,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={fontVariables} data-theme="dark" suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <link rel="icon" href="/icon.png?v=2" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=2" />
       </head>
       <body>
         <AppShell>{children}</AppShell>

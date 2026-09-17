@@ -5,5 +5,5 @@ export const SITE = {
     'Pyramid is a Beirut-based studio building AI agents, RAG pipelines and full-stack web and mobile products — from first concept to production.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3400',
   location: 'Beirut, Lebanon',
-  email: 'aliassii2025@gmail.com',
+  email: 'pyramidtechdev@gmail.com',
 } as const;
