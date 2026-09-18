@@ -38,11 +38,8 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: [
-      { url: '/icon-nobg.png?v=3', type: 'image/png' },
-      { url: '/favicon.ico?v=3', sizes: 'any' },
-    ],
-    apple: [{ url: '/icon-nobg.png?v=3' }],
+    icon: [{ url: '/icon.svg?v=5', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.svg?v=5' }],
   },
 };
 
@@ -58,9 +55,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={fontVariables} data-theme="dark" suppressHydrationWarning>
       <head>
         <ThemeScript />
-        <link rel="icon" href="/icon-nobg.png?v=3" type="image/png" />
-        <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
-        <link rel="apple-touch-icon" href="/icon-nobg.png?v=3" />
+        <link rel="icon" href="/icon.svg?v=5" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon.svg?v=5" />
       </head>
       <body>
         <AppShell>{children}</AppShell>

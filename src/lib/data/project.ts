@@ -1,9 +1,6 @@
-import { cache } from 'react';
-import { unstable_cache } from 'next/cache';
 import { or, and, eq, ne, isNull, gt, asc, desc, inArray, sql } from 'drizzle-orm';
 
 import { db } from '@/lib/db';
-import { FEATURED_PROJECTS_TAG } from '@/lib/data/cache-tags';
 import {
   pyramidProjects,
   pyramidProjectMedia,
@@ -194,12 +191,6 @@ export async function getFeaturedProjects(limit = 6): Promise<ProjectCardDTO[]> 
   return toCards(rows);
 }
 
-export const getCachedFeaturedProjects = unstable_cache(
-  async (limit = 6): Promise<ProjectCardDTO[]> => getFeaturedProjects(limit),
-  ['featured-projects'],
-  { revalidate: 300, tags: [FEATURED_PROJECTS_TAG] },
-);
-
 export async function getActiveProjects(): Promise<ProjectCardDTO[]> {
   const rows = await db
     .select()
@@ -209,13 +200,13 @@ export async function getActiveProjects(): Promise<ProjectCardDTO[]> {
   return toCards(rows);
 }
 
-export const getActiveProjectCount = cache(async (): Promise<number> => {
+export async function getActiveProjectCount(): Promise<number> {
   const result = await db
     .select({ total: sql<number>`count(*)::int` })
     .from(pyramidProjects)
     .where(activeProjectFilter);
   return result[0]?.total ?? 0;
-});
+}
 
 export async function getActiveProjectSlugs(): Promise<{ slug: string; updatedAt: Date | null }[]> {
   return db

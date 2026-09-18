@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { Home as HomeContent } from '@/components/marketing';
 import { getHomeContent } from '@/lib/data/home-content';
-import { getCachedFeaturedProjects } from '@/lib/data/project';
+import { getCachedFeaturedProjects } from '@/lib/data/project-cached';
 import { getNavCounts } from '@/lib/data/nav';
 import { resilient } from '@/lib/data/resilient';
 

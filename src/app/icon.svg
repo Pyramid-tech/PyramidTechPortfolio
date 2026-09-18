@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="face-left" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f7fe0" />
+      <stop offset="1" stop-color="#7eb7ff" />
+    </linearGradient>
+    <linearGradient id="face-right" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f2f5f" />
+      <stop offset="1" stop-color="#1a4a88" />
+    </linearGradient>
+    <linearGradient id="face-front-left" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#2b6fd4" />
+      <stop offset="1" stop-color="#1c58b4" />
+    </linearGradient>
+    <linearGradient id="face-front-right" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e5bb8" />
+      <stop offset="1" stop-color="#154a98" />
+    </linearGradient>
+  </defs>
+  <path d="M32 6 4 44 32 36Z" fill="url(#face-left)" />
+  <path d="M32 6 60 44 32 36Z" fill="url(#face-right)" />
+  <path d="M4 44 32 58 32 36Z" fill="url(#face-front-left)" />
+  <path d="M60 44 32 58 32 36Z" fill="url(#face-front-right)" />
+</svg>
