@@ -3,7 +3,7 @@ import type { HomeContent } from '@/types/home-content';
 export const HOME_CONTENT_FALLBACK = {
   hero: {
     title: 'We Build Software that Ships',
-    subtitle: 'Custom web apps, mobile apps, and desktop software.',
+    subtitle: 'Custom web apps, mobile apps, desktop software, and AI.',
     ctaLabel: 'Start a project',
     secondaryCtaLabel: 'See the work',
   },
