@@ -11,6 +11,6 @@ export const LogoIcon: FC<{ className?: string }> = ({ className }) => (
     width={640}
     height={640}
     unoptimized
-    className={cn('object-contain grayscale group-hover:grayscale-0', className)}
+    className={cn('object-contain dark:grayscale dark:group-hover:grayscale-0', className)}
   />
 );
