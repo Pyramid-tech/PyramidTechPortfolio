@@ -5,6 +5,7 @@ import { Footer } from '@/components/marketing';
 import { ProjectGrid, ProjectGridSkeleton } from '@/components/projects';
 import SectionTitle from '@/components/ui/section-title';
 import { getActiveProjects } from '@/lib/data/project';
+import { withDbRetry } from '@/lib/db/retry';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 async function ProjectArchive() {
-  const projects = await getActiveProjects();
+  const projects = await withDbRetry(getActiveProjects);
 
   if (projects.length === 0) {
     return <p className="text-text-3">Project case studies are on their way.</p>;

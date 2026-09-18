@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Team } from '@/components/team';
 import { Footer } from '@/components/marketing';
 import { getActiveTeamMembers } from '@/lib/data/team';
+import { withDbRetry } from '@/lib/db/retry';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TeamPage() {
-  const members = await getActiveTeamMembers();
+  const members = await withDbRetry(getActiveTeamMembers);
 
   return (
     <>

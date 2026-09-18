@@ -20,11 +20,15 @@ const Team: FC<Props> = ({ members }) => {
         </p>
       </header>
 
-      <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:gap-x-8 lg:grid-cols-4">
-        {members.map((member) => (
-          <TeamMemberCard key={member.id} member={member} />
-        ))}
-      </div>
+      {members.length === 0 ? (
+        <p className="text-text-3">Team profiles are on their way.</p>
+      ) : (
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:gap-x-8 lg:grid-cols-4">
+          {members.map((member) => (
+            <TeamMemberCard key={member.id} member={member} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

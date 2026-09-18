@@ -3,13 +3,13 @@ import postgres from 'postgres';
 
 type Db = ReturnType<typeof drizzle>;
 
-let _db: Db | null = null;
+const globalForDb = globalThis as typeof globalThis & { __pyramidDb?: Db };
 
 function getInstance(): Db {
-  if (!_db) {
+  if (!globalForDb.__pyramidDb) {
     const isPooler = process.env.DATABASE_URL?.includes('pooler.supabase.com');
     const isServerless = Boolean(process.env.VERCEL);
-    _db = drizzle(
+    globalForDb.__pyramidDb = drizzle(
       postgres(process.env.DATABASE_URL!, {
         prepare: !isPooler,
         max: isServerless ? 1 : 10,
@@ -19,7 +19,7 @@ function getInstance(): Db {
       }),
     );
   }
-  return _db;
+  return globalForDb.__pyramidDb;
 }
 
 // Proxy defers connection until the first query — safe for scripts that load
