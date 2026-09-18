@@ -32,17 +32,17 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   icons: {
     icon: [
-      { url: '/icon.png?v=2', type: 'image/png', sizes: '32x32' },
-      { url: '/favicon.ico?v=2', sizes: 'any' },
+      { url: '/icon-nobg.png?v=3', type: 'image/png' },
+      { url: '/favicon.ico?v=3', sizes: 'any' },
     ],
-    apple: [{ url: '/apple-icon.png?v=2', sizes: '180x180' }],
+    apple: [{ url: '/icon-nobg.png?v=3' }],
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: dark)', color: '#141218' },
-    { media: '(prefers-color-scheme: light)', color: '#f6f4f9' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f7fc' },
   ],
 };
 
@@ -51,9 +51,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={fontVariables} data-theme="dark" suppressHydrationWarning>
       <head>
         <ThemeScript />
-        <link rel="icon" href="/icon.png?v=2" type="image/png" sizes="32x32" />
-        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-icon.png?v=2" />
+        <link rel="icon" href="/icon-nobg.png?v=3" type="image/png" />
+        <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+        <link rel="apple-touch-icon" href="/icon-nobg.png?v=3" />
       </head>
       <body>
         <AppShell>{children}</AppShell>
