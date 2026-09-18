@@ -27,12 +27,25 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
     return () => lenis?.start();
   }, [lenis]);
 
-  const isCurrent = (item: NavItem) => (item.route === '/' ? pathname === '/' : pathname.startsWith(item.route));
+  const isCurrent = (item: NavItem) => {
+    const [path, hash] = item.route.split('#');
+    const pathnameOnly = path || '/';
+
+    if (hash) return false;
+    if (pathnameOnly === '/') return pathname === '/';
+    return pathname.startsWith(pathnameOnly);
+  };
 
   const navigate = (item: NavItem) => {
     lenis?.start();
 
-    if (pathname === item.route) {
+    const [path, hash] = item.route.split('#');
+    const pathnameOnly = path || '/';
+    const hashId = hash ? `#${hash}` : null;
+
+    if (pathname === pathnameOnly && hashId) {
+      lenis?.scrollTo(hashId, { duration: 1.1 });
+    } else if (pathname === pathnameOnly) {
       lenis?.scrollTo(0, { duration: 1.1 });
     } else {
       router.push(item.route);

@@ -1,9 +1,8 @@
 import { defineField, defineType } from 'sanity';
 
 /**
- * Singleton document holding every editable text string on the marketing home
- * page. Every field is optional — anything left unset renders blank on the site
- * (Sanity is the single source of truth; there is no hardcoded fallback copy).
+ * Singleton document holding editable marketing copy on the home page.
+ * Empty fields fall back to the defaults in `HOME_CONTENT_FALLBACK`.
  */
 export const homePage = defineType({
   name: 'homePage',
@@ -17,7 +16,18 @@ export const homePage = defineType({
       fields: [
         defineField({ name: 'title', title: 'Title', type: 'string' }),
         defineField({ name: 'subtitle', title: 'Subtitle', type: 'string' }),
-        defineField({ name: 'ctaLabel', title: 'Button label', type: 'string' }),
+        defineField({
+          name: 'ctaLabel',
+          title: 'Primary button label',
+          description: 'Goes to the booking page. Destination is fixed in code.',
+          type: 'string',
+        }),
+        defineField({
+          name: 'secondaryCtaLabel',
+          title: 'Secondary button label',
+          description: 'Scrolls to the work section. Destination is fixed in code.',
+          type: 'string',
+        }),
       ],
     }),
     defineField({
@@ -66,10 +76,11 @@ export const homePage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'sectionTitle', title: 'Section title', type: 'string' }),
+        defineField({ name: 'intro', title: 'Intro', type: 'text', rows: 2 }),
         defineField({
           name: 'ctaLabel',
           title: 'Link label',
-          description: 'Shown when there are more projects than the homepage lists.',
+          description: 'Shown under the featured projects, linking to the full work archive.',
           type: 'string',
         }),
       ],
@@ -80,6 +91,7 @@ export const homePage = defineType({
       type: 'object',
       fields: [
         defineField({ name: 'sectionTitle', title: 'Section title', type: 'string' }),
+        defineField({ name: 'intro', title: 'Intro', type: 'text', rows: 3 }),
         defineField({
           name: 'cards',
           title: 'Approach steps',

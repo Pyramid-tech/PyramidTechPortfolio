@@ -29,10 +29,11 @@ const Approach: FC<Props> = ({ content }) => {
           <div className="md:w-[38%] md:shrink-0">
             <div className="md:sticky md:top-32">
               <SectionTitle title={content?.sectionTitle ?? ''} />
-              <p className="mt-5 max-w-[38ch] text-base leading-relaxed text-text-2 md:text-lg">
-                Five steps from first conversation to a product in production, with you in the room at
-                every one.
-              </p>
+              {content?.intro ? (
+                <p className="mt-5 max-w-[38ch] text-base leading-relaxed text-text-2 md:text-lg">
+                  {content.intro}
+                </p>
+              ) : null}
             </div>
           </div>
           <div className="flex-1">

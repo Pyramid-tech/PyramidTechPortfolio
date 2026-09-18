@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Work',
   description:
-    'Work from Pyramid: websites, mobile and desktop applications, APIs, AI products and experiments.',
+    'Work from Pyramid: websites, mobile and desktop applications, and the platforms behind them.',
   alternates: { canonical: '/work' },
 };
 
@@ -32,8 +32,7 @@ export default function ProjectsPage() {
           <header className="mb-12 sm:mb-16">
             <SectionTitle as="h1" title="WORK." />
             <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">
-              Designed, built and shipped: products, platforms and experiments across web, mobile,
-              backend and AI.
+              Designed, built and shipped: products across web, mobile, desktop, and backend.
             </p>
           </header>
 

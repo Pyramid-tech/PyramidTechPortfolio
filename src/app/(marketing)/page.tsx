@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [{ hasTeam, projectCount }, content, featuredProjects] = await Promise.all([
+  const [{ hasTeam }, content, featuredProjects] = await Promise.all([
     getNavCounts(),
     getHomeContent(),
     resilient('home:featured-projects', () => getCachedFeaturedProjects(6), []),
@@ -24,7 +24,6 @@ export default async function HomePage() {
       hasTeam={hasTeam}
       content={content}
       featuredProjects={featuredProjects}
-      projectCount={projectCount}
     />
   );
 }

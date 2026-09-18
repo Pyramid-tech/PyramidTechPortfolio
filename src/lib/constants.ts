@@ -5,10 +5,11 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { title: 'Our Story', route: '/' },
+  { title: 'Home', route: '/' },
+  { title: 'Services', route: '/#services' },
   { title: 'Our Team', route: '/team', requires: 'team' },
   { title: 'Our Work', route: '/work', requires: 'projects' },
-  { title: 'Your Project', route: '/book' },
+  { title: 'Start a project', route: '/book' },
 ];
 
 export function visibleNavItems(available: { team: boolean; projects: boolean }): NavItem[] {
@@ -21,10 +22,11 @@ export const RADIO_FIELDS = [
     classes: '',
     required: true,
     radioArray: [
-      { name: 'AI solutions', value: 'ai-solutions' },
-      { name: 'Full-stack development', value: 'fullstack' },
+      { name: 'Web development', value: 'web-dev' },
       { name: 'Mobile development', value: 'mobile-dev' },
-      { name: 'All of the above', value: 'all-types' },
+      { name: 'Desktop development', value: 'desktop-dev' },
+      { name: 'AI', value: 'ai-solutions' },
+      { name: 'Web, mobile, and desktop', value: 'all-types' },
       { name: 'Something else', value: 'other-service' },
     ],
     formKey: '_service',
@@ -100,9 +102,11 @@ export const BOOK_FORM_MESSAGES = {
 
 // Maps a booking request's service code to a human-readable label.
 export const SERVICE_LABELS: Record<string, string> = {
-  'ai-solutions': 'AI Solutions',
-  'fullstack': 'Fullstack',
-  'mobile-dev': 'Mobile',
-  'all-types': 'All services',
+  'web-dev': 'Web development',
+  'mobile-dev': 'Mobile development',
+  'desktop-dev': 'Desktop development',
+  'ai-solutions': 'AI',
+  'fullstack': 'Web development',
+  'all-types': 'Web, mobile, and desktop',
   'other-service': 'Other',
 };

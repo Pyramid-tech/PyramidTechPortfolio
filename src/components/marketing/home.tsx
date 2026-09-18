@@ -17,18 +17,17 @@ interface Props {
   hasTeam: boolean;
   content: HomeContent;
   featuredProjects: ProjectCardDTO[];
-  projectCount: number;
 }
 
-export default function Home({ hasTeam, content, featuredProjects, projectCount }: Props) {
+export default function Home({ hasTeam, content, featuredProjects }: Props) {
   useHashScroll();
 
   return (
     <>
       <Hero content={content.hero} />
-      <About content={content.about} hasTeam={hasTeam} />
       <Services content={content.services} />
-      <SelectedWork content={content.work} projects={featuredProjects} totalCount={projectCount} />
+      <SelectedWork content={content.work} projects={featuredProjects} />
+      <About content={content.about} hasTeam={hasTeam} />
       <Approach content={content.approach} />
       <CallToAction content={content.cta} />
 

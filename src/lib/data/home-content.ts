@@ -3,21 +3,19 @@ import { withHomeContentFallback } from '@/lib/home-content-fallback';
 import type { HomeContent } from '@/types/home-content';
 
 const HOME_CONTENT_QUERY = `*[_type == "homePage"][0]{
-  hero{ title, subtitle, ctaLabel },
+  hero{ title, subtitle, ctaLabel, secondaryCtaLabel },
   about{ sectionTitle, paragraph, ctaLabel },
   services{ sectionTitle, cards[]{ title, description, tags } },
-  work{ sectionTitle, ctaLabel },
-  approach{ sectionTitle, cards[]{ title, description } },
+  work{ sectionTitle, intro, ctaLabel },
+  approach{ sectionTitle, intro, cards[]{ title, description } },
   cta{ heading, paragraph, ctaLabel }
 }`;
 
 /**
- * Fetches the home-page copy from Sanity (the source of truth for authored
- * copy). Structural labels listed in `HOME_CONTENT_FALLBACK` fall back to a
- * built-in default so the page never renders a blank heading when Sanity is
- * unconfigured, unreachable, or missing the field; authored prose has no
- * fallback and stays blank rather than showing fabricated copy. The
- * `revalidate` cache serves the last good response through transient blips.
+ * Fetches the home-page copy from Sanity. Missing or empty fields are filled
+ * from `HOME_CONTENT_FALLBACK` so the offer stays readable if the CMS is
+ * unconfigured or a field is left blank. The `revalidate` cache serves the
+ * last good response through transient blips.
  */
 export async function getHomeContent(): Promise<HomeContent> {
   if (!client) return withHomeContentFallback({});

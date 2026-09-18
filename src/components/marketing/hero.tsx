@@ -1,5 +1,6 @@
 'use client';
 import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/button';
 import { HeroFrameMobile, HeroFrameOne, HeroFrameThree, HeroFrameTwo } from './hero-frames';
 import useFloatingImages from '@/hooks/use-floating-images';
@@ -14,7 +15,21 @@ interface Props {
   content: HomeContent['hero'];
 }
 
+function HeroTitle({ title }: { title: string }) {
+  const match = title.match(/^(.*?)(\bShips\b)(.*)$/i);
+  if (!match) return title;
+
+  return (
+    <>
+      {match[1]}
+      <span className="text-accent">{match[2]}</span>
+      {match[3]}
+    </>
+  );
+}
+
 const Hero = ({ content }: Props) => {
+  const router = useRouter();
   const ref1 = useRef(null);
   const ref2 = useRef(null);
   const ref3 = useRef(null);
@@ -22,10 +37,6 @@ const Hero = ({ content }: Props) => {
   const lenis = useLenis();
   const isCoarsePointer = useIsCoarsePointer();
   const { manageMouseMove } = useFloatingImages(ref1, ref2, ref3);
-
-  const scrollToAbout = () => {
-    lenis?.scrollTo('#about', { duration: 1.1 });
-  };
 
   const heading1 = useRef(null);
   const heading2 = useRef(null);
@@ -45,10 +56,10 @@ const Hero = ({ content }: Props) => {
       >
         <motion.h1
           ref={heading1}
-          className="relative z-raised mx-auto max-w-[16ch] text-balance text-center font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-text-1 sm:text-6xl md:text-7xl lg:text-8xl"
+          className="relative z-raised mx-auto max-w-[18ch] text-balance text-center font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-text-1 sm:text-6xl md:text-7xl lg:text-8xl"
           style={{ opacity }}
         >
-          {content?.title}
+          <HeroTitle title={content?.title ?? ''} />
         </motion.h1>
         <motion.p
           ref={heading2}
@@ -57,13 +68,21 @@ const Hero = ({ content }: Props) => {
         >
           {content?.subtitle}
         </motion.p>
-        <motion.div className="z-raised" style={{ opacity }}>
+        <motion.div className="z-raised mt-8 flex flex-col items-center gap-3" style={{ opacity }}>
           <Button
-            onClick={scrollToAbout}
+            onClick={() => router.push('/book')}
             title={content?.ctaLabel ?? ''}
             classes="bg-bg-1 hover:bg-bg-1/80"
-            btnClasses="mt-8"
           />
+          {content?.secondaryCtaLabel ? (
+            <button
+              type="button"
+              onClick={() => lenis?.scrollTo('#work', { duration: 1.1 })}
+              className="min-h-11 px-2 text-sm font-medium uppercase tracking-wide text-text-2 transition hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              {content.secondaryCtaLabel}
+            </button>
+          ) : null}
         </motion.div>
         {/* Landscape (wide) viewports: layered, mouse-parallax frames (wide art) */}
         <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-0 hidden h-full w-full landscape:block">

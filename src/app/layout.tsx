@@ -14,7 +14,14 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
-  keywords: ['AI agents', 'RAG', 'LLM integration', 'web development', 'mobile apps', 'Lebanon', 'Beirut'],
+  keywords: [
+    'software development',
+    'web development',
+    'mobile apps',
+    'desktop applications',
+    'Beirut',
+    'Lebanon',
+  ],
   authors: [{ name: SITE.name, url: SITE.url }],
   openGraph: {
     type: 'website',

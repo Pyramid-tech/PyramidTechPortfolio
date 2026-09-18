@@ -1,8 +1,6 @@
-// Content is authored in Sanity and is the source of truth for authored copy.
-// Every field is optional because the CMS may return a document with any field
-// left unset; components render what's present and omit what isn't. The one
-// exception is the structural labels in HOME_CONTENT_FALLBACK, which have a
-// built-in default so the page never renders a blank heading.
+// Content is authored in Sanity. Every field is optional because the CMS may
+// return a document with any field left unset. Structural labels and body copy
+// in HOME_CONTENT_FALLBACK fill gaps so the page never renders a blank offer.
 
 export interface ServiceCardContent {
   title?: string;
@@ -20,6 +18,7 @@ export interface HomeContent {
     title?: string;
     subtitle?: string;
     ctaLabel?: string;
+    secondaryCtaLabel?: string;
   };
   about?: {
     sectionTitle?: string;
@@ -32,10 +31,12 @@ export interface HomeContent {
   };
   work?: {
     sectionTitle?: string;
+    intro?: string;
     ctaLabel?: string;
   };
   approach?: {
     sectionTitle?: string;
+    intro?: string;
     cards?: ApproachCardContent[];
   };
   cta?: {

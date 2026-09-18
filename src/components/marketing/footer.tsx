@@ -10,7 +10,7 @@ const Footer: FC = () => {
       <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
         <div className="max-w-xs">
           <p className="text-sm leading-relaxed text-text-2 md:text-base">
-            Smart, scalable products from first concept to production.
+            Custom web, mobile, and desktop software from first concept to production.
           </p>
           <a
             href={`mailto:${SITE.email}`}
