@@ -1,13 +1,15 @@
 import { loadEnvConfig } from '@next/env';
 loadEnvConfig(process.cwd());
 
+// to run it: npx tsx scripts/test-book-email.ts --dry-run  (or without --dry-run to email all active team members)
+
 import { writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
 import { getActiveTeamMembers } from '../src/lib/data/team';
 import { sendProjectRequestEmail } from '../src/lib/email';
-import { renderProjectRequestEmail } from '../src/lib/emails/project-request';
+import { renderProjectRequestEmail } from '../src/lib/emails/project-request-team-notification';
 import type { BookRequestDTO } from '../src/types/book';
 
 const SAMPLE_REQUEST: BookRequestDTO = {
