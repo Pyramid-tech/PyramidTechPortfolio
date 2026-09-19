@@ -2,6 +2,8 @@ import { attachDatabasePool } from '@vercel/functions';
 import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 
+import { sslFor } from '@/lib/db/ssl';
+
 type Db = NodePgDatabase;
 
 const globalForDb = globalThis as typeof globalThis & { __pyramidDb?: Db };
@@ -10,6 +12,7 @@ function createPool(): Pool {
   const isServerless = Boolean(process.env.VERCEL);
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: sslFor(process.env.DATABASE_URL),
     max: isServerless ? 5 : 10,
     idleTimeoutMillis: isServerless ? 5_000 : 30_000,
     connectionTimeoutMillis: 5_000,

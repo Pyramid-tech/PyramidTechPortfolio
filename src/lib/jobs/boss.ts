@@ -1,12 +1,14 @@
 import PgBoss from 'pg-boss';
 
+import { sslFor } from '@/lib/db/ssl';
 import { logger } from '@/lib/logger';
 
 let instance: PgBoss | null = null;
 
 export function getBoss(): PgBoss {
   if (!instance) {
-    instance = new PgBoss(process.env.PGBOSS_DATABASE_URL!);
+    const connectionString = process.env.PGBOSS_DATABASE_URL!;
+    instance = new PgBoss({ connectionString, ssl: sslFor(connectionString) });
   }
   return instance;
 }
@@ -25,6 +27,7 @@ async function getSender(): Promise<PgBoss | null> {
     try {
       const boss = new PgBoss({
         connectionString,
+        ssl: sslFor(connectionString),
         max: 1,
         supervise: false,
         schedule: false,
