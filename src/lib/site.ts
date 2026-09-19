@@ -6,4 +6,5 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3400',
   location: 'Beirut, Lebanon',
   email: 'pyramidtechdev@gmail.com',
+  whatsapp: '96179439461',
 } as const;
