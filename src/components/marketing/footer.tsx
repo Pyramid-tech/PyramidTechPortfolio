@@ -65,7 +65,7 @@ const Footer: FC = () => {
         </text>
       </svg>
 
-      <div className="mt-8 flex items-center justify-between border-t border-t-stroke/60 py-6 text-xs text-text-3 md:text-sm">
+      <div className="mt-8 flex items-center justify-between border-t border-t-stroke/60 py-6 pr-[calc(var(--fab-clearance)_-_1.5rem)] text-xs text-text-3 md:pr-[calc(var(--fab-clearance)_-_3rem)] md:text-sm">
         <span className="flex items-center gap-2">
           <LogoIcon className="h-4 w-4" />© {new Date().getFullYear()} Pyramid.
         </span>

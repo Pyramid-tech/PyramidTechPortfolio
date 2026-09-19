@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Footer } from '@/components/marketing';
+import { WhatsAppTopic } from '@/components/marketing/whatsapp';
 import {
   ProjectHero,
   ProjectMedia,
@@ -111,6 +112,7 @@ export default async function ProjectDetailPage({ params }: Params) {
         <ProjectContactCta actions={visibleActions(project)} />
       </main>
       <Footer />
+      <WhatsAppTopic project={project.title} />
     </>
   );
 }

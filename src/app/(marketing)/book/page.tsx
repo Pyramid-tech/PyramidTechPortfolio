@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const Index = () => {
   return (
-    <section className="min-h-screen w-full bg-bg-1 px-4 pb-16 pt-28 sm:pb-24 sm:pt-32">
+    <section className="min-h-screen w-full bg-bg-1 px-4 pb-[var(--fab-clearance)] pt-28 sm:pb-24 sm:pt-32">
       <BookForm />
     </section>
   );

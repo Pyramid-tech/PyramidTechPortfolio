@@ -48,6 +48,7 @@ module.exports = {
       zIndex: {
         raised: '10',
         header: '100',
+        floating: '150',
         scrim: '200',
         drawer: '300',
         'drawer-controls': '310',
