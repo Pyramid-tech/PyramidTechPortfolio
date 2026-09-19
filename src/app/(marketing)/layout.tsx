@@ -2,6 +2,8 @@ import Navigation from '@/components/navigation';
 import { visibleNavItems } from '@/lib/constants';
 import { getNavCounts } from '@/lib/data/nav';
 
+export const maxDuration = 30;
+
 export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
   const { hasTeam, projectCount } = await getNavCounts();
 

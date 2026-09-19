@@ -6,7 +6,7 @@ import { getCachedFeaturedProjects } from '@/lib/data/project-cached';
 import { getNavCounts } from '@/lib/data/nav';
 import { resilient } from '@/lib/data/resilient';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },

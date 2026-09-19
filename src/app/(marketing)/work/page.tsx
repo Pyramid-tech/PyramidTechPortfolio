@@ -7,7 +7,7 @@ import SectionTitle from '@/components/ui/section-title';
 import { getActiveProjects } from '@/lib/data/project';
 import { withDbRetry } from '@/lib/db/retry';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: 'Work',

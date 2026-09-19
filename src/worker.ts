@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
-config({ path: `${process.cwd()}/.env.local` });
+import { loadEnvConfig } from '@next/env';
+loadEnvConfig(process.cwd());
 
 import { getBoss } from '@/lib/jobs/boss';
 import { registerCleanupAvatars } from '@/lib/jobs/cleanup-avatars';

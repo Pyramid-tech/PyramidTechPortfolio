@@ -1,5 +1,7 @@
 import { pgTable, uuid, varchar, text, jsonb, timestamp, index } from 'drizzle-orm/pg-core';
 
+import { appWebFullAccess } from './policies';
+
 export const pyramidLog = pgTable(
   'pyramid_log',
   {
@@ -18,6 +20,7 @@ export const pyramidLog = pgTable(
   (table) => [
     index('idx_pyramid_log_created_at').on(table.createdAt),
     index('idx_pyramid_log_level').on(table.level),
+    appWebFullAccess(),
   ],
 );
 

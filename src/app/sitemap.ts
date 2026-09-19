@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 
 import { getActiveProjectSlugs } from '@/lib/data/project';
+import { withDbRetry } from '@/lib/db/retry';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 
 function baseUrl(): string {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://pyramid.dev').replace(/\/$/, '');
@@ -20,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const projects = await getActiveProjectSlugs();
+    const projects = await withDbRetry(getActiveProjectSlugs);
     return [
       ...staticRoutes,
       ...projects.map((project) => ({

@@ -12,6 +12,8 @@ import {
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
+import { appWebFullAccess } from './policies';
+
 export const pyramidProjects = pgTable(
   'pyramid_projects',
   {
@@ -45,6 +47,7 @@ export const pyramidProjects = pgTable(
     index('idx_pyramid_projects_active_filter').on(table.deactivatedAt, table.reactivatedAt),
     index('idx_pyramid_projects_featured_order').on(table.featured, table.displayOrder),
     index('idx_pyramid_projects_display_order').on(table.displayOrder),
+    appWebFullAccess(),
   ],
 );
 
@@ -79,6 +82,7 @@ export const pyramidProjectMedia = pgTable(
     uniqueIndex('uq_pyramid_project_media_featured')
       .on(table.projectId)
       .where(sql`${table.isFeatured}`),
+    appWebFullAccess(),
   ],
 );
 
@@ -103,6 +107,7 @@ export const pyramidProjectActions = pgTable(
     uniqueIndex('uq_pyramid_project_actions_primary')
       .on(table.projectId)
       .where(sql`${table.isPrimary}`),
+    appWebFullAccess(),
   ],
 );
 
@@ -123,6 +128,7 @@ export const pyramidProjectSections = pgTable(
   (table) => [
     index('idx_pyramid_project_sections_project').on(table.projectId),
     index('idx_pyramid_project_sections_order').on(table.projectId, table.displayOrder),
+    appWebFullAccess(),
   ],
 );
 

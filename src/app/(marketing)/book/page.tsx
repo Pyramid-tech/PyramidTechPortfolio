@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 
 import { BookForm } from '@/components/forms';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title: 'Start a project',
   description:

@@ -1,23 +1,33 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import { attachDatabasePool } from '@vercel/functions';
+import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
+import { Pool } from 'pg';
 
-type Db = ReturnType<typeof drizzle>;
+import { sslFor } from '@/lib/db/ssl';
+
+type Db = NodePgDatabase;
 
 const globalForDb = globalThis as typeof globalThis & { __pyramidDb?: Db };
 
+function createPool(): Pool {
+  const isServerless = Boolean(process.env.VERCEL);
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: sslFor(process.env.DATABASE_URL),
+    max: isServerless ? 5 : 10,
+    idleTimeoutMillis: isServerless ? 5_000 : 30_000,
+    connectionTimeoutMillis: 5_000,
+    query_timeout: isServerless ? 8_000 : 30_000,
+    keepAlive: true,
+    application_name: 'pyramid-web',
+  });
+  pool.on('error', (error) => console.error('[db] idle client error', error));
+  attachDatabasePool(pool);
+  return pool;
+}
+
 function getInstance(): Db {
   if (!globalForDb.__pyramidDb) {
-    const isPooler = process.env.DATABASE_URL?.includes('pooler.supabase.com');
-    const isServerless = Boolean(process.env.VERCEL);
-    globalForDb.__pyramidDb = drizzle(
-      postgres(process.env.DATABASE_URL!, {
-        prepare: !isPooler,
-        max: isServerless ? 1 : 10,
-        idle_timeout: isServerless ? 20 : undefined,
-        connect_timeout: 10,
-        max_lifetime: 60 * 5,
-      }),
-    );
+    globalForDb.__pyramidDb = drizzle({ client: createPool() });
   }
   return globalForDb.__pyramidDb;
 }
