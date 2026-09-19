@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
-config({ path: '.env.local' });
+import { loadEnvConfig } from '@next/env';
+loadEnvConfig(process.cwd());
 
 import { createBookRequest } from '../src/lib/data/book';
 

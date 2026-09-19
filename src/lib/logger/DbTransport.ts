@@ -1,3 +1,4 @@
+import { waitUntil } from '@vercel/functions';
 import Transport from 'winston-transport';
 
 import { db } from '@/lib/db';
@@ -27,19 +28,22 @@ export class DbTransport extends Transport {
 
     for (const key of RESERVED_KEYS) delete ctx[key];
 
-    db.insert(pyramidLog)
-      .values({
-        level: String(info.level),
-        message: String(info.message ?? ''),
-        context: Object.keys(ctx).length > 0 ? ctx : null,
-        stack,
-        source,
-        requestId,
-        url,
-        method,
-        environment: process.env.NODE_ENV ?? 'development',
-      })
-      .catch((err) => console.error('DbTransport: failed to persist log', err));
+    waitUntil(
+      db
+        .insert(pyramidLog)
+        .values({
+          level: String(info.level),
+          message: String(info.message ?? ''),
+          context: Object.keys(ctx).length > 0 ? ctx : null,
+          stack,
+          source,
+          requestId,
+          url,
+          method,
+          environment: process.env.NODE_ENV ?? 'development',
+        })
+        .catch((err) => console.error('DbTransport: failed to persist log', err)),
+    );
 
     callback();
   }

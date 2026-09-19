@@ -1,5 +1,7 @@
 import { pgTable, uuid, varchar, text, integer, timestamp, index } from 'drizzle-orm/pg-core';
 
+import { appWebFullAccess } from './policies';
+
 export const pyramidTeam = pgTable(
   'pyramid_team',
   {
@@ -31,6 +33,7 @@ export const pyramidTeam = pgTable(
     index('idx_pyramid_team_display_order').on(table.displayOrder),
     index('idx_pyramid_team_active_filter').on(table.deactivatedAt, table.reactivatedAt),
     index('idx_pyramid_team_approval_status').on(table.approvalStatus),
+    appWebFullAccess(),
   ],
 );
 

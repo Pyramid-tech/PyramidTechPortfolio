@@ -15,6 +15,7 @@ import {
   getCaptureMedia,
   markCaptureStarted,
 } from '@/lib/data/project';
+import { pgErrorOf } from '@/lib/db/errors';
 import { enqueue } from '@/lib/jobs/boss';
 import { MEDIA_CAPTURE_QUEUE } from '@/lib/media-capture/config';
 import { logger } from '@/lib/logger';
@@ -50,18 +51,28 @@ function firstIssue(issues: { path: PropertyKey[]; message: string }[]): {
   return { error: field ? `${field}: ${issue.message}` : issue.message, field };
 }
 
+const UNIQUE_VIOLATIONS: Record<string, { error: string; field: string }> = {
+  pyramid_projects_slug_unique: { error: 'That slug is already taken', field: 'slug' },
+  uq_pyramid_project_media_featured: {
+    error: 'Only one asset can be the featured visual',
+    field: 'media',
+  },
+  uq_pyramid_project_actions_primary: { error: 'Only one action can be primary', field: 'actions' },
+};
+
 function mutationError(e: unknown, fallback: string): ProjectMutationResult {
-  const message = e instanceof Error ? e.message : fallback;
-  if (message.includes('pyramid_projects_slug_unique') || message.includes('slug')) {
-    return { ok: false, error: 'That slug is already taken', field: 'slug' };
-  }
-  if (message.includes('uq_pyramid_project_media_featured')) {
-    return { ok: false, error: 'Only one asset can be the featured visual', field: 'media' };
-  }
-  if (message.includes('uq_pyramid_project_actions_primary')) {
-    return { ok: false, error: 'Only one action can be primary', field: 'actions' };
-  }
-  logger.error('project mutation failed', { context: { message } });
+  const pgError = pgErrorOf(e);
+  const known =
+    pgError?.code === '23505' && pgError.constraint ? UNIQUE_VIOLATIONS[pgError.constraint] : undefined;
+  if (known) return { ok: false, ...known };
+
+  logger.error('project mutation failed', {
+    context: {
+      message: e instanceof Error ? e.message : String(e),
+      code: pgError?.code,
+      constraint: pgError?.constraint,
+    },
+  });
   return { ok: false, error: fallback };
 }
 

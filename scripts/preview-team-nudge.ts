@@ -1,5 +1,5 @@
-import { config } from 'dotenv';
-config({ path: `${process.cwd()}/.env` });
+import { loadEnvConfig } from '@next/env';
+loadEnvConfig(process.cwd());
 
 // preview only — generates the messages WITHOUT sending to Telegram or writing the DB
 // to run it: npx tsx scripts/preview-team-nudge.ts

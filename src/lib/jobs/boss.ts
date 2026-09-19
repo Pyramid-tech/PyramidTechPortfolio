@@ -25,6 +25,7 @@ async function getSender(): Promise<PgBoss | null> {
     try {
       const boss = new PgBoss({
         connectionString,
+        max: 1,
         supervise: false,
         schedule: false,
         migrate: false,

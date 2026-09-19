@@ -10,18 +10,25 @@ import {
   ProjectContactCta,
 } from '@/components/projects';
 import { visibleActions } from '@/components/projects/project-actions';
-import { getActiveProjectBySlug, getAdjacentActiveProjects } from '@/lib/data/project';
+import { getActiveProjectSlugs, getAdjacentActiveProjects } from '@/lib/data/project';
+import { getProjectForPage } from '@/lib/data/project-cached';
+import { resilient } from '@/lib/data/resilient';
 import { withDbRetry } from '@/lib/db/retry';
 import { cn } from '@/lib/utils';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 interface Params {
   params: { slug: string };
 }
 
+export async function generateStaticParams(): Promise<Params['params'][]> {
+  const projects = await resilient('work:static-params', getActiveProjectSlugs, []);
+  return projects.map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const project = await withDbRetry(() => getActiveProjectBySlug(params.slug));
+  const project = await getProjectForPage(params.slug);
   if (!project) return { title: 'Project not found' };
 
   const image = project.featuredMedia?.url ?? project.featuredMedia?.posterUrl ?? undefined;
@@ -47,7 +54,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function ProjectDetailPage({ params }: Params) {
-  const project = await withDbRetry(() => getActiveProjectBySlug(params.slug));
+  const project = await getProjectForPage(params.slug);
   if (!project) notFound();
 
   const { previous, next } = await withDbRetry(() => getAdjacentActiveProjects(project.slug));

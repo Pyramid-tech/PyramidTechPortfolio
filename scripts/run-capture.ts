@@ -1,10 +1,9 @@
 // Run all pending captures:  npx tsx scripts/run-capture.ts
 // Run a single project:      npx tsx scripts/run-capture.ts <slug>
 
-import { config } from 'dotenv';
+import { loadEnvConfig } from '@next/env';
 
-config({ path: `${process.cwd()}/.env.local` });
-config({ path: `${process.cwd()}/.env` });
+loadEnvConfig(process.cwd());
 
 if (!process.env.CAPTURE_HTTP_ENDPOINT) process.env.CAPTURE_DRIVER = 'playwright';
 

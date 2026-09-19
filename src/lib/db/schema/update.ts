@@ -1,5 +1,7 @@
 import { pgTable, uuid, varchar, text, integer, jsonb, timestamp, index } from 'drizzle-orm/pg-core';
 
+import { appWebFullAccess } from './policies';
+
 export const pyramidUpdates = pgTable(
   'pyramid_updates',
   {
@@ -14,6 +16,7 @@ export const pyramidUpdates = pgTable(
   },
   (table) => [
     index('idx_pyramid_updates_kind_created').on(table.kind, table.createdAt),
+    appWebFullAccess(),
   ],
 );
 

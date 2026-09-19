@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { eq, desc } from 'drizzle-orm';
+import { desc } from 'drizzle-orm';
 
 import { db } from '@/lib/db';
 import { pyramidRequests } from '@/lib/db/schema/book';
@@ -42,12 +42,25 @@ export async function getBookRequests(): Promise<PyramidRequestDTO[]> {
 export async function createBookRequest(dto: BookRequestDTO): Promise<void> {
   const hash = buildHash(dto);
 
-  const existing = await db
-    .select({ id: pyramidRequests.id })
-    .from(pyramidRequests)
-    .where(eq(pyramidRequests.contentHash, hash))
-    .limit(1);
-  if (existing.length > 0) {
+  const inserted = await db
+    .insert(pyramidRequests)
+    .values({
+      service: dto.service,
+      budget: dto.budget,
+      pages: dto.pages,
+      quickness: dto.quickness,
+      name: dto.name,
+      phone: dto.phone,
+      email: dto.email,
+      company: dto.company,
+      websiteUrl: dto.websiteUrl ?? null,
+      message: dto.message ?? null,
+      contentHash: hash,
+    })
+    .onConflictDoNothing({ target: pyramidRequests.contentHash })
+    .returning({ id: pyramidRequests.id });
+
+  if (inserted.length === 0) {
     logger.warning('book-request: duplicate blocked', { hash });
     throw new DuplicateRequestError();
   }
@@ -57,22 +70,16 @@ export async function createBookRequest(dto: BookRequestDTO): Promise<void> {
 
   if (emails.length === 0) {
     logger.warning('book-request: no active members to notify');
-  } else {
-    await sendProjectRequestEmail(emails, dto);
-    logger.info('book-request: sent', { to: emails, from: dto.email });
+    return;
   }
 
-  await db.insert(pyramidRequests).values({
-    service: dto.service,
-    budget: dto.budget,
-    pages: dto.pages,
-    quickness: dto.quickness,
-    name: dto.name,
-    phone: dto.phone,
-    email: dto.email,
-    company: dto.company,
-    websiteUrl: dto.websiteUrl ?? null,
-    message: dto.message ?? null,
-    contentHash: hash,
-  });
+  try {
+    await sendProjectRequestEmail(emails, dto);
+    logger.info('book-request: sent', { to: emails, from: dto.email });
+  } catch (error) {
+    logger.error('book-request: notification failed', {
+      bookRequestId: inserted[0].id,
+      error: String(error),
+    });
+  }
 }
