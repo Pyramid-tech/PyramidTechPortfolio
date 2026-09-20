@@ -1,6 +1,8 @@
 name: Deploy alerts
 
 on:
+  push:
+    branches: [master]
   deployment_status:
 
 permissions:
@@ -15,30 +17,52 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
           STATE: ${{ github.event.deployment_status.state }}
           ENVIRONMENT: ${{ github.event.deployment_status.environment }}
-          SHA: ${{ github.event.deployment.sha }}
-          REF: ${{ github.event.deployment.ref }}
+          DEPLOY_SHA: ${{ github.event.deployment.sha }}
+          DEPLOY_REF: ${{ github.event.deployment.ref }}
+          DEPLOY_COMMIT_REF: ${{ github.event.deployment.payload.githubCommitRef }}
           SITE_URL: ${{ github.event.deployment_status.environment_url }}
           LOG_URL: ${{ github.event.deployment_status.target_url }}
+          PUSH_SHA: ${{ github.sha }}
+          PUSH_BRANCH: ${{ github.ref_name }}
         run: |
           set -euo pipefail
 
-          echo "::notice::state='${STATE}' environment='${ENVIRONMENT}'"
+          if [ "$EVENT" = "push" ]; then
+            echo "::notice::push to '${PUSH_BRANCH}'"
+            TITLE="🔵 DEPLOYING"
+            COLOR=3447003
+            SHA="$PUSH_SHA"
+            BRANCH="$PUSH_BRANCH"
+            SITE_URL=""
+            LOG_URL=""
+          else
+            echo "::notice::state='${STATE}' environment='${ENVIRONMENT}' ref='${DEPLOY_REF}' commitRef='${DEPLOY_COMMIT_REF}'"
 
-          ENV_LC=$(printf '%s' "$ENVIRONMENT" | tr '[:upper:]' '[:lower:]')
-          case "$ENV_LC" in
-            *production*) ;;
-            *) echo "environment '${ENVIRONMENT}' is not production, nothing to post"; exit 0 ;;
-          esac
+            ENV_LC=$(printf '%s' "$ENVIRONMENT" | tr '[:upper:]' '[:lower:]')
+            case "$ENV_LC" in
+              *production*) ;;
+              *) echo "environment '${ENVIRONMENT}' is not production, nothing to post"; exit 0 ;;
+            esac
 
-          case "$STATE" in
-            in_progress) TITLE="🔵 DEPLOYING";     COLOR=3447003  ;;
-            success)     TITLE="🟢 DEPLOYED";      COLOR=3066993  ;;
-            failure)     TITLE="🔴 DEPLOY FAILED"; COLOR=15158332 ;;
-            error)       TITLE="🔴 DEPLOY ERROR";  COLOR=15158332 ;;
-            *)           echo "state '${STATE}' is not reported, nothing to post"; exit 0 ;;
-          esac
+            case "$STATE" in
+              success) TITLE="🟢 DEPLOYED";      COLOR=3066993  ;;
+              failure) TITLE="🔴 DEPLOY FAILED"; COLOR=15158332 ;;
+              error)   TITLE="🔴 DEPLOY ERROR";  COLOR=15158332 ;;
+              *)       echo "state '${STATE}' is not reported, nothing to post"; exit 0 ;;
+            esac
+
+            SHA="$DEPLOY_SHA"
+            BRANCH=$(printf '%s' "$DEPLOY_REF" | sed 's#^refs/heads/##')
+            if printf '%s' "$BRANCH" | grep -qE '^[0-9a-f]{40}$'; then
+              BRANCH="$DEPLOY_COMMIT_REF"
+            fi
+            if [ "$LOG_URL" = "$SITE_URL" ]; then
+              LOG_URL=""
+            fi
+          fi
 
           if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
             echo "::error::DISCORD_WEBHOOK_URL secret is not set"
@@ -54,7 +78,6 @@ jobs:
           AUTHOR=$(printf '%s' "$COMMIT_JSON" | jq -r '.author.login // .commit.author.name // ""') || AUTHOR=""
 
           SHORT_SHA=$(printf '%s' "$SHA" | cut -c1-7)
-          BRANCH=$(printf '%s' "$REF" | sed 's#^refs/heads/##')
 
           jq -n \
             --arg title "$TITLE" \
@@ -72,7 +95,8 @@ jobs:
                embeds: [{
                  title: $title,
                  description: (
-                   "[`" + $short_sha + "`](https://github.com/" + $repo + "/commit/" + $sha + ") on `" + $branch + "`"
+                   "[`" + $short_sha + "`](https://github.com/" + $repo + "/commit/" + $sha + ")"
+                   + (if $branch != "" then " on `" + $branch + "`" else "" end)
                    + (if $subject != "" then "\n" + $subject else "" end)
                  ),
                  color: $color,
