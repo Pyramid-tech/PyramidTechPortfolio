@@ -85,15 +85,24 @@ const Hero = ({ content }: Props) => {
           ) : null}
         </motion.div>
         {/* Landscape (wide) viewports: layered, mouse-parallax frames (wide art) */}
-        <div ref={ref1} className="pointer-events-none absolute left-0 top-0 z-0 hidden h-full w-full landscape:block">
+        <div
+          ref={ref1}
+          className="pointer-events-none absolute left-0 top-0 z-0 hidden h-full w-full landscape:block"
+        >
           <HeroFrameOne />
         </div>
 
-        <div ref={ref2} className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block">
+        <div
+          ref={ref2}
+          className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block"
+        >
           <HeroFrameTwo />
         </div>
 
-        <div ref={ref3} className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block">
+        <div
+          ref={ref3}
+          className="pointer-events-none absolute left-0 top-0 hidden h-full w-full landscape:block"
+        >
           <HeroFrameThree />
         </div>
 

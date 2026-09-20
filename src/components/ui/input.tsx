@@ -17,9 +17,11 @@ interface Props extends ComponentPropsWithoutRef<'input'> {
   variant?: InputVariant;
 }
 
-const Input = forwardRef<HTMLInputElement, Props>(({ variant = 'admin', className, ...props }, ref) => (
-  <input ref={ref} className={cn(VARIANTS[variant], className)} {...props} />
-));
+const Input = forwardRef<HTMLInputElement, Props>(
+  ({ variant = 'admin', className, ...props }, ref) => (
+    <input ref={ref} className={cn(VARIANTS[variant], className)} {...props} />
+  ),
+);
 Input.displayName = 'Input';
 
 export default Input;

@@ -19,11 +19,5 @@ export default async function HomePage() {
     resilient('home:featured-projects', () => getCachedFeaturedProjects(6), []),
   ]);
 
-  return (
-    <HomeContent
-      hasTeam={hasTeam}
-      content={content}
-      featuredProjects={featuredProjects}
-    />
-  );
+  return <HomeContent hasTeam={hasTeam} content={content} featuredProjects={featuredProjects} />;
 }

@@ -23,7 +23,9 @@ const SelectedWork: FC<Props> = ({ content, projects }) => {
       <div className="px-6 md:px-12">
         <SectionTitle title={sectionTitle} />
         {content?.intro?.trim() ? (
-          <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">{content.intro}</p>
+          <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">
+            {content.intro}
+          </p>
         ) : null}
 
         <div className="mt-10 md:mt-14">
@@ -36,7 +38,10 @@ const SelectedWork: FC<Props> = ({ content, projects }) => {
             className="group inline-flex min-h-11 items-center gap-1.5 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
           >
             {ctaLabel}
-            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+            <span
+              aria-hidden
+              className="transition-transform duration-300 group-hover:translate-x-0.5"
+            >
               →
             </span>
           </Link>

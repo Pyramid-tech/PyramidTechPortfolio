@@ -15,9 +15,11 @@ interface Props extends ComponentPropsWithoutRef<'textarea'> {
   variant?: TextareaVariant;
 }
 
-const Textarea = forwardRef<HTMLTextAreaElement, Props>(({ variant = 'admin', className, ...props }, ref) => (
-  <textarea ref={ref} className={cn(VARIANTS[variant], className)} {...props} />
-));
+const Textarea = forwardRef<HTMLTextAreaElement, Props>(
+  ({ variant = 'admin', className, ...props }, ref) => (
+    <textarea ref={ref} className={cn(VARIANTS[variant], className)} {...props} />
+  ),
+);
 Textarea.displayName = 'Textarea';
 
 export default Textarea;

@@ -74,7 +74,10 @@ export function websiteHref(value: string): string | null {
   return null;
 }
 
-export function emailKit(palette: EmailPalette, { breakLongWords = false }: { breakLongWords?: boolean } = {}) {
+export function emailKit(
+  palette: EmailPalette,
+  { breakLongWords = false }: { breakLongWords?: boolean } = {},
+) {
   const wrap = breakLongWords ? 'word-break:break-word;overflow-wrap:anywhere;' : '';
 
   function eyebrow(label: string): string {
@@ -108,7 +111,9 @@ export function emailKit(palette: EmailPalette, { breakLongWords = false }: { br
     for (let i = 0; i < cells.length; i += 2) {
       const pair = cells.slice(i, i + 2);
       const wide = pair.length === 1;
-      rows.push(`                    <tr>${pair.map(([label, value]) => detailCell(label, value, wide)).join('')}</tr>`);
+      rows.push(
+        `                    <tr>${pair.map(([label, value]) => detailCell(label, value, wide)).join('')}</tr>`,
+      );
     }
     return `<tr>
                 <td class="px-grid" style="padding:20px 26px 12px;">
@@ -167,7 +172,14 @@ ${rows.join('\n')}
               </tr>`;
   }
 
-  function layout({ colorScheme, title, preheader, headerAside, cardRows, footerLines }: EmailLayout): string {
+  function layout({
+    colorScheme,
+    title,
+    preheader,
+    headerAside,
+    cardRows,
+    footerLines,
+  }: EmailLayout): string {
     const base = siteUrl();
     return `<!doctype html>
 <html lang="en">
@@ -230,5 +242,17 @@ ${rows.join('\n')}
 </html>`;
   }
 
-  return { eyebrow, headline, lead, detailGrid, quote, contactRow, link, footerLink, button, buttonRow, layout };
+  return {
+    eyebrow,
+    headline,
+    lead,
+    detailGrid,
+    quote,
+    contactRow,
+    link,
+    footerLink,
+    button,
+    buttonRow,
+    layout,
+  };
 }

@@ -57,7 +57,10 @@ const ActionFields: FC<Props> = ({ actions, onChange, onMove, onAdd }) => {
               </Select>
             </Field>
             <Field label="Button label">
-              <Input value={action.label} onChange={(e) => patch(index, { label: e.target.value })} />
+              <Input
+                value={action.label}
+                onChange={(e) => patch(index, { label: e.target.value })}
+              />
             </Field>
           </div>
 

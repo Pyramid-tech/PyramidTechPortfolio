@@ -388,7 +388,9 @@ async function replaceChildren(tx: Tx, projectId: string, input: CreateProjectIn
   }
 }
 
-export async function createProject(input: CreateProjectInput): Promise<{ id: string; slug: string }> {
+export async function createProject(
+  input: CreateProjectInput,
+): Promise<{ id: string; slug: string }> {
   return db.transaction(async (tx) => {
     const rows = await tx
       .insert(pyramidProjects)
@@ -469,7 +471,11 @@ export async function slugExists(slug: string, excludeId?: string): Promise<bool
   const where = excludeId
     ? and(eq(pyramidProjects.slug, slug), ne(pyramidProjects.id, excludeId))
     : eq(pyramidProjects.slug, slug);
-  const rows = await db.select({ id: pyramidProjects.id }).from(pyramidProjects).where(where).limit(1);
+  const rows = await db
+    .select({ id: pyramidProjects.id })
+    .from(pyramidProjects)
+    .where(where)
+    .limit(1);
   return rows.length > 0;
 }
 
@@ -486,7 +492,9 @@ export async function getPendingCaptureMedia(projectId: string) {
   return db
     .select()
     .from(pyramidProjectMedia)
-    .where(and(eq(pyramidProjectMedia.projectId, projectId), eq(pyramidProjectMedia.kind, 'capture')))
+    .where(
+      and(eq(pyramidProjectMedia.projectId, projectId), eq(pyramidProjectMedia.kind, 'capture')),
+    )
     .orderBy(asc(pyramidProjectMedia.displayOrder));
 }
 

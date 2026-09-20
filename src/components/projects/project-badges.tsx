@@ -13,7 +13,11 @@ interface StatusBadge {
 function cardStatusBadges(project: ProjectCardDTO): StatusBadge[] {
   const badges: StatusBadge[] = [];
 
-  if (project.origin === 'demo' || project.origin === 'pyramid-product' || project.origin === 'open-source') {
+  if (
+    project.origin === 'demo' ||
+    project.origin === 'pyramid-product' ||
+    project.origin === 'open-source'
+  ) {
     badges.push({ key: 'origin', label: ORIGIN_LABELS[project.origin], tone: 'brand' });
   }
   if (project.lifecycle === 'archived') {

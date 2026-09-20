@@ -40,9 +40,13 @@ const ProcessSteps: FC<Props> = ({ steps }) => {
             <div className={cn('flex flex-col gap-2 pt-2', isLast ? 'pb-0' : 'pb-10 md:pb-12')}>
               <div className="flex items-center gap-3">
                 <step.icon />
-                <h3 className="font-display text-xl font-semibold leading-tight md:text-2xl">{step.title}</h3>
+                <h3 className="font-display text-xl font-semibold leading-tight md:text-2xl">
+                  {step.title}
+                </h3>
               </div>
-              <p className="max-w-[62ch] text-sm leading-relaxed text-text-2 md:text-base">{step.description}</p>
+              <p className="max-w-[62ch] text-sm leading-relaxed text-text-2 md:text-base">
+                {step.description}
+              </p>
             </div>
           </li>
         );

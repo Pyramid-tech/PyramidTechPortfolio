@@ -2,7 +2,10 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 
 import { cn } from '@/lib/utils';
 
-interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+interface Props extends DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> {
   title: string;
   btnClasses?: string;
   classes?: string;

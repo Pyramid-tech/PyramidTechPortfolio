@@ -43,7 +43,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       title: project.title,
       description: project.summary,
       url: `/work/${project.slug}`,
-      images: image ? [{ url: image, alt: project.featuredMedia?.altText ?? project.title }] : undefined,
+      images: image
+        ? [{ url: image, alt: project.featuredMedia?.altText ?? project.title }]
+        : undefined,
     },
     twitter: {
       card: image ? 'summary_large_image' : 'summary',
@@ -75,7 +77,7 @@ export default async function ProjectDetailPage({ params }: Params) {
             <h2 className="mb-8 font-display text-2xl font-semibold text-text-1 md:text-3xl">
               Overview
             </h2>
-            <div className="max-w-3xl lg:max-w-none lg:flow-root">
+            <div className="max-w-3xl lg:flow-root lg:max-w-none">
               {project.featuredMedia && (
                 <figure className="hidden lg:float-right lg:mb-5 lg:ml-9 lg:block lg:w-[42%]">
                   <div className="overflow-hidden rounded-xl border border-stroke">

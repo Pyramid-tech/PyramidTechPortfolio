@@ -5,10 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import type { AdminProjectListItemDTO } from '@/types/project';
-import {
-  deactivateProjectAction,
-  reactivateProjectAction,
-} from '@/lib/actions/project';
+import { deactivateProjectAction, reactivateProjectAction } from '@/lib/actions/project';
 import Modal from '@/components/ui/modal';
 
 import DashboardHeader from './dashboard-header';
@@ -57,7 +54,10 @@ const ProjectsManager: FC<{ projects: AdminProjectListItemDTO[] }> = ({ projects
       <DashboardNav />
 
       {error && (
-        <p className="mb-4 rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger" role="alert">
+        <p
+          className="mb-4 rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger"
+          role="alert"
+        >
           {error}
         </p>
       )}
@@ -75,8 +75,8 @@ const ProjectsManager: FC<{ projects: AdminProjectListItemDTO[] }> = ({ projects
           </h2>
           <p className="text-sm leading-relaxed text-text-2">
             <span className="font-medium text-text-1">{confirming.title}</span> will disappear from
-            Selected Work, the projects page, project navigation and the sitemap. Nothing is
-            deleted — it stays here and you can reactivate it at any time.
+            Selected Work, the projects page, project navigation and the sitemap. Nothing is deleted
+            — it stays here and you can reactivate it at any time.
           </p>
           <div className="mt-6 flex justify-end gap-3">
             <button

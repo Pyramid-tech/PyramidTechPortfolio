@@ -13,7 +13,12 @@ interface Props {
 // Fixed overlay + centered panel + close button. Panel content is passed in.
 const Modal: FC<Props> = ({ onClose, children, className }) => (
   <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-scrim px-4 py-8 backdrop-blur-sm sm:items-center">
-    <div className={cn('relative w-full max-w-lg rounded-2xl border border-stroke bg-bg-2 p-6 shadow-2xl sm:p-8', className)}>
+    <div
+      className={cn(
+        'relative w-full max-w-lg rounded-2xl border border-stroke bg-bg-2 p-6 shadow-2xl sm:p-8',
+        className,
+      )}
+    >
       <button
         type="button"
         onClick={onClose}

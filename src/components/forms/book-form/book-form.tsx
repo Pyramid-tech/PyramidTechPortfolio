@@ -18,7 +18,9 @@ const FIELD_SPANS: Record<string, string> = {
 };
 
 const Eyebrow: FC<{ children: string }> = ({ children }) => (
-  <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-primary">{children}</h2>
+  <h2 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+    {children}
+  </h2>
 );
 
 const BookForm: FC = () => {
@@ -42,8 +44,8 @@ const BookForm: FC = () => {
           Start a project
         </h1>
         <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">
-          Six questions and a few details. We read every request and reply within two working days with
-          a first take on scope, timeline and cost.
+          Six questions and a few details. We read every request and reply within two working days
+          with a first take on scope, timeline and cost.
         </p>
       </div>
 
@@ -56,7 +58,11 @@ const BookForm: FC = () => {
           <Eyebrow>Project details</Eyebrow>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {RADIO_FIELDS.map((field) => (
-              <RadioFieldGroup key={field.title} field={field} onChange={(value) => setValue(field.formKey, value)} />
+              <RadioFieldGroup
+                key={field.title}
+                field={field}
+                onChange={(value) => setValue(field.formKey, value)}
+              />
             ))}
           </div>
         </section>
@@ -105,7 +111,9 @@ const BookForm: FC = () => {
             <p
               className={cn(
                 'rounded-lg px-4 py-2.5 text-sm sm:text-right',
-                feedback.type === 'success' ? 'bg-success-surface/10 text-success' : 'bg-danger-surface/10 text-danger',
+                feedback.type === 'success'
+                  ? 'bg-success-surface/10 text-success'
+                  : 'bg-danger-surface/10 text-danger',
               )}
             >
               {feedback.message}

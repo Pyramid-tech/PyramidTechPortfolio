@@ -67,10 +67,7 @@ const optionalHttpsUrl = z
   .transform((v) => (v ? v : null))
   .refine((v) => v === null || isHttpsUrl(v), 'Must be an https:// URL');
 
-const paragraphs = z
-  .array(z.string().trim().min(1))
-  .min(1)
-  .max(40);
+const paragraphs = z.array(z.string().trim().min(1)).min(1).max(40);
 
 const mediaRefSchema = z.object({
   url: httpsUrl,

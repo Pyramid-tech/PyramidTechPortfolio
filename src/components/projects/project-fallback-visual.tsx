@@ -2,7 +2,10 @@ import { FC } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const ProjectFallbackVisual: FC<{ label?: string; className?: string }> = ({ label, className }) => (
+const ProjectFallbackVisual: FC<{ label?: string; className?: string }> = ({
+  label,
+  className,
+}) => (
   <div
     aria-hidden
     className={cn(

@@ -38,9 +38,15 @@ async function screenshotAdapter(
 
 const ADAPTERS: CaptureAdapter[] = [
   { sourceType: 'website', capture: (job) => screenshotAdapter(job) },
-  { sourceType: 'store-listing', capture: (job) => screenshotAdapter(job, { width: 900, height: 1400 }) },
+  {
+    sourceType: 'store-listing',
+    capture: (job) => screenshotAdapter(job, { width: 900, height: 1400 }),
+  },
   { sourceType: 'docs', capture: (job) => screenshotAdapter(job, { width: 1440, height: 1000 }) },
-  { sourceType: 'repo-social', capture: (job) => screenshotAdapter(job, { width: 1280, height: 640 }) },
+  {
+    sourceType: 'repo-social',
+    capture: (job) => screenshotAdapter(job, { width: 1280, height: 640 }),
+  },
 ];
 
 export function adapterFor(sourceType: CaptureSourceType): CaptureAdapter | null {

@@ -41,7 +41,9 @@ function client(): AxiosInstance {
       const status = error.response?.status ?? 500;
       const data = error.response?.data;
       const message =
-        typeof data === 'string' ? data : ((data as { message?: string })?.message ?? error.message);
+        typeof data === 'string'
+          ? data
+          : ((data as { message?: string })?.message ?? error.message);
       return Promise.reject(new StorageError(message, status));
     },
   );

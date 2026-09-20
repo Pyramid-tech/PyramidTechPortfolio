@@ -10,7 +10,9 @@ import type { MemberFormState } from '@/hooks/use-member-form';
 interface Props {
   mode: 'create' | 'edit';
   form: MemberFormState;
-  setField: (key: keyof MemberFormState) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  setField: (
+    key: keyof MemberFormState,
+  ) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 const MemberFormFields: FC<Props> = ({ mode, form, setField }) => (
@@ -40,7 +42,12 @@ const MemberFormFields: FC<Props> = ({ mode, form, setField }) => (
 
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <Field label={mode === 'create' ? 'Password' : 'New Password (leave blank to keep)'}>
-        <Input type="password" value={form.password} onChange={setField('password')} required={mode === 'create'} />
+        <Input
+          type="password"
+          value={form.password}
+          onChange={setField('password')}
+          required={mode === 'create'}
+        />
       </Field>
       <Field label="Display Order">
         <Input type="number" value={form.displayOrder} onChange={setField('displayOrder')} />

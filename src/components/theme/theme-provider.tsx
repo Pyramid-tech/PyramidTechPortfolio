@@ -1,6 +1,15 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 
 import { DEFAULT_THEME, THEME_STORAGE_KEY, type Theme } from './constants';
 
@@ -15,7 +24,8 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const readTheme = (): Theme => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+const readTheme = (): Theme =>
+  document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
 
 const readStored = (): Theme | null => {
   try {
@@ -55,7 +65,10 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (!prefersReducedMotion()) {
       window.clearTimeout(timer.current);
       root.classList.add(TRANSITION_CLASS);
-      timer.current = window.setTimeout(() => root.classList.remove(TRANSITION_CLASS), TRANSITION_MS);
+      timer.current = window.setTimeout(
+        () => root.classList.remove(TRANSITION_CLASS),
+        TRANSITION_MS,
+      );
     }
 
     root.dataset.theme = next;

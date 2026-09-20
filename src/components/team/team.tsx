@@ -15,8 +15,8 @@ const Team: FC<Props> = ({ members }) => {
       <header className="mb-12 sm:mb-16">
         <SectionTitle as="h1" title="TEAM." />
         <p className="mt-5 max-w-[52ch] text-base leading-relaxed text-text-2 md:text-lg">
-          The engineers and designers who build the work. Small on purpose, so the people who scope your
-          project are the people who ship it.
+          The engineers and designers who build the work. Small on purpose, so the people who scope
+          your project are the people who ship it.
         </p>
       </header>
 

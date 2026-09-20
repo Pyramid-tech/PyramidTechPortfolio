@@ -31,7 +31,12 @@ const COLOR: EmailPalette = {
 
 function truncate(value: string, maxLength: number): string {
   const chars = Array.from(value);
-  return chars.length > maxLength ? `${chars.slice(0, maxLength - 1).join('').trimEnd()}…` : value;
+  return chars.length > maxLength
+    ? `${chars
+        .slice(0, maxLength - 1)
+        .join('')
+        .trimEnd()}…`
+    : value;
 }
 
 function answer(formKey: string, value: string): string {
@@ -39,9 +44,10 @@ function answer(formKey: string, value: string): string {
 }
 
 export function renderProjectConfirmationEmail(dto: BookRequestDTO): RenderedEmail {
-  const { eyebrow, headline, lead, detailGrid, quote, footerLink, button, buttonRow, layout } = emailKit(COLOR, {
-    breakLongWords: true,
-  });
+  const { eyebrow, headline, lead, detailGrid, quote, footerLink, button, buttonRow, layout } =
+    emailKit(COLOR, {
+      breakLongWords: true,
+    });
   const base = siteUrl();
   const firstName = truncate(singleLine(dto.name).split(' ')[0], FIRST_NAME_MAX_LENGTH);
   const company = truncate(singleLine(dto.company), COMPANY_MAX_LENGTH);
