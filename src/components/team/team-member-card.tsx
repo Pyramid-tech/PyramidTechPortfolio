@@ -33,7 +33,9 @@ const TeamMemberCard: FC<{ member: TeamMemberDTO }> = ({ member }) => (
       <p className="text-base font-semibold leading-tight">{member.name}</p>
       <p className="text-sm text-primary">{member.jobTitle}</p>
       {member.description && (
-        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-text-2">{member.description}</p>
+        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-text-2">
+          {member.description}
+        </p>
       )}
     </div>
 

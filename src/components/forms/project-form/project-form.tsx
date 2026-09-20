@@ -17,12 +17,7 @@ import {
   PLATFORM_LABELS,
   SERVICE_LABELS,
 } from '@/types/project';
-import {
-  useProjectForm,
-  emptyMedia,
-  emptyAction,
-  emptySection,
-} from '@/hooks/use-project-form';
+import { useProjectForm, emptyMedia, emptyAction, emptySection } from '@/hooks/use-project-form';
 import { requestProjectCaptureAction } from '@/lib/actions/project';
 import { normalizeSlug } from '@/lib/validations/project';
 import Field from '@/components/ui/field';
@@ -258,7 +253,10 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
         </p>
       )}
       {saved && (
-        <p className="rounded-lg bg-success-surface/10 px-4 py-2 text-sm text-success" role="status">
+        <p
+          className="rounded-lg bg-success-surface/10 px-4 py-2 text-sm text-success"
+          role="status"
+        >
           Saved.
         </p>
       )}

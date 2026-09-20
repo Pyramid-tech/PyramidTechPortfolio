@@ -60,7 +60,13 @@ const AvatarPicker: FC<Props> = ({ name, avatarUrl, onChange, onUploadingChange 
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleFileChange}
+        />
         <button
           type="button"
           disabled={uploading}

@@ -11,10 +11,7 @@ const FALLBACK: NavCounts = { hasTeam: true, projectCount: 1 };
 
 const loadNavCounts = unstable_cache(
   async (): Promise<NavCounts> => {
-    const [team, projectCount] = await Promise.all([
-      getActiveTeamCount(),
-      getActiveProjectCount(),
-    ]);
+    const [team, projectCount] = await Promise.all([getActiveTeamCount(), getActiveProjectCount()]);
     return { hasTeam: team.hasTeam, projectCount };
   },
   ['nav-counts'],

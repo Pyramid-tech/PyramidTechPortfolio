@@ -262,7 +262,10 @@ const SectionPayloadFields: FC<Props> = ({ payload, projectId, onChange, onUploa
       return (
         <div className="flex flex-col gap-3">
           {payload.items.map((item, i) => (
-            <div key={i} className="grid grid-cols-1 gap-2 rounded-lg border border-stroke/60 p-3 sm:grid-cols-2">
+            <div
+              key={i}
+              className="grid grid-cols-1 gap-2 rounded-lg border border-stroke/60 p-3 sm:grid-cols-2"
+            >
               <Field label="Value">
                 <Input
                   value={item.value}

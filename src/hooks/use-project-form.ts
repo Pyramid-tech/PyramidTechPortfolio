@@ -185,11 +185,14 @@ export function useProjectForm({ mode, project, onSubmit }: Args) {
   const [dirty, setDirty] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const update = useCallback(<K extends keyof ProjectFormState>(key: K, value: ProjectFormState[K]) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
-    setDirty(true);
-    setSaved(false);
-  }, []);
+  const update = useCallback(
+    <K extends keyof ProjectFormState>(key: K, value: ProjectFormState[K]) => {
+      setForm((prev) => ({ ...prev, [key]: value }));
+      setDirty(true);
+      setSaved(false);
+    },
+    [],
+  );
 
   const slugTouched = useMemo(() => mode === 'edit' || form.slug.length > 0, [mode, form.slug]);
 
@@ -206,18 +209,15 @@ export function useProjectForm({ mode, project, onSubmit }: Args) {
     [slugTouched],
   );
 
-  const toggleInList = useCallback(
-    <T,>(key: 'platforms' | 'services', value: T) => {
-      setForm((prev) => {
-        const list = prev[key] as unknown as T[];
-        const next = list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
-        return { ...prev, [key]: next };
-      });
-      setDirty(true);
-      setSaved(false);
-    },
-    [],
-  );
+  const toggleInList = useCallback(<T>(key: 'platforms' | 'services', value: T) => {
+    setForm((prev) => {
+      const list = prev[key] as unknown as T[];
+      const next = list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
+      return { ...prev, [key]: next };
+    });
+    setDirty(true);
+    setSaved(false);
+  }, []);
 
   const setMedia = useCallback((media: MediaInput[]) => update('media', reindex(media)), [update]);
   const setActions = useCallback(

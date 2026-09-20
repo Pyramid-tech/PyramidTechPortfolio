@@ -5,7 +5,8 @@ import type { MouseEvent, RefObject } from 'react';
 const EASING = 0.1;
 const SPEED = 0.02;
 
-const lerp = (start: number, target: number, amount: number) => start * (1 - amount) + target * amount;
+const lerp = (start: number, target: number, amount: number) =>
+  start * (1 - amount) + target * amount;
 
 const useFloatingImages = (
   ref1: RefObject<HTMLDivElement>,

@@ -44,7 +44,9 @@ const ProjectActions: FC<RowProps> = ({ project, togglingId, onToggleStatus }) =
       onClick={() => onToggleStatus(project)}
       disabled={togglingId === project.id}
       className={`rounded-md px-2 py-1.5 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 sm:px-3 ${
-        project.isActive ? 'text-danger hover:bg-danger-surface/10' : 'text-success hover:bg-success-surface/10'
+        project.isActive
+          ? 'text-danger hover:bg-danger-surface/10'
+          : 'text-success hover:bg-success-surface/10'
       }`}
     >
       {togglingId === project.id ? '…' : project.isActive ? 'Deactivate' : 'Reactivate'}

@@ -84,7 +84,9 @@ const Navigation: FC<Props> = ({ items }) => {
           </div>
         </button>
       </div>
-      <AnimatePresence mode="wait">{isActive && <SidebarMenu items={items} close={closeSidebar} />}</AnimatePresence>
+      <AnimatePresence mode="wait">
+        {isActive && <SidebarMenu items={items} close={closeSidebar} />}
+      </AnimatePresence>
     </div>
   );
 };

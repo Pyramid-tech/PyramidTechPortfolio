@@ -1,9 +1,23 @@
 import { waitUntil } from '@vercel/functions';
 import Transport from 'winston-transport';
 
-import { sendEmbed, webhookUrl, type DiscordEmbed, type DiscordEmbedField } from '@/lib/discord/client';
+import {
+  sendEmbed,
+  webhookUrl,
+  type DiscordEmbed,
+  type DiscordEmbedField,
+} from '@/lib/discord/client';
 
-const LEVELS = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'] as const;
+const LEVELS = [
+  'emergency',
+  'alert',
+  'critical',
+  'error',
+  'warning',
+  'notice',
+  'info',
+  'debug',
+] as const;
 
 const LEVEL_COLORS: Record<string, number> = {
   emergency: 0x7f1d1d,
@@ -186,8 +200,15 @@ export class DiscordTransport extends Transport {
     const level = String(info.level);
     const message = String(info.message ?? '');
     const ctx =
-      info.context && typeof info.context === 'object' ? { ...(info.context as Record<string, unknown>) } : {};
-    const stack = typeof ctx.stack === 'string' ? ctx.stack : typeof info.stack === 'string' ? info.stack : null;
+      info.context && typeof info.context === 'object'
+        ? { ...(info.context as Record<string, unknown>) }
+        : {};
+    const stack =
+      typeof ctx.stack === 'string'
+        ? ctx.stack
+        : typeof info.stack === 'string'
+          ? info.stack
+          : null;
 
     queue = queue.then(() =>
       deliver(level, message, ctx, stack).catch((error) => {

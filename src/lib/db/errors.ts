@@ -1,6 +1,13 @@
 const MAX_CAUSE_DEPTH = 5;
 
-const TRANSIENT_CODES = new Set(['ECONNRESET', 'ECONNREFUSED', 'EPIPE', 'ETIMEDOUT', '57P01', '57014']);
+const TRANSIENT_CODES = new Set([
+  'ECONNRESET',
+  'ECONNREFUSED',
+  'EPIPE',
+  'ETIMEDOUT',
+  '57P01',
+  '57014',
+]);
 
 const TRANSIENT_MESSAGES = [
   'Connection terminated',

@@ -9,7 +9,8 @@ import initCursor from './init-cursor';
 // reduced motion — both to respect intent and to avoid a heavy per-frame rAF
 // loop on phones. Checked synchronously so WebGL is never initialised there.
 const prefersNoCursor = () =>
-  window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.matchMedia('(pointer: coarse)').matches ||
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const ShadowCursor: FC = () => {
   useEffect(() => {

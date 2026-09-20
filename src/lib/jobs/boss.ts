@@ -33,9 +33,7 @@ async function getSender(): Promise<PgBoss | null> {
         schedule: false,
         migrate: false,
       });
-      boss.on('error', (error) =>
-        logger.error('pg-boss sender error', { error: String(error) }),
-      );
+      boss.on('error', (error) => logger.error('pg-boss sender error', { error: String(error) }));
       await boss.start();
       sender = boss;
       return boss;

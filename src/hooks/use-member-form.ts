@@ -47,8 +47,7 @@ export function useMemberForm({ mode, member, onCreate, onUpdate }: Args) {
   const [result, setResult] = useState<SuccessResult | null>(null);
 
   const setField =
-    (key: keyof MemberFormState) =>
-    (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (key: keyof MemberFormState) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [key]: e.target.value }));
 
   const setAvatarUrl = (avatarUrl: string) => setForm((prev) => ({ ...prev, avatarUrl }));

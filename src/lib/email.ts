@@ -15,7 +15,9 @@ function resend(): Resend {
 async function send(options: CreateEmailOptions): Promise<void> {
   const { error } = await resend().emails.send(options);
   if (error) {
-    throw new Error(`Resend rejected the email (${error.name}, ${error.statusCode ?? 'no status'}): ${error.message}`);
+    throw new Error(
+      `Resend rejected the email (${error.name}, ${error.statusCode ?? 'no status'}): ${error.message}`,
+    );
   }
 }
 

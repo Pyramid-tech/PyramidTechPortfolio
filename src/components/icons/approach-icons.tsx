@@ -35,7 +35,15 @@ export const Second: FC<SVGProps<SVGSVGElement>> = (props) => (
 export const Third: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg width="36" height="36" className="h-7 w-7 md:h-8 md:w-8" viewBox="0 0 36 36" {...props}>
     <g clipPath="url(#clip0_250_11)">
-      <rect x="3" y="20.6855" width="18" height="18" rx="2" transform="rotate(-25 3 20.6855)" fill="currentColor" />
+      <rect
+        x="3"
+        y="20.6855"
+        width="18"
+        height="18"
+        rx="2"
+        transform="rotate(-25 3 20.6855)"
+        fill="currentColor"
+      />
       <rect x="22.9592" y="-1" width="10" height="10" rx="1" fill="currentColor" />
     </g>
     <defs>
