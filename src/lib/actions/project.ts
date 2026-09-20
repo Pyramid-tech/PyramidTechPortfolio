@@ -69,11 +69,9 @@ function mutationError(e: unknown, fallback: string): ProjectMutationResult {
   if (known) return { ok: false, ...known };
 
   logger.error('project mutation failed', {
-    context: {
-      message: e instanceof Error ? e.message : String(e),
-      code: pgError?.code,
-      constraint: pgError?.constraint,
-    },
+    message: e instanceof Error ? e.message : String(e),
+    code: pgError?.code,
+    constraint: pgError?.constraint,
   });
   return { ok: false, error: fallback };
 }
@@ -127,7 +125,7 @@ export async function deactivateProjectAction(id: string): Promise<ProjectAction
   try {
     await deactivateProject(id);
   } catch (e) {
-    logger.error('project deactivate failed', { context: { id, error: String(e) } });
+    logger.error('project deactivate failed', { id, error: String(e) });
     return { ok: false, error: 'Could not deactivate the project' };
   }
   revalidate([slug], id);
@@ -140,7 +138,7 @@ export async function reactivateProjectAction(id: string): Promise<ProjectAction
   try {
     await reactivateProject(id);
   } catch (e) {
-    logger.error('project reactivate failed', { context: { id, error: String(e) } });
+    logger.error('project reactivate failed', { id, error: String(e) });
     return { ok: false, error: 'Could not reactivate the project' };
   }
   revalidate([slug], id);

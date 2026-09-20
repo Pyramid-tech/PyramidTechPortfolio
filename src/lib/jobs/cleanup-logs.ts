@@ -24,7 +24,8 @@ export async function run() {
     .returning({ id: pyramidLog.id });
 
   logger.info(`cleanup-logs: deleted ${deleted.length} expired row(s)`, {
-    context: { cutoff: cutoff.toISOString(), retentionDays: days },
+    cutoff: cutoff.toISOString(),
+    retentionDays: days,
   });
 }
 

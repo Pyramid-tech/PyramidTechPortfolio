@@ -33,14 +33,12 @@ async function getSender(): Promise<PgBoss | null> {
         schedule: false,
         migrate: false,
       });
-      boss.on('error', (error) =>
-        logger.error('pg-boss sender error', { context: { error: String(error) } }),
-      );
+      boss.on('error', (error) => logger.error('pg-boss sender error', { error: String(error) }));
       await boss.start();
       sender = boss;
       return boss;
     } catch (error) {
-      logger.error('pg-boss sender failed to start', { context: { error: String(error) } });
+      logger.error('pg-boss sender failed to start', { error: String(error) });
       return null;
     } finally {
       starting = null;
@@ -59,7 +57,7 @@ export async function enqueue(queue: string, data: object): Promise<boolean> {
     await boss.send(queue, data);
     return true;
   } catch (error) {
-    logger.error('pg-boss enqueue failed', { context: { queue, error: String(error) } });
+    logger.error('pg-boss enqueue failed', { queue, error: String(error) });
     return false;
   }
 }

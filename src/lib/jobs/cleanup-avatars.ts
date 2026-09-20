@@ -34,7 +34,7 @@ export async function run() {
 
   await deleteObjects(orphaned);
   logger.info(`cleanup-avatars: deleted ${orphaned.length} orphaned file(s)`, {
-    context: { deleted: orphaned },
+    deleted: orphaned,
   });
 }
 

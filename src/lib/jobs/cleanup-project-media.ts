@@ -46,7 +46,7 @@ export async function run() {
 
   await deleteObjects(orphaned);
   logger.info(`cleanup-project-media: deleted ${orphaned.length} orphaned file(s)`, {
-    context: { deleted: orphaned },
+    deleted: orphaned,
   });
 }
 
