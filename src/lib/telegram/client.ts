@@ -25,12 +25,12 @@ async function call(token: string, method: string, body: object): Promise<unknow
     });
     const data = (await res.json()) as { ok: boolean; result?: unknown; description?: string };
     if (!data.ok) {
-      logger.error(`telegram: ${method} failed`, { context: { description: data.description } });
+      logger.error(`telegram: ${method} failed`, { description: data.description });
       return null;
     }
     return data.result ?? null;
   } catch (error) {
-    logger.error(`telegram: ${method} error`, { context: { error: String(error) } });
+    logger.error(`telegram: ${method} error`, { error: String(error) });
     return null;
   } finally {
     clearTimeout(timer);

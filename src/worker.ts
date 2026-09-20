@@ -13,7 +13,7 @@ async function start(): Promise<void> {
   const boss = getBoss();
 
   boss.on('error', (error) =>
-    logger.error('pg-boss error', { context: { error: String(error) } }),
+    logger.error('pg-boss error', { error: String(error) }),
   );
 
   await boss.start();

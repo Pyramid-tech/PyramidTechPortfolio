@@ -1,6 +1,7 @@
 import winston from 'winston';
 
 import { DbTransport } from './DbTransport';
+import { alertLevel, DiscordTransport } from './DiscordTransport';
 import type { ILogger } from './interfaces/ILogger';
 
 const LEVELS = {
@@ -34,6 +35,7 @@ const instance = winston.createLogger({
   ),
   transports: [
     new DbTransport({ level: 'warning' }),
+    new DiscordTransport({ level: alertLevel() }),
     ...(process.env.NODE_ENV !== 'production'
       ? [
           new winston.transports.Console({

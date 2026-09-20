@@ -285,11 +285,13 @@ export async function run(): Promise<void> {
     const detailed = await generateDetailed(members, projects);
     await handleDetailed(`${detailed}\n\n📅 ${snapshot.date}`, snapshot);
     logger.info('team-nudge: sent brief + detailed', {
-      context: { staleMembers: members.length, devProjects: projects.length },
+      staleMembers: members.length,
+      devProjects: projects.length,
     });
   } else {
     logger.info('team-nudge: sent brief', {
-      context: { staleMembers: members.length, devProjects: projects.length },
+      staleMembers: members.length,
+      devProjects: projects.length,
     });
   }
 }
