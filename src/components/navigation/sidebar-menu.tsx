@@ -65,7 +65,9 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
       >
         <div>
           <div className="mb-8 w-full border-b border-stroke pb-2 uppercase text-text-3">
-            <h2 className="font-display text-xs leading-tight tracking-[0.18em] md:text-sm">Navigation</h2>
+            <h2 className="font-display text-xs leading-tight tracking-[0.18em] md:text-sm">
+              Navigation
+            </h2>
           </div>
           <div className="flex flex-col gap-1" onMouseLeave={() => setSelectedIndicator(null)}>
             {items.map((item, index) => (
@@ -83,7 +85,9 @@ const SidebarMenu: FC<Props> = ({ items, close }) => {
 
         <div className="flex flex-col gap-4 border-t border-stroke pt-6 text-sm">
           <div className="flex flex-col gap-1">
-            <span className="font-display text-[0.7rem] uppercase tracking-[0.18em] text-text-3">Get in touch</span>
+            <span className="font-display text-[0.7rem] uppercase tracking-[0.18em] text-text-3">
+              Get in touch
+            </span>
             <a
               href={`mailto:${SITE.email}`}
               className="flex min-h-11 items-center text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"

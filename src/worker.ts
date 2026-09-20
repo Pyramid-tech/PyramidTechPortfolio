@@ -12,9 +12,7 @@ import { logger } from '@/lib/logger';
 async function start(): Promise<void> {
   const boss = getBoss();
 
-  boss.on('error', (error) =>
-    logger.error('pg-boss error', { context: { error: String(error) } }),
-  );
+  boss.on('error', (error) => logger.error('pg-boss error', { context: { error: String(error) } }));
 
   await boss.start();
 

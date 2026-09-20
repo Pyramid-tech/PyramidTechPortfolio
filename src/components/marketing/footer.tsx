@@ -17,7 +17,10 @@ const Footer: FC = () => {
             className="group mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
           >
             Email us
-            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+            <span
+              aria-hidden
+              className="transition-transform duration-300 group-hover:translate-x-0.5"
+            >
               →
             </span>
           </a>
@@ -30,7 +33,10 @@ const Footer: FC = () => {
             className="group inline-flex min-h-11 items-center gap-1.5 text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:justify-end"
           >
             Start a project
-            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+            <span
+              aria-hidden
+              className="transition-transform duration-300 group-hover:translate-x-0.5"
+            >
               →
             </span>
           </Link>

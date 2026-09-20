@@ -30,7 +30,10 @@ const NavLink: FC<Props> = ({ data, isActive, isCurrent, setSelectedIndicator, h
     >
       <motion.span
         aria-hidden
-        className={cn('absolute left-0 inline-block h-2 w-2 rounded-full', isCurrent ? 'bg-accent' : 'bg-text-1')}
+        className={cn(
+          'absolute left-0 inline-block h-2 w-2 rounded-full',
+          isCurrent ? 'bg-accent' : 'bg-text-1',
+        )}
         variants={scale}
         animate={isActive || isCurrent ? 'open' : 'closed'}
       />

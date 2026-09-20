@@ -117,8 +117,17 @@ const initCursor = (): Disposer => {
     config.SHADING = false;
   }
 
-  function getWebGLContext(canvas: HTMLCanvasElement): { gl: WebGL2RenderingContext; ext: ExtFormats } {
-    const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
+  function getWebGLContext(canvas: HTMLCanvasElement): {
+    gl: WebGL2RenderingContext;
+    ext: ExtFormats;
+  } {
+    const params = {
+      alpha: true,
+      depth: false,
+      stencil: false,
+      antialias: false,
+      preserveDrawingBuffer: false,
+    };
 
     let gl = canvas.getContext('webgl2', params) as WebGL2RenderingContext | null;
     const isWebGL2 = !!gl;
@@ -233,7 +242,11 @@ const initCursor = (): Disposer => {
 
       let program = this.programs[hash];
       if (program == null) {
-        const fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+        const fragmentShader = compileShader(
+          gl.FRAGMENT_SHADER,
+          this.fragmentShaderSource,
+          keywords,
+        );
         program = createProgram(this.vertexShader, fragmentShader);
         this.programs[hash] = program;
       }
@@ -269,7 +282,8 @@ const initCursor = (): Disposer => {
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
 
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) console.trace(gl.getProgramInfoLog(program));
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+      console.trace(gl.getProgramInfoLog(program));
 
     return program;
   }
@@ -291,7 +305,8 @@ const initCursor = (): Disposer => {
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
 
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) console.trace(gl.getShaderInfoLog(shader));
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
+      console.trace(gl.getShaderInfoLog(shader));
 
     return shader;
   }
@@ -726,11 +741,34 @@ const initCursor = (): Disposer => {
     gl.disable(gl.BLEND);
 
     if (dye == null)
-      dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
-    else dye = resizeDoubleFBO(dye, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+      dye = createDoubleFBO(
+        dyeRes.width,
+        dyeRes.height,
+        rgba.internalFormat,
+        rgba.format,
+        texType,
+        filtering,
+      );
+    else
+      dye = resizeDoubleFBO(
+        dye,
+        dyeRes.width,
+        dyeRes.height,
+        rgba.internalFormat,
+        rgba.format,
+        texType,
+        filtering,
+      );
 
     if (velocity == null)
-      velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+      velocity = createDoubleFBO(
+        simRes.width,
+        simRes.height,
+        rg.internalFormat,
+        rg.format,
+        texType,
+        filtering,
+      );
     else
       velocity = resizeDoubleFBO(
         velocity,
@@ -742,12 +780,33 @@ const initCursor = (): Disposer => {
         filtering,
       );
 
-    divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    divergence = createFBO(
+      simRes.width,
+      simRes.height,
+      r.internalFormat,
+      r.format,
+      texType,
+      gl.NEAREST,
+    );
     curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
-    pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+    pressure = createDoubleFBO(
+      simRes.width,
+      simRes.height,
+      r.internalFormat,
+      r.format,
+      texType,
+      gl.NEAREST,
+    );
   }
 
-  function createFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO {
+  function createFBO(
+    w: number,
+    h: number,
+    internalFormat: number,
+    format: number,
+    type: number,
+    param: number,
+  ): FBO {
     gl.activeTexture(gl.TEXTURE0);
     const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -952,7 +1011,11 @@ const initCursor = (): Disposer => {
     }
 
     gradienSubtractProgram.bind();
-    gl.uniform2f(gradienSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+    gl.uniform2f(
+      gradienSubtractProgram.uniforms.texelSize,
+      velocity.texelSizeX,
+      velocity.texelSizeY,
+    );
     gl.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
     gl.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
     blit(velocity.write);
@@ -961,7 +1024,11 @@ const initCursor = (): Disposer => {
     advectionProgram.bind();
     gl.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
     if (!ext.supportLinearFiltering)
-      gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
+      gl.uniform2f(
+        advectionProgram.uniforms.dyeTexelSize,
+        velocity.texelSizeX,
+        velocity.texelSizeY,
+      );
     const velocityId = velocity.read.attach(0);
     gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
     gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
@@ -1175,22 +1242,22 @@ const initCursor = (): Disposer => {
 
     switch (i % 6) {
       case 0:
-        (r = v), (g = t), (b = p);
+        ((r = v), (g = t), (b = p));
         break;
       case 1:
-        (r = q), (g = v), (b = p);
+        ((r = q), (g = v), (b = p));
         break;
       case 2:
-        (r = p), (g = v), (b = t);
+        ((r = p), (g = v), (b = t));
         break;
       case 3:
-        (r = p), (g = q), (b = v);
+        ((r = p), (g = q), (b = v));
         break;
       case 4:
-        (r = t), (g = p), (b = v);
+        ((r = t), (g = p), (b = v));
         break;
       case 5:
-        (r = v), (g = p), (b = q);
+        ((r = v), (g = p), (b = q));
         break;
     }
 

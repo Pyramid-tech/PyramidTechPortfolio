@@ -5,7 +5,8 @@ export type UrlCheck = { ok: true; url: URL } | { ok: false; reason: string };
 
 function ipv4IsPrivate(address: string): boolean {
   const parts = address.split('.').map(Number);
-  if (parts.length !== 4 || parts.some((p) => !Number.isInteger(p) || p < 0 || p > 255)) return true;
+  if (parts.length !== 4 || parts.some((p) => !Number.isInteger(p) || p < 0 || p > 255))
+    return true;
 
   const [a, b] = parts;
   if (a === 0 || a === 10 || a === 127) return true;
@@ -46,7 +47,8 @@ export async function assertPublicHttpsUrl(raw: string): Promise<UrlCheck> {
   }
 
   if (url.protocol !== 'https:') return { ok: false, reason: 'Only https:// sources are allowed' };
-  if (url.username || url.password) return { ok: false, reason: 'Credentials in URL are not allowed' };
+  if (url.username || url.password)
+    return { ok: false, reason: 'Credentials in URL are not allowed' };
 
   const hostname = url.hostname.replace(/^\[|\]$/g, '');
 
@@ -55,7 +57,11 @@ export async function assertPublicHttpsUrl(raw: string): Promise<UrlCheck> {
     return { ok: true, url };
   }
 
-  if (hostname === 'localhost' || hostname.endsWith('.localhost') || hostname.endsWith('.internal')) {
+  if (
+    hostname === 'localhost' ||
+    hostname.endsWith('.localhost') ||
+    hostname.endsWith('.internal')
+  ) {
     return { ok: false, reason: 'Target host is not public' };
   }
 

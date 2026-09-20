@@ -36,8 +36,19 @@ export function renderProjectRequestEmail(
   dto: BookRequestDTO,
   submittedAt: Date = new Date(),
 ): RenderedEmail {
-  const { eyebrow, headline, lead, detailGrid, quote, contactRow, link, footerLink, button, buttonRow, layout } =
-    emailKit(COLOR);
+  const {
+    eyebrow,
+    headline,
+    lead,
+    detailGrid,
+    quote,
+    contactRow,
+    link,
+    footerLink,
+    button,
+    buttonRow,
+    layout,
+  } = emailKit(COLOR);
   const base = siteUrl();
   const name = singleLine(dto.name);
   const company = singleLine(dto.company);

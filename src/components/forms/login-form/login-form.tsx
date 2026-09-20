@@ -34,7 +34,9 @@ const LoginForm: FC = () => {
       <div className="w-full max-w-md rounded-2xl border border-stroke bg-bg-2 p-10">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <h1 className="mb-2 font-display text-3xl font-bold uppercase tracking-widest text-primary">Pyramid</h1>
+            <h1 className="mb-2 font-display text-3xl font-bold uppercase tracking-widest text-primary">
+              Pyramid
+            </h1>
             <p className="text-sm text-text-3">Admin access only</p>
           </div>
           <ThemeToggle className="-mr-1 rounded-lg ring-offset-bg-2" />
@@ -63,7 +65,9 @@ const LoginForm: FC = () => {
             />
           </Field>
 
-          {error && <p className="rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger">{error}</p>}
+          {error && (
+            <p className="rounded-lg bg-danger-surface/10 px-4 py-2 text-sm text-danger">{error}</p>
+          )}
 
           <Button
             type="submit"

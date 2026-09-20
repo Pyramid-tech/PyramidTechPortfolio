@@ -28,9 +28,7 @@ const DashboardNav: FC = () => {
             href={link.href}
             aria-current={current ? 'page' : undefined}
             className={`px-4 py-2.5 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:px-5 ${
-              current
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-text-3 hover:text-text-2'
+              current ? 'border-b-2 border-primary text-primary' : 'text-text-3 hover:text-text-2'
             }`}
           >
             {link.label}

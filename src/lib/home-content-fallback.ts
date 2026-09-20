@@ -24,12 +24,14 @@ export const HOME_CONTENT_FALLBACK = {
       },
       {
         title: 'Mobile development',
-        description: 'Native and cross-platform apps for iOS and Android, from first screen to store release.',
+        description:
+          'Native and cross-platform apps for iOS and Android, from first screen to store release.',
         tags: ['iOS', 'Android', 'Cross-platform'],
       },
       {
         title: 'Desktop development',
-        description: 'Windows, macOS, and Linux applications when the work needs to live on a desktop, not in a browser.',
+        description:
+          'Windows, macOS, and Linux applications when the work needs to live on a desktop, not in a browser.',
         tags: ['Windows', 'macOS', 'Linux'],
       },
       {
@@ -51,11 +53,13 @@ export const HOME_CONTENT_FALLBACK = {
     cards: [
       {
         title: 'Consultation',
-        description: 'Goals, users, and constraints: whether this is web, mobile, desktop, or a mix.',
+        description:
+          'Goals, users, and constraints: whether this is web, mobile, desktop, or a mix.',
       },
       {
         title: 'Scope & design',
-        description: 'Screens, architecture, and a plan you can react to before we write production code.',
+        description:
+          'Screens, architecture, and a plan you can react to before we write production code.',
       },
       {
         title: 'Build',
@@ -67,7 +71,8 @@ export const HOME_CONTENT_FALLBACK = {
       },
       {
         title: 'Launch & support',
-        description: 'Production deploy, handoff, and the monitoring or iteration you want after go-live.',
+        description:
+          'Production deploy, handoff, and the monitoring or iteration you want after go-live.',
       },
     ],
   },

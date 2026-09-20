@@ -4,7 +4,6 @@ import Transport from 'winston-transport';
 import { db } from '@/lib/db';
 import { pyramidLog } from '@/lib/db/schema/log';
 
-
 const RESERVED_KEYS = ['source', 'requestId', 'url', 'method', 'stack'] as const;
 
 export class DbTransport extends Transport {

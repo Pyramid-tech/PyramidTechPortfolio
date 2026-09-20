@@ -106,7 +106,7 @@ export const SERVICE_LABELS: Record<string, string> = {
   'mobile-dev': 'Mobile development',
   'desktop-dev': 'Desktop development',
   'ai-solutions': 'AI',
-  'fullstack': 'Web development',
+  fullstack: 'Web development',
   'all-types': 'Web, mobile, and desktop',
   'other-service': 'Other',
 };

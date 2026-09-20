@@ -63,7 +63,9 @@ const UNIQUE_VIOLATIONS: Record<string, { error: string; field: string }> = {
 function mutationError(e: unknown, fallback: string): ProjectMutationResult {
   const pgError = pgErrorOf(e);
   const known =
-    pgError?.code === '23505' && pgError.constraint ? UNIQUE_VIOLATIONS[pgError.constraint] : undefined;
+    pgError?.code === '23505' && pgError.constraint
+      ? UNIQUE_VIOLATIONS[pgError.constraint]
+      : undefined;
   if (known) return { ok: false, ...known };
 
   logger.error('project mutation failed', {

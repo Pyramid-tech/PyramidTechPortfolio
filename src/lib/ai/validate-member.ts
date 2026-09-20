@@ -75,8 +75,7 @@ export async function validateMember(
   try {
     const { content: raw, model } = await chatCompletion({ messages, jsonObject: true });
     const parsed = verdictSchema.parse(JSON.parse(stripFences(raw)));
-    const reason =
-      parsed.reason?.trim() || (parsed.flags?.length ? parsed.flags.join('; ') : null);
+    const reason = parsed.reason?.trim() || (parsed.flags?.length ? parsed.flags.join('; ') : null);
     return { available: true, confidence: clamp(parsed.confidence), reason, model };
   } catch (err) {
     return {
