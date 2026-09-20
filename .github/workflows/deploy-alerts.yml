@@ -8,11 +8,6 @@ permissions:
 
 jobs:
   notify:
-    if: >
-      (github.event.deployment_status.environment == 'Production' ||
-       github.event.deployment_status.environment == 'production') &&
-      contains(fromJSON('["in_progress","success","failure","error"]'),
-               github.event.deployment_status.state)
     runs-on: ubuntu-latest
     steps:
       - name: Post deployment status to Discord
@@ -21,6 +16,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           STATE: ${{ github.event.deployment_status.state }}
+          ENVIRONMENT: ${{ github.event.deployment_status.environment }}
           SHA: ${{ github.event.deployment.sha }}
           REF: ${{ github.event.deployment.ref }}
           SITE_URL: ${{ github.event.deployment_status.environment_url }}
@@ -28,18 +24,26 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
-            echo "::error::DISCORD_WEBHOOK_URL secret is not set"
-            exit 1
-          fi
+          echo "::notice::state='${STATE}' environment='${ENVIRONMENT}'"
+
+          ENV_LC=$(printf '%s' "$ENVIRONMENT" | tr '[:upper:]' '[:lower:]')
+          case "$ENV_LC" in
+            *production*) ;;
+            *) echo "environment '${ENVIRONMENT}' is not production, nothing to post"; exit 0 ;;
+          esac
 
           case "$STATE" in
             in_progress) TITLE="🔵 DEPLOYING";     COLOR=3447003  ;;
             success)     TITLE="🟢 DEPLOYED";      COLOR=3066993  ;;
             failure)     TITLE="🔴 DEPLOY FAILED"; COLOR=15158332 ;;
             error)       TITLE="🔴 DEPLOY ERROR";  COLOR=15158332 ;;
-            *)           echo "ignoring state $STATE"; exit 0 ;;
+            *)           echo "state '${STATE}' is not reported, nothing to post"; exit 0 ;;
           esac
+
+          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "::error::DISCORD_WEBHOOK_URL secret is not set"
+            exit 1
+          fi
 
           COMMIT_JSON=$(curl -sS \
             -H "Authorization: Bearer $GH_TOKEN" \
