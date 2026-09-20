@@ -1,0 +1,88 @@
+name: Deploy alerts
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    if: >
+      (github.event.deployment_status.environment == 'Production' ||
+       github.event.deployment_status.environment == 'production') &&
+      contains(fromJSON('["in_progress","success","failure","error"]'),
+               github.event.deployment_status.state)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post deployment status to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          STATE: ${{ github.event.deployment_status.state }}
+          SHA: ${{ github.event.deployment.sha }}
+          REF: ${{ github.event.deployment.ref }}
+          SITE_URL: ${{ github.event.deployment_status.environment_url }}
+          LOG_URL: ${{ github.event.deployment_status.target_url }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "::error::DISCORD_WEBHOOK_URL secret is not set"
+            exit 1
+          fi
+
+          case "$STATE" in
+            in_progress) TITLE="🔵 DEPLOYING";     COLOR=3447003  ;;
+            success)     TITLE="🟢 DEPLOYED";      COLOR=3066993  ;;
+            failure)     TITLE="🔴 DEPLOY FAILED"; COLOR=15158332 ;;
+            error)       TITLE="🔴 DEPLOY ERROR";  COLOR=15158332 ;;
+            *)           echo "ignoring state $STATE"; exit 0 ;;
+          esac
+
+          COMMIT_JSON=$(curl -sS \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/commits/$SHA") || COMMIT_JSON=""
+
+          SUBJECT=$(printf '%s' "$COMMIT_JSON" | jq -r '.commit.message // ""' | head -n 1) || SUBJECT=""
+          AUTHOR=$(printf '%s' "$COMMIT_JSON" | jq -r '.author.login // .commit.author.name // ""') || AUTHOR=""
+
+          SHORT_SHA=$(printf '%s' "$SHA" | cut -c1-7)
+          BRANCH=$(printf '%s' "$REF" | sed 's#^refs/heads/##')
+
+          jq -n \
+            --arg title "$TITLE" \
+            --argjson color "$COLOR" \
+            --arg sha "$SHA" \
+            --arg short_sha "$SHORT_SHA" \
+            --arg subject "$SUBJECT" \
+            --arg branch "$BRANCH" \
+            --arg author "$AUTHOR" \
+            --arg repo "$REPO" \
+            --arg site "$SITE_URL" \
+            --arg log "$LOG_URL" \
+            --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{
+               embeds: [{
+                 title: $title,
+                 description: (
+                   "[`" + $short_sha + "`](https://github.com/" + $repo + "/commit/" + $sha + ") on `" + $branch + "`"
+                   + (if $subject != "" then "\n" + $subject else "" end)
+                 ),
+                 color: $color,
+                 timestamp: $ts,
+                 footer: { text: "Pyramid" },
+                 fields: (
+                   (if $author != "" then [{ name: "Author", value: $author, inline: true }] else [] end)
+                   + (if $site != "" then [{ name: "Site", value: $site, inline: false }] else [] end)
+                   + (if $log  != "" then [{ name: "Build log", value: $log,  inline: false }] else [] end)
+                 )
+               }]
+             }' > payload.json
+
+          curl -sS --fail-with-body -X POST \
+            -H "Content-Type: application/json" \
+            -d @payload.json \
+            "$DISCORD_WEBHOOK_URL"
