@@ -35,6 +35,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE.name} - ${SITE.tagline}`,
     description: SITE.description,
+    site: '@pyramidtech05',
+    creator: '@pyramidtech05',
   },
   robots: { index: true, follow: true },
   icons: {

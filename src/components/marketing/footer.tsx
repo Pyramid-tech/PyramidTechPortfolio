@@ -1,6 +1,15 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import { LogoIcon } from '@/components/icons';
+import {
+  InstagramIcon,
+  LinkedInIcon,
+  LogoIcon,
+  MailIcon,
+  MapPinIcon,
+  PhoneIcon,
+  WhatsAppIcon,
+  XIcon,
+} from '@/components/icons';
 import BackToTop from '@/components/ui/back-to-top';
 import { SITE } from '@/lib/site';
 
@@ -12,25 +21,77 @@ const Footer: FC = () => {
           <p className="text-sm leading-relaxed text-text-2 md:text-base">
             Custom web, mobile, and desktop software from first concept to production.
           </p>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="group mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
-          >
-            Email us
-            <span
-              aria-hidden
-              className="transition-transform duration-300 group-hover:translate-x-0.5"
+          <div className="mt-4 flex flex-col gap-2">
+            <a
+              href={`mailto:${SITE.email}`}
+              className="group inline-flex items-center gap-2 text-sm text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:text-base"
             >
-              →
-            </span>
-          </a>
+              <MailIcon className="h-4 w-4 shrink-0" />
+              Email us
+              <span
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
+              >
+                →
+              </span>
+            </a>
+
+            <div className="flex items-center gap-4 pt-2">
+              <a
+                href={SITE.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Instagram"
+                className="text-text-2 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <InstagramIcon className="h-5 w-5" />
+              </a>
+              <a
+                href={SITE.socials.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on X (formerly Twitter)"
+                className="text-text-2 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <XIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={SITE.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on LinkedIn"
+                className="text-text-2 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <LinkedInIcon className="h-5 w-5" />
+              </a>
+              <a
+                href={`https://wa.me/${SITE.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Contact us on WhatsApp"
+                className="text-text-2 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <WhatsAppIcon className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-1 text-sm sm:items-end sm:text-right md:text-base">
-          <span className="flex min-h-11 items-center text-text-2">{SITE.location}</span>
+          <span className="flex min-h-11 items-center gap-2 text-text-2 sm:justify-end">
+            <MapPinIcon className="h-4 w-4 shrink-0" />
+            {SITE.location}
+          </span>
+          <a
+            href={`tel:+${SITE.whatsapp}`}
+            className="flex min-h-11 items-center gap-2 text-text-2 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:justify-end"
+          >
+            <PhoneIcon className="h-4 w-4 shrink-0" />
+            {SITE.phone}
+          </a>
           <Link
             href="/book"
-            className="group inline-flex min-h-11 items-center gap-1.5 text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:justify-end"
+            className="group mt-2 inline-flex min-h-11 items-center gap-1.5 text-text-1 transition hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:justify-end"
           >
             Start a project
             <span

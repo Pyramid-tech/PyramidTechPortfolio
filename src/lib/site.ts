@@ -7,4 +7,10 @@ export const SITE = {
   location: 'Beirut, Lebanon',
   email: 'pyramidtechdev@gmail.com',
   whatsapp: '96179439461',
+  phone: '+961 79 439 461',
+  socials: {
+    instagram: 'https://www.instagram.com/pyramidtech.dev/',
+    x: 'https://x.com/pyramidtech05',
+    linkedin: 'https://www.linkedin.com/company/pyramidtech-dev/',
+  },
 } as const;
