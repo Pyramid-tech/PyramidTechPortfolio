@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-# ---- Base ----
+# ---- Base 
 FROM node:20.19-alpine3.21 AS base
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
