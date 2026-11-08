@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import SectionTitle from '@/components/ui/section-title';
 import SectionOpacity from '@/components/ui/section-opacity';
 import Button from '@/components/ui/button';
+import AboutPyramid from '@/components/marketing/about-pyramid';
 
 import type { HomeContent } from '@/types/home-content';
 
@@ -38,13 +39,7 @@ const About: FC<Props> = ({ content, hasTeam = false }) => {
               )}
             </div>
 
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-stroke/60 bg-bg-2 md:aspect-[5/4] md:grow-[3] md:basis-0">
-              <img
-                src="/images/about/hands_v2.jpg"
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover transition duration-500 hover:brightness-110"
-              />
-            </div>
+            <AboutPyramid />
           </div>
         </div>
       </SectionOpacity>
