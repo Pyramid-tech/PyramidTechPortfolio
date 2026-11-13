@@ -30,7 +30,7 @@ async function call(token: string, method: string, body: object): Promise<unknow
     }
     return data.result ?? null;
   } catch (error) {
-    logger.error(`telegram: ${method} error`, { error: String(error) });
+    logger.error(`telegram: ${method} error`, { error });
     return null;
   } finally {
     clearTimeout(timer);

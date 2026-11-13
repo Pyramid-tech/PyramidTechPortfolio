@@ -28,6 +28,10 @@ import type {
 
 export type ProjectActionResult = { ok: true } | { ok: false; error: string };
 
+export type ProjectCaptureResult =
+  | { ok: true; status: string | null; url: string | null; error: string | null }
+  | { ok: false; error: string };
+
 function revalidate(slugs: (string | null | undefined)[], projectId?: string): void {
   revalidateTag(NAV_COUNTS_TAG);
   revalidateTag(FEATURED_PROJECTS_TAG);
@@ -37,8 +41,46 @@ function revalidate(slugs: (string | null | undefined)[], projectId?: string): v
   revalidatePath('/sitemap.xml');
   if (projectId) revalidatePath(`/dashboard/projects/${projectId}/edit`);
   for (const slug of slugs) {
-    if (slug) revalidatePath(`/work/${slug}`);
+    if (slug) {
+      revalidatePath(`/work/${slug}`);
+      revalidatePath(`/work/${slug}/privacy`);
+    }
   }
+}
+
+const GROUP_LABELS: Record<string, string> = {
+  media: 'asset',
+  actions: 'action',
+  sections: 'module',
+  items: 'item',
+};
+
+function fieldLabel(path: PropertyKey[]): string {
+  const parts: string[] = [];
+
+  for (let i = 0; i < path.length; i++) {
+    const key = path[i];
+    const following = path[i + 1];
+    if (key === 'payload') continue;
+
+    if (typeof key === 'string' && GROUP_LABELS[key] && typeof following === 'number') {
+      parts.push(`${GROUP_LABELS[key]} ${following + 1}`);
+      i++;
+    } else if (typeof key === 'number') {
+      parts.push(`item ${key + 1}`);
+    } else {
+      parts.push(
+        String(key)
+          .replace(/([a-z])([A-Z])/g, '$1 $2')
+          .toLowerCase()
+          .replace(/\burl\b/g, 'URL')
+          .replace(/\balt text\b/g, 'alternative text'),
+      );
+    }
+  }
+
+  const label = parts.join(', ');
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
 function firstIssue(issues: { path: PropertyKey[]; message: string }[]): {
@@ -48,7 +90,8 @@ function firstIssue(issues: { path: PropertyKey[]; message: string }[]): {
   const issue = issues[0];
   if (!issue) return { error: 'Invalid data' };
   const field = issue.path.map(String).join('.');
-  return { error: field ? `${field}: ${issue.message}` : issue.message, field };
+  const label = fieldLabel(issue.path);
+  return { error: label ? `${label}: ${issue.message}` : issue.message, field };
 }
 
 const UNIQUE_VIOLATIONS: Record<string, { error: string; field: string }> = {
@@ -69,7 +112,7 @@ function mutationError(e: unknown, fallback: string): ProjectMutationResult {
   if (known) return { ok: false, ...known };
 
   logger.error('project mutation failed', {
-    message: e instanceof Error ? e.message : String(e),
+    error: e,
     code: pgError?.code,
     constraint: pgError?.constraint,
   });
@@ -125,7 +168,7 @@ export async function deactivateProjectAction(id: string): Promise<ProjectAction
   try {
     await deactivateProject(id);
   } catch (e) {
-    logger.error('project deactivate failed', { id, error: String(e) });
+    logger.error('project deactivate failed', { id, error: e });
     return { ok: false, error: 'Could not deactivate the project' };
   }
   revalidate([slug], id);
@@ -138,7 +181,7 @@ export async function reactivateProjectAction(id: string): Promise<ProjectAction
   try {
     await reactivateProject(id);
   } catch (e) {
-    logger.error('project reactivate failed', { id, error: String(e) });
+    logger.error('project reactivate failed', { id, error: e });
     return { ok: false, error: 'Could not reactivate the project' };
   }
   revalidate([slug], id);
@@ -168,4 +211,13 @@ export async function requestProjectCaptureAction(mediaId: string): Promise<Proj
   await markCaptureStarted(mediaId);
   revalidatePath('/dashboard/projects');
   return { ok: true };
+}
+
+export async function getProjectCaptureAction(mediaId: string): Promise<ProjectCaptureResult> {
+  await requireUser();
+
+  const media = await getCaptureMedia(mediaId);
+  if (!media) return { ok: false, error: 'Media not found' };
+
+  return { ok: true, status: media.captureStatus, url: media.url, error: media.captureError };
 }

@@ -34,6 +34,7 @@ export interface ProjectFormState {
   services: ProjectService[];
   featured: boolean;
   displayOrder: number | string;
+  privacyPolicy: string;
   media: MediaInput[];
   actions: ActionInput[];
   sections: SectionInput[];
@@ -105,6 +106,7 @@ function initialState(project?: AdminProjectDTO): ProjectFormState {
     services: project?.services ?? [],
     featured: project?.featured ?? false,
     displayOrder: project?.displayOrder ?? 0,
+    privacyPolicy: project?.privacyPolicy ?? '',
     media:
       project?.media.map((m) => ({
         id: m.id,
@@ -166,6 +168,7 @@ function toInput(form: ProjectFormState): CreateProjectInput {
     services: form.services,
     featured: form.featured,
     displayOrder: Number(form.displayOrder) || 0,
+    privacyPolicy: form.privacyPolicy.trim() || null,
     media: reindex(form.media),
     actions: reindex(form.actions),
     sections: reindex(form.sections),
@@ -229,6 +232,13 @@ export function useProjectForm({ mode, project, onSubmit }: Args) {
     [update],
   );
 
+  const applyCapture = useCallback((mediaId: string, url: string) => {
+    setForm((prev) => ({
+      ...prev,
+      media: prev.media.map((item) => (item.id === mediaId ? { ...item, url } : item)),
+    }));
+  }, []);
+
   const moveMedia = useCallback(
     (index: number, delta: number) => setMedia(move(form.media, index, delta)),
     [form.media, setMedia],
@@ -281,6 +291,7 @@ export function useProjectForm({ mode, project, onSubmit }: Args) {
     setMedia,
     setActions,
     setSections,
+    applyCapture,
     moveMedia,
     moveAction,
     moveSection,

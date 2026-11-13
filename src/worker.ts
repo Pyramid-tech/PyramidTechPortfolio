@@ -1,5 +1,4 @@
-import { loadEnvConfig } from '@next/env';
-loadEnvConfig(process.cwd());
+import '@/lib/load-env';
 
 import { getBoss } from '@/lib/jobs/boss';
 import { registerCleanupAvatars } from '@/lib/jobs/cleanup-avatars';
@@ -12,7 +11,7 @@ import { logger } from '@/lib/logger';
 async function start(): Promise<void> {
   const boss = getBoss();
 
-  boss.on('error', (error) => logger.error('pg-boss error', { error: String(error) }));
+  boss.on('error', (error) => logger.error('pg-boss error', { error }));
 
   await boss.start();
 

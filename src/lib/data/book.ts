@@ -76,13 +76,13 @@ export async function createBookRequest(dto: BookRequestDTO): Promise<void> {
   if (team.status === 'rejected') {
     logger.error('book-request: notification failed', {
       bookRequestId,
-      error: String(team.reason),
+      error: team.reason,
     });
   }
   if (visitor.status === 'rejected') {
     logger.error('book-request: confirmation failed', {
       bookRequestId,
-      error: String(visitor.reason),
+      error: visitor.reason,
     });
   }
 }

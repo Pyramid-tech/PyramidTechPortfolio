@@ -19,6 +19,7 @@ import type {
   ProjectSectionDTO,
   AdminProjectDTO,
   AdminProjectListItemDTO,
+  ProjectPrivacyPolicyDTO,
   CreateProjectInput,
   UpdateProjectInput,
   MediaInput,
@@ -312,6 +313,8 @@ export async function getAdminProjectById(id: string): Promise<AdminProjectDTO |
     services: row.services as ProjectService[],
     featured: row.featured,
     displayOrder: row.displayOrder,
+    privacyPolicy: row.privacyPolicy,
+    privacyPolicyUpdatedAt: row.privacyPolicyUpdatedAt,
     isActive: isActive(row),
     deactivatedAt: row.deactivatedAt,
     reactivatedAt: row.reactivatedAt,
@@ -321,6 +324,24 @@ export async function getAdminProjectById(id: string): Promise<AdminProjectDTO |
     actions: actions.get(row.id) ?? [],
     sections: sections.get(row.id) ?? [],
   };
+}
+
+export async function getProjectPrivacyPolicy(
+  slug: string,
+): Promise<ProjectPrivacyPolicyDTO | null> {
+  const rows = await db
+    .select({
+      slug: pyramidProjects.slug,
+      title: pyramidProjects.title,
+      body: pyramidProjects.privacyPolicy,
+      updatedAt: pyramidProjects.privacyPolicyUpdatedAt,
+    })
+    .from(pyramidProjects)
+    .where(eq(pyramidProjects.slug, slug))
+    .limit(1);
+  const row = rows[0];
+  if (!row?.body) return null;
+  return { ...row, body: row.body };
 }
 
 export async function getProjectSlugById(id: string): Promise<string | null> {
@@ -334,21 +355,45 @@ export async function getProjectSlugById(id: string): Promise<string | null> {
 
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
-function mediaValues(projectId: string, media: MediaInput[]) {
-  return media.map((m) => ({
-    projectId,
-    kind: m.kind,
-    url: m.url ?? null,
-    posterUrl: m.posterUrl ?? null,
-    sourceUrl: m.sourceUrl ?? null,
-    provider: m.provider ?? null,
-    altText: m.altText ?? null,
-    caption: m.caption ?? null,
-    platform: m.platform ?? null,
-    isFeatured: m.isFeatured,
-    displayOrder: m.displayOrder,
-    captureStatus: m.kind === 'capture' && !m.url ? 'pending' : null,
-  }));
+function mediaValues(
+  projectId: string,
+  media: MediaInput[],
+  existing: PyramidProjectMediaRow[] = [],
+) {
+  const previous = new Map(existing.map((row) => [row.id, row]));
+
+  return media.map((m) => {
+    const sourceUrl = m.sourceUrl ?? null;
+    const prior = m.id ? previous.get(m.id) : undefined;
+    if (prior) previous.delete(prior.id);
+
+    const stored = m.kind === 'capture' && prior?.kind === 'capture' ? prior : null;
+    const capture = stored && stored.sourceUrl === sourceUrl ? stored : null;
+    const url = stored ? stored.url : (m.url ?? null);
+
+    return {
+      id: prior?.id,
+      createdAt: prior?.createdAt ?? undefined,
+      projectId,
+      kind: m.kind,
+      url,
+      posterUrl: m.posterUrl ?? null,
+      sourceUrl,
+      provider: capture ? capture.provider : (m.provider ?? null),
+      altText: m.altText ?? null,
+      caption: m.caption ?? null,
+      platform: m.platform ?? null,
+      isFeatured: m.isFeatured,
+      displayOrder: m.displayOrder,
+      captureStatus: capture
+        ? capture.captureStatus
+        : m.kind === 'capture' && !url
+          ? 'pending'
+          : null,
+      capturedAt: capture?.capturedAt ?? null,
+      captureError: capture?.captureError ?? null,
+    };
+  });
 }
 
 function actionValues(projectId: string, actions: ActionInput[]) {
@@ -373,12 +418,17 @@ function sectionValues(projectId: string, sections: SectionInput[]) {
 }
 
 async function replaceChildren(tx: Tx, projectId: string, input: CreateProjectInput) {
+  const existingMedia = await tx
+    .select()
+    .from(pyramidProjectMedia)
+    .where(eq(pyramidProjectMedia.projectId, projectId));
+
   await tx.delete(pyramidProjectMedia).where(eq(pyramidProjectMedia.projectId, projectId));
   await tx.delete(pyramidProjectActions).where(eq(pyramidProjectActions.projectId, projectId));
   await tx.delete(pyramidProjectSections).where(eq(pyramidProjectSections.projectId, projectId));
 
   if (input.media.length > 0) {
-    await tx.insert(pyramidProjectMedia).values(mediaValues(projectId, input.media));
+    await tx.insert(pyramidProjectMedia).values(mediaValues(projectId, input.media, existingMedia));
   }
   if (input.actions.length > 0) {
     await tx.insert(pyramidProjectActions).values(actionValues(projectId, input.actions));
@@ -409,6 +459,8 @@ export async function createProject(
         services: input.services,
         featured: input.featured,
         displayOrder: input.displayOrder,
+        privacyPolicy: input.privacyPolicy ?? null,
+        privacyPolicyUpdatedAt: input.privacyPolicy ? new Date() : null,
       })
       .returning({ id: pyramidProjects.id, slug: pyramidProjects.slug });
 
@@ -422,6 +474,8 @@ export async function updateProject(
   id: string,
   input: UpdateProjectInput,
 ): Promise<{ id: string; slug: string }> {
+  const policy = input.privacyPolicy ?? null;
+
   return db.transaction(async (tx) => {
     const rows = await tx
       .update(pyramidProjects)
@@ -440,6 +494,11 @@ export async function updateProject(
         services: input.services,
         featured: input.featured,
         displayOrder: input.displayOrder,
+        privacyPolicy: policy,
+        privacyPolicyUpdatedAt:
+          policy === null
+            ? null
+            : sql`case when ${pyramidProjects.privacyPolicy} is distinct from ${policy} then now() else ${pyramidProjects.privacyPolicyUpdatedAt} end`,
         updatedAt: new Date(),
       })
       .where(eq(pyramidProjects.id, id))

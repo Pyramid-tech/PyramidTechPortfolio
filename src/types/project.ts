@@ -230,6 +230,8 @@ export interface AdminProjectDTO {
   services: ProjectService[];
   featured: boolean;
   displayOrder: number;
+  privacyPolicy: string | null;
+  privacyPolicyUpdatedAt: Date | null;
   isActive: boolean;
   deactivatedAt: Date | null;
   reactivatedAt: Date | null;
@@ -238,6 +240,13 @@ export interface AdminProjectDTO {
   media: ProjectMediaDTO[];
   actions: ProjectActionDTO[];
   sections: ProjectSectionDTO[];
+}
+
+export interface ProjectPrivacyPolicyDTO {
+  slug: string;
+  title: string;
+  body: string;
+  updatedAt: Date | null;
 }
 
 export interface AdminProjectListItemDTO {
@@ -298,6 +307,7 @@ export interface CreateProjectInput {
   services: ProjectService[];
   featured: boolean;
   displayOrder: number;
+  privacyPolicy?: string | null;
   media: MediaInput[];
   actions: ActionInput[];
   sections: SectionInput[];

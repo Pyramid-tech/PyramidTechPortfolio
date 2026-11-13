@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { hasPolicyPlaceholders } from '@/lib/policy-markup';
 import {
   PROJECT_ORIGINS,
   PROJECT_LIFECYCLES,
@@ -240,6 +241,10 @@ export const projectInputSchema = z
     services: z.array(z.enum(PROJECT_SERVICES)).min(1, 'Select at least one service'),
     featured: z.boolean(),
     displayOrder: z.number().int(),
+    privacyPolicy: optionalText(40000).refine(
+      (v) => v === null || !hasPolicyPlaceholders(v),
+      'Replace every [[placeholder]] before saving',
+    ),
     media: z.array(mediaInputSchema).max(40),
     actions: z.array(actionInputSchema).max(10),
     sections: z.array(sectionInputSchema).max(30),

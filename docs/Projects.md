@@ -186,7 +186,27 @@ Each module takes an optional heading, and **↑ ↓** reorder them.
 
 > **Never invent results.** With no real numbers, leave the metrics module out — the section disappears rather than showing something hollow. A qualitative outcome written as text is perfectly good.
 
-### Block 6 — Display
+### Block 6 — Privacy policy
+
+Only for apps published on the App Store or Google Play. Leave it empty for everything else.
+
+Apple and Google both refuse an app that has no public privacy policy page. Writing the policy here gives the app its own page at `/work/name-of-project/privacy`. Nothing on the site links to it; you paste the address into App Store Connect and Play Console, and the app links to it from its settings or sign-up screen.
+
+| Field              | Notes                                                                                                                                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Policy text**    | Start a line with `##` for a heading or `-` for a bullet, wrap words in `**` for bold, and leave a blank line between paragraphs                |
+| **Template**       | _Start from the template_ fills in the sections both stores expect. Replace every `[[placeholder]]`; the form will not save until none are left |
+| **Public address** | Shown once there is text, with a _Copy_ button                                                                                                  |
+
+> **The text is a legal statement about one specific app.** It must describe what that app really collects and who it is shared with, and it must name the app's publisher. Have the app's owner confirm it.
+>
+> **The address is tied to the slug.** Changing the slug changes the address, and the stores will then point at a missing page until you update them.
+>
+> **The page outlives the project.** Deactivating a project hides its case study but keeps the privacy policy online, because the app in the stores still depends on it. To take the policy down, empty the field.
+>
+> The "Last updated" date on the page changes by itself whenever the text changes.
+
+### Block 7 — Display
 
 | Field                                     | What it does                                         |
 | ----------------------------------------- | ---------------------------------------------------- |

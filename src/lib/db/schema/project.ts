@@ -31,6 +31,9 @@ export const pyramidProjects = pgTable(
     industry: varchar('industry', { length: 120 }),
     timeframe: varchar('timeframe', { length: 120 }),
 
+    privacyPolicy: text('privacy_policy'),
+    privacyPolicyUpdatedAt: timestamp('privacy_policy_updated_at', { withTimezone: true }),
+
     platforms: text('platforms').array().notNull(),
     services: text('services').array().notNull(),
 

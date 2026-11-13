@@ -1,6 +1,7 @@
 import winston from 'winston';
 
 import { DbTransport } from './DbTransport';
+import { callSite, describeError } from './describe-error';
 import { alertLevel, DiscordTransport } from './DiscordTransport';
 import type { ILogger } from './interfaces/ILogger';
 
@@ -26,6 +27,55 @@ winston.addColors({
   debug: 'blue',
 });
 
+const consoleLine = winston.format.printf((info) => {
+  const context =
+    info.context && typeof info.context === 'object'
+      ? { ...(info.context as Record<string, unknown>) }
+      : {};
+  const stack = typeof context.stack === 'string' ? context.stack : null;
+  delete context.stack;
+
+  let details = '';
+  if (Object.keys(context).length > 0) {
+    try {
+      details = ` ${JSON.stringify(context)}`;
+    } catch {
+      details = ' [context could not be serialised]';
+    }
+  }
+
+  const trace = stack
+    ? `\n${stack
+        .split('\n')
+        .map((line) => `    ${line.trim()}`)
+        .join('\n')}`
+    : '';
+
+  return `${String(info.timestamp)} ${info.level}: ${String(info.message)}${details}${trace}`;
+});
+
+function withTrace(
+  level: keyof typeof LEVELS,
+  context?: Record<string, unknown>,
+): Record<string, unknown> | undefined {
+  const traced = LEVELS[level] <= LEVELS.error;
+  if (!context && !traced) return undefined;
+
+  const ctx: Record<string, unknown> = { ...context };
+  let stack = typeof ctx.stack === 'string' ? ctx.stack : null;
+
+  for (const [key, value] of Object.entries(ctx)) {
+    if (!(value instanceof Error)) continue;
+    const details = describeError(value);
+    ctx[key] = details.summary;
+    stack ??= details.stack;
+  }
+
+  if (!stack && traced) stack = callSite();
+  if (stack) ctx.stack = stack;
+  return ctx;
+}
+
 const instance = winston.createLogger({
   levels: LEVELS,
   level: 'debug',
@@ -39,7 +89,7 @@ const instance = winston.createLogger({
     ...(process.env.NODE_ENV !== 'production'
       ? [
           new winston.transports.Console({
-            format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+            format: winston.format.combine(winston.format.colorize(), consoleLine),
           }),
         ]
       : []),
@@ -48,7 +98,8 @@ const instance = winston.createLogger({
 
 export class WinstonLogger implements ILogger {
   private log(level: keyof typeof LEVELS, message: string, context?: Record<string, unknown>) {
-    instance.log(level, message, context ? { context } : {});
+    const traced = withTrace(level, context);
+    instance.log(level, message, traced ? { context: traced } : {});
   }
 
   emergency(message: string, context?: Record<string, unknown>) {

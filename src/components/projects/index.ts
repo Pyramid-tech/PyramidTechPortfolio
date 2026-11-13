@@ -11,6 +11,7 @@ export { default as ProjectContactCta } from './project-contact-cta';
 export { default as ProjectAppDownload } from './project-app-download';
 export { default as StoreBadge } from './store-badge';
 export { default as StoreBadges } from './store-badges';
+export { default as PolicyDocument } from './policy-document';
 export { default as ProjectMedia } from './project-media';
 export { default as ProjectImage } from './project-image';
 export { default as ProjectVideo } from './project-video';

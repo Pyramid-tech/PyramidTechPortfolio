@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ import {
   SERVICE_LABELS,
 } from '@/types/project';
 import { useProjectForm, emptyMedia, emptyAction, emptySection } from '@/hooks/use-project-form';
-import { requestProjectCaptureAction } from '@/lib/actions/project';
+import { getProjectCaptureAction, requestProjectCaptureAction } from '@/lib/actions/project';
 import { normalizeSlug } from '@/lib/validations/project';
 import Field from '@/components/ui/field';
 import Input from '@/components/ui/input';
@@ -30,12 +30,16 @@ import CheckboxGroup from './checkbox-group';
 import MediaFields from './media-fields';
 import ActionFields from './action-fields';
 import SectionFields from './section-fields';
+import PrivacyPolicyFields from './privacy-policy-fields';
 
 interface Props {
   mode: 'create' | 'edit';
   project?: AdminProjectDTO;
   onSubmit: (input: CreateProjectInput) => Promise<ProjectMutationResult>;
 }
+
+const CAPTURE_POLL_MS = 3000;
+const CAPTURE_POLL_LIMIT = 40;
 
 const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
   const router = useRouter();
@@ -51,6 +55,7 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
     setMedia,
     setActions,
     setSections,
+    applyCapture,
     moveMedia,
     moveAction,
     moveSection,
@@ -60,15 +65,50 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
     handleSubmit,
   } = useProjectForm({ mode, project, onSubmit });
 
+  const captureTimer = useRef<number | null>(null);
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      if (captureTimer.current !== null) window.clearTimeout(captureTimer.current);
+    };
+  }, []);
+
+  const watchCapture = (mediaId: string, attempt = 0) => {
+    captureTimer.current = window.setTimeout(async () => {
+      const res = await getProjectCaptureAction(mediaId);
+      if (!mounted.current) return;
+
+      if (!res.ok) {
+        setCaptureNote(res.error);
+      } else if (res.status === 'succeeded' && res.url) {
+        applyCapture(mediaId, res.url);
+        setCaptureNote('Capture updated.');
+        router.refresh();
+      } else if (res.status === 'failed') {
+        setCaptureNote(`Capture failed: ${res.error ?? 'unknown error'}`);
+      } else if (attempt + 1 >= CAPTURE_POLL_LIMIT) {
+        setCaptureNote(
+          'Still waiting for the capture. Check that the worker is running, then reload this page.',
+        );
+      } else {
+        watchCapture(mediaId, attempt + 1);
+      }
+    }, CAPTURE_POLL_MS);
+  };
+
   const handleRequestCapture = async (mediaId: string) => {
+    if (captureTimer.current !== null) window.clearTimeout(captureTimer.current);
     setCaptureNote(null);
     setCapturingId(mediaId);
     try {
       const res = await requestProjectCaptureAction(mediaId);
       setCaptureNote(
-        res.ok ? 'Capture queued. It will appear here once the worker finishes.' : res.error,
+        res.ok ? 'Capture queued. The new image will appear here when it is ready.' : res.error,
       );
-      if (res.ok) router.refresh();
+      if (res.ok) watchCapture(mediaId);
     } finally {
       setCapturingId(null);
     }
@@ -222,6 +262,18 @@ const ProjectForm: FC<Props> = ({ mode, project, onSubmit }) => {
           onMove={moveSection}
           onAdd={() => setSections([...form.sections, emptySection(form.sections.length)])}
           onUploadingChange={setUploading}
+        />
+      </FormSection>
+
+      <FormSection
+        title="Privacy policy"
+        description="Only for apps published on the App Store or Google Play. Both stores require a public privacy policy page for every app."
+      >
+        <PrivacyPolicyFields
+          value={form.privacyPolicy}
+          slug={form.slug}
+          title={form.title}
+          onChange={(value) => update('privacyPolicy', value)}
         />
       </FormSection>
 

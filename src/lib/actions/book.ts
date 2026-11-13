@@ -19,7 +19,7 @@ export async function submitBookingAction(data: BookRequestDTO): Promise<BookSub
     return { ok: true };
   } catch (e) {
     if (e instanceof DuplicateRequestError) return { ok: false, duplicate: true };
-    logger.error('book-request: submit failed', { error: String(e) });
+    logger.error('book-request: submit failed', { error: e });
     return { ok: false };
   }
 }
