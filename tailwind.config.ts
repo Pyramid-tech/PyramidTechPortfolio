@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+const plugin = require('tailwindcss/plugin');
+
 const channel = (name: string) => `rgb(var(--c-${name}) / <alpha-value>)`;
 
 module.exports = {
@@ -80,5 +82,11 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(({ addVariant }: { addVariant: (name: string, definition: string) => void }) => {
+      addVariant('ios', ':root[data-device="ios"] &');
+      addVariant('android', ':root[data-device="android"] &');
+    }),
+  ],
 };

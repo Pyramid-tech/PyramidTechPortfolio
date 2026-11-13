@@ -4,13 +4,14 @@ import Link from 'next/link';
 import type { ProjectActionDTO } from '@/types/project';
 
 import ProjectActions from './project-actions';
+import { isStoreKind } from './store-badge';
 
 interface Props {
   actions: ProjectActionDTO[];
 }
 
 const ProjectContactCta: FC<Props> = ({ actions }) => {
-  const primary = actions.filter((action) => action.isPrimary);
+  const primary = actions.filter((action) => action.isPrimary && !isStoreKind(action.kind));
 
   return (
     <section className="border-t border-gray-1">

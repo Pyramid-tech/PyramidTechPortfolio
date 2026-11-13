@@ -9,6 +9,7 @@ import {
   ProjectSectionRenderer,
   AdjacentProjects,
   ProjectContactCta,
+  ProjectAppDownload,
 } from '@/components/projects';
 import { visibleActions } from '@/components/projects/project-actions';
 import { getActiveProjectSlugs, getAdjacentActiveProjects } from '@/lib/data/project';
@@ -62,6 +63,8 @@ export default async function ProjectDetailPage({ params }: Params) {
 
   const { previous, next } = await withDbRetry(() => getAdjacentActiveProjects(project.slug));
 
+  const actions = visibleActions(project);
+
   const overviewParagraphs = project.overview
     .split(/\n\s*\n/)
     .map((paragraph) => paragraph.trim())
@@ -110,8 +113,9 @@ export default async function ProjectDetailPage({ params }: Params) {
 
         <ProjectSectionRenderer sections={project.sections} />
 
+        <ProjectAppDownload title={project.title} actions={actions} />
         <AdjacentProjects previous={previous} next={next} />
-        <ProjectContactCta actions={visibleActions(project)} />
+        <ProjectContactCta actions={actions} />
       </main>
       <Footer />
       <WhatsAppTopic project={project.title} />

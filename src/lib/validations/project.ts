@@ -169,14 +169,47 @@ export const mediaInputSchema = z
     }
   });
 
-export const actionInputSchema = z.object({
-  id: z.uuid().optional(),
-  kind: z.enum(ACTION_KINDS),
-  label: trimmedText(80),
-  url: actionUrl,
-  isPrimary: z.boolean(),
-  displayOrder: z.number().int().min(0),
-});
+export const STORE_LINKS: Partial<
+  Record<(typeof ACTION_KINDS)[number], { hosts: string[]; example: string; message: string }>
+> = {
+  'app-store': {
+    hosts: ['apps.apple.com', 'itunes.apple.com', 'testflight.apple.com', 'apple.co'],
+    example: 'https://apps.apple.com/app/…',
+    message: 'Must be an App Store link (apps.apple.com)',
+  },
+  'google-play': {
+    hosts: ['play.google.com'],
+    example: 'https://play.google.com/store/apps/details?id=…',
+    message: 'Must be a Google Play link (play.google.com)',
+  },
+};
+
+function hostOf(value: string): string | null {
+  try {
+    return new URL(value).hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
+export const actionInputSchema = z
+  .object({
+    id: z.uuid().optional(),
+    kind: z.enum(ACTION_KINDS),
+    label: trimmedText(80),
+    url: actionUrl,
+    isPrimary: z.boolean(),
+    displayOrder: z.number().int().min(0),
+  })
+  .superRefine((action, ctx) => {
+    const store = STORE_LINKS[action.kind];
+    if (!store) return;
+
+    const host = hostOf(action.url);
+    if (!host || !store.hosts.includes(host)) {
+      ctx.addIssue({ code: 'custom', path: ['url'], message: store.message });
+    }
+  });
 
 export const sectionInputSchema = z.object({
   id: z.uuid().optional(),

@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import type { ActionInput, ActionKind } from '@/types/project';
 import { ACTION_KINDS, ACTION_KIND_LABELS } from '@/types/project';
+import { STORE_LINKS } from '@/lib/validations/project';
 import Field from '@/components/ui/field';
 import Input from '@/components/ui/input';
 import Select from '@/components/ui/select';
@@ -68,7 +69,11 @@ const ActionFields: FC<Props> = ({ actions, onChange, onMove, onAdd }) => {
             <Input
               value={action.url}
               onChange={(e) => patch(index, { url: e.target.value })}
-              placeholder={action.kind === 'contact' ? 'mailto:… or https://…' : 'https://…'}
+              placeholder={
+                action.kind === 'contact'
+                  ? 'mailto:… or https://…'
+                  : (STORE_LINKS[action.kind]?.example ?? 'https://…')
+              }
             />
           </Field>
 

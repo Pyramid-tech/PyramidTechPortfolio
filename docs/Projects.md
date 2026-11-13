@@ -156,6 +156,10 @@ Entirely optional.
 
 > **Match the words to the destination.** Never label an App Store link "Live demo" — picking the right type gives you the right wording automatically.
 >
+> **Mobile apps get store badges.** App Store and Google Play actions show as the official "Download on the App Store" and "Get it on Google Play" badges at the top of the project page and again in a _Get the app_ block near the bottom. The artwork comes from Apple and Google and is used unmodified, so your button label is not shown on those two badges; it is used on the work-grid card and on the Download badge. The App Store badge always comes first, whatever order you set. On a phone, the top of the page shows only the visitor's own store, and the _Get the app_ block still lists every option.
+>
+> **Store links are checked.** An App Store action must point at `apps.apple.com` (TestFlight links are accepted too) and a Google Play action at `play.google.com`. Use **Download** for anything else, such as a direct APK.
+>
 > A project with no buttons at all is fine. The card still says _View case study →_.
 
 ### Block 5 — Case study

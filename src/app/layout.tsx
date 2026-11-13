@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 
 import { fontVariables } from '@/lib/fonts';
-import { AppShell, ThemeScript } from '@/components/theme';
+import { AppShell, DeviceScript, ThemeScript } from '@/components/theme';
 import { SITE } from '@/lib/site';
 
 import './globals.scss';
@@ -57,6 +57,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={fontVariables} data-theme="dark" suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <DeviceScript />
         <link rel="icon" href="/icon.svg?v=5" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg?v=5" />
       </head>
